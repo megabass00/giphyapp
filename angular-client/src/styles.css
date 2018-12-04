@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+/* gif container */
+.gif-container {
+    border-radius: 10px;
+    border: #211b19 1px solid;
+}
+
+/* footer */
+.footer {
+    color: white;
+    border-top: 8px solid crimson;
+    background-color: #c91d61;
+    background: linear-gradient(20deg,blue,crimson,purple);
+    background-size: 1000% 1000% !important;
+    -webkit-animation: changeColors 30s ease infinite;
+    -moz-animation: changeColors 30s ease infinite;
+    -o-animation: changeColors 30s ease infinite;
+    animation: changeColors 30s ease infinite;
+}
+
+.social-icons-header a {
+    color: white;
+    font-size: 2vw;
+    padding: 0 1.2vw;
+}
+
+/* Not Found */
+.notfound .notfound-404 h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 236px;
+    font-weight: 200;
+    margin: 0px;
+    color: #211b19;
+    text-transform: uppercase;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.notfound {
+    max-width: 520px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+}

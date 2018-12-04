@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+      <table class="table">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Título</th>
+            <th scope="col">URL</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Veces copiado</th>
+            <th scope="col">Modificado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let giphy of giphies">
+            <td>{{ giphy.id }}</td>
+            <td>{{ giphy.title }}</td>
+            <td>{{ giphy.url }}</td>
+            <td>{{ giphy.rating }}</td>
+            <td>{{ giphy.copiesNumber }}</td>
+            <td>{{ giphy.modified }}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>

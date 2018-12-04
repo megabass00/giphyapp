@@ -1,0 +1,33 @@
+<h1>
+  Añadir nuevo Giphy
+</h1>
+
+<div class="container">
+  <div class="row">
+      <form style="width:100%; padding:20px 0;">
+        <div class="gif-container">
+            <img [src]="giphy.url"
+                 alt="{{ giphy.title }}" 
+            />
+        </div>
+        <div class="form-group">
+          <label for="url">URL</label>
+          <input [(ngModel)]="giphy.url" type="text" class="form-control" placeholder="Introduce la url del gif">
+        </div>
+        <div class="form-group">
+          <label for="title">Título</label>
+          <input [(ngModel)]="giphy.title" type="text" class="form-control" placeholder="Introduce un título">
+        </div>
+        <div class="form-group">
+          <label for="description">Descripción</label>
+          <textarea [(ngModel)]="giphy.description" class="form-control" name="description" rows="5"></textarea>
+          <small id="emailHelp" class="form-text text-muted">Puedes introducir una pequeña descripción para que los demás usuarios entiendan su significado</small>
+        </div>        
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <input [(ngModel)]="giphy.rating" type="text" class="form-control" placeholder="Puntua este gif">
+        </div>
+        <button type="submit" class="btn btn-primary">Añadir</button>
+      </form>
+  </div>
+</div>
