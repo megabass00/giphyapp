@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y libmcrypt-dev git \
     && docker-php-ext-enable mcrypt \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-install pdo_mysql \
-    && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
+    && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 
 RUN a2enmod rewrite && service apache2 restart
 
