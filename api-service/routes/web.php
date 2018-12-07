@@ -12,5 +12,24 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('consejo');
+});
+
+Route::group(['prefix' => 'admin'], function() {
+
+    Route::resource('users', 'UsersController', [
+        'as'    => 'admin'
+    ]);
+    Route::get('users/{id}/destroy', [
+        'uses'  => 'UsersController@destroy',
+        'as'    => 'admin.users.destroy'
+    ]);
+
+    Route::resource('giphies', 'GiphiesController', [
+        'as'    => 'admin'
+    ]);
+    Route::get('giphies/{id}/destroy', [
+        'uses'  => 'GiphiesController@destroy',
+        'as'    => 'admin.giphies.destroy'
+    ]);
 });
