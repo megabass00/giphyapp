@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Laracasts\Flash\Flash;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -38,7 +40,20 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $validator = Validator::make($request->all(), [
+            'type'      => ['required'],
+            'email'     => ['unique:users,email'],
+            'password'  => ['min:6','max:16','required']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin\users\create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $user = new User($request->all());
+        $user->type = $request->type;
         $user->password = bcrypt($request->password);
         $user->save();
         Flash::success('The user '.$user->name.' has been created succesfully');
@@ -79,7 +94,21 @@ class UsersController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user = User::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                Rule::unique('users')->ignore($user->id),
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('post/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $user->name = $request->name;
+        $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->type = $request->type;
         if (!empty($request->password)) {

@@ -24,14 +24,14 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">
-                    Submenu 1        
+                    Show profile
                 </a>
                 <a class="dropdown-item" href="#">
-                    Submenu 2
+                    Edit profile
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">
-                    Submenu 3
+                    Logout
                 </a>
             </div>
         </li>

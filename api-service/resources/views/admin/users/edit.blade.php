@@ -25,6 +25,11 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('Last Name') !!}
+        {!! Form::text('last_name', $user->last_name, ['class'=>'form-control', 'placeholder'=>'Last Name', 'required']) !!}
+    </div>
+
+    <div class="form-group">
         {!! Form::label('Email') !!}
         {!! Form::email('email', $user->email, ['class'=>'form-control', 'placeholder'=>'Email', 'required']) !!}
     </div>
@@ -36,7 +41,7 @@
 
     <div class="form-group">
         {!! Form::label('Profile') !!}
-        {!! Form::select('type', [''=>'Select a profile','member'=>'Member','admin'=>'Administrator'], $user->type, ['class'=>'form-control']) !!}
+        {!! Form::select('type', ['member'=>'Member','admin'=>'Administrator'], $user->type, ['class'=>'form-control']) !!}
     </div>
 
     <div class="form-group">

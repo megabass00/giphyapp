@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td>NAME: </td>
-                <td>{{ $user->name }}</td>
+                <td>{{ $user->name.' '.$user->last_name }}</td>
             </tr>
             <tr>
                 <td>EMAIL: </td>

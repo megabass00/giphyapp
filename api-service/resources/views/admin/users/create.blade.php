@@ -25,6 +25,11 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('Last Name') !!}
+        {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Last Name', 'required']) !!}
+    </div>
+
+    <div class="form-group">
         {!! Form::label('Email') !!}
         {!! Form::email('email', null, ['class'=>'form-control', 'placeholder'=>'Email', 'required']) !!}
     </div>
