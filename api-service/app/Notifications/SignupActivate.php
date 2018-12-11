@@ -42,10 +42,12 @@ class SignupActivate extends Notification
     {
         $url = url('/api/auth/signup/activate/'.$notifiable->activation_token);
         return (new MailMessage)
-                    ->subject('You must confirm your account')
+                    ->greeting('Hello '.$notifiable->name.' '.$notifiable->last_name)
+                    ->subject('GiphyAPP · You must confirm your account')
                     ->line('Thanks for subscribing! Before continuing, you must set up your account.')
                     ->action('Confirm your account', url($url))
-                    ->line('Thank you very much for using our application!');
+                    ->line('Thank you very much for using our application!')
+                    ->salutation('Regards.');
     }
 
     /**

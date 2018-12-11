@@ -23,7 +23,9 @@ class AuthController extends Controller
             'last_name'=> $request->last_name,
             'email'    => $request->email,
             'password' => bcrypt($request->password),
+            'activation_token'  => str_random(60),
         ]);
+
         $user->save();
 
         $user->notify(new SignupActivate($user));
