@@ -23,30 +23,10 @@ Route::group(['prefix' => 'auth'], function ()
 {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
+    Route::get('signup/activate/{token}', 'AuthController@signupActivate');
   
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
     });
-
-    /*Route::post('login', [
-        'uses'  => 'AuthController@login',
-        'as'    => 'api.auth.login'
-    ]);
-    Route::post('signup', [
-        'uses'  => 'AuthController@signup',
-        'as'    => 'api.auth.signup'
-    ]);
-  
-    Route::group(['middleware' => 'auth:api'], function() 
-    {
-        Route::get('logout', [
-            'uses'  => 'AuthController@logout',
-            'as'    => 'api.auth.logout'
-        ]);
-        Route::get('user', [
-            'uses'  => 'AuthController@user',
-            'as'    => 'api.auth.user'
-        ]);
-    });*/
 });
