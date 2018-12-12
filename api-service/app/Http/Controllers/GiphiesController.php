@@ -17,7 +17,7 @@ class GiphiesController extends Controller
      */
     public function index()
     {
-        $giphies = Giphy::orderBy('id')->paginate(5);
+        $giphies = Giphy::orderBy('title')->paginate(20);
         return view('admin.giphies.index')->with('giphies', $giphies);
     }
 
