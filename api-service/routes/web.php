@@ -14,9 +14,7 @@
 Route::get('/', function () {
     return view('consejo');
 });
-Route::get('/consejo', function () {
-    return view('consejo');
-});
+Route::get('/consejo', 'HomeController@consejo')->name('consejo');
 
 
 Route::get('/login', function() {

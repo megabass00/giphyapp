@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>
-        Login
+        GiphyAPP · Login
     </title>
    
     <!--Bootsrap 4 CDN-->
@@ -100,7 +100,27 @@
     .links a{
         margin-left: 4px;
     }
+
+    .btn-back{
+        float: left;
+        margin: 10px 10px;
+        border-radius: 3px;
+        width: 10%;
+        height: 25px;
+        color: white;
+        background-color: #51ce00;
+        text-align: center;
+    }
+    .btn-back a {
+        color: white;
+    }
 </style>
+
+<div class="btn-back">
+    <a href="{{ url('/consejo') }}">
+        Back init
+    </a>
+</div>
 
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
