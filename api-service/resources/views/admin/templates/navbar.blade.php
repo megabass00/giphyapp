@@ -30,7 +30,7 @@
                     Edit profile
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <a class="nav-link" href="{{ url('/logout') }}">
                     Logout
                 </a>
             </div>

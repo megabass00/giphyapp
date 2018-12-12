@@ -14,17 +14,19 @@
 Route::get('/', function () {
     return view('consejo');
 });
+Route::get('/consejo', function () {
+    return view('consejo');
+});
+
 
 Route::get('/login', function() {
     return view('/admin/login/login');
-});
-// $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+})->name('login');
 $this->post('login', 'LoginController@login');
-$this->post('logout', 'LoginController@logout')->name('logout');
-// Route::post('/login', ['uses' => 'UsersController@login']);
-// Route::post('/logout', ['uses' => 'UsersController@logout']);
+$this->get('logout', 'LoginController@logout')->name('logout');
 
-Route::group(['prefix' => 'admin'], function() {
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
     Route::resource('users', 'UsersController', [
         'as'    => 'admin'
