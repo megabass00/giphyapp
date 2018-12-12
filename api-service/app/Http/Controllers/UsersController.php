@@ -8,9 +8,34 @@ use Laracasts\Flash\Flash;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+// use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class UsersController extends Controller
 {
+    // use AuthenticatesUsers;
+
+
+    // protected $redirectTo = '/consejo';
+
+
+    // public function __construct()
+    // {
+    //     $this->middleware('guest')->except(['logout','login']);
+    // }
+
+    // protected function credentials(Request $request)
+    // {
+    //     dd($request);exit();
+    //     $field = filter_var($request->get($this->email()), FILTER_VALIDATE_EMAIL)
+    //         ? $this->email()
+    //         : 'email';
+
+    //     return [
+    //         $field => $request->get($this->username()),
+    //         'password' => $request->password,
+    //     ];
+    // }
+
     /**
      * Display a listing of the resource.
      *

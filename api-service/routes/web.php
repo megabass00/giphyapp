@@ -15,6 +15,15 @@ Route::get('/', function () {
     return view('consejo');
 });
 
+Route::get('/login', function() {
+    return view('/admin/login/login');
+});
+// $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+$this->post('login', 'LoginController@login');
+$this->post('logout', 'LoginController@logout')->name('logout');
+// Route::post('/login', ['uses' => 'UsersController@login']);
+// Route::post('/logout', ['uses' => 'UsersController@logout']);
+
 Route::group(['prefix' => 'admin'], function() {
 
     Route::resource('users', 'UsersController', [
