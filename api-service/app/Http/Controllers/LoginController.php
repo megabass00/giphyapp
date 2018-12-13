@@ -21,29 +21,32 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/consejo';
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->type === 'member') {
+            return redirect('/consejo');
+        }
+        else if ($user->type === 'admin') {
+            return redirect('/admin/giphies');
+        }
+        else {
+            return redirect('/consejo');
+        }
+    }
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    /**
-     * Get the needed authorization credentials from the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
+    
     protected function credentials(Request $request)
     {
         $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)

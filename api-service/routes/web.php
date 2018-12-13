@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('consejo');
-});
+// INDEX //
+Route::get('/', 'HomeController@consejo')->name('consejo');
 Route::get('/consejo', 'HomeController@consejo')->name('consejo');
 
 
+// LOGIN / LOGOUT //
 Route::get('/login', function() {
     return view('/admin/login/login');
 })->name('login');
@@ -24,7 +24,8 @@ $this->post('login', 'LoginController@login');
 $this->get('logout', 'LoginController@logout')->name('logout');
 
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
+// ADMIN PANEL //
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','usertype:admin']], function() {
 
     Route::resource('users', 'UsersController', [
         'as'    => 'admin'
