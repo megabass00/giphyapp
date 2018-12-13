@@ -22,5 +22,8 @@
 
     <script src="{{ asset('plugins/jquery/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-4.0.0/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('plugins/fontawesome-5.5.0/js/all.js') }}"></script>
+    <script src="{{ asset('plugins/clipboard/clipboard.min.js') }}"></script>
+
 </body>
 </html>

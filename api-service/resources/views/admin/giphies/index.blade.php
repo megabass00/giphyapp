@@ -39,6 +39,9 @@
                     </td>
 
                     <td>
+                        <button class="btn btn-info btn-clipboard" data-clipboard-text="{{ $giphy->url }}" data-title="{{ $giphy->title }}" data-id="{{ $giphy->id }}">
+                            <i class="far fa-copy"></i>
+                        </button>
                         <a href="{{ route('admin.giphies.show', $giphy->id)}}" class="btn btn-success">
                             <i class="far fa-eye"></i>
                         </a>
