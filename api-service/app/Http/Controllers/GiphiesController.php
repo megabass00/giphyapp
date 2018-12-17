@@ -114,4 +114,22 @@ class GiphiesController extends Controller
         Flash::warning($giphy->title.' has been deleted from database');
         return redirect('admin/giphies');
     }
+
+
+    /**
+     * 
+     * AJAX Internal API
+     * 
+     */
+    public function sum(Request $request)
+    {
+        $giphy = Giphy::find($request->id);
+        $giphy->copies_number += 1;
+        $giphy->save();
+
+        return response()->json([
+            'success' => 'true',
+            'request' => $request
+        ]);
+    }
 }

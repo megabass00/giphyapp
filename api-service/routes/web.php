@@ -42,4 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','usertype:admin']], f
         'uses'  => 'GiphiesController@destroy',
         'as'    => 'admin.giphies.destroy'
     ]);
+
+    // ajax //
+    Route::post('ajax/giphies/sum', 'GiphiesController@sum');
 });

@@ -24,7 +24,7 @@ function hideTooltip(btn) {
 function sumCopy(giphyId) {
     console.log('Sumando a '+giphyId);
     $.ajax( {
-        url:'/admin/giphies/sum',
+        url:'/admin/ajax/giphies/sum',
         method:'POST',
         data: {
            id: giphyId
@@ -53,7 +53,7 @@ clipboard.on('success', function(e) {
     hideTooltip(e.trigger);
 
     var giphyId = $(e.trigger).data('id');
-    sumCopy()
+    sumCopy(giphyId);
     e.clearSelection();
 });
 clipboard.on('error', function(e) {
