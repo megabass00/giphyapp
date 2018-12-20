@@ -36,10 +36,11 @@ function ajaxRequest(options, success, progress, error)
 
 
     var loaderHTML = '';
+    var uniqueId = new Date().getUTCMilliseconds();
     if (loaderType == 'PROGRESS') {
         loaderHTML = `
             <div
-                id="ajax-loader"
+                id="ajax-loader-`+ uniqueId +`"
                 class="ldBar label-center"
                 style="width:50%;height:50%;margin:auto"
                 data-value="1"
@@ -47,10 +48,10 @@ function ajaxRequest(options, success, progress, error)
             ></div>
         `;
     }else{
-        loaderHTML = '<div id="ajax-loader" class="static-loader"></div>';
+        loaderHTML = '<div id="ajax-loader-'+ uniqueId +'" class="static-loader"></div>';
     }
     $selector.append(loaderHTML);
-    var $loader = $('#ajax-loader');
+    var $loader = $('#ajax-loader-'+ uniqueId);
 
     $.ajax({
         url: url,

@@ -25,7 +25,7 @@ class HomeController extends Controller
 
     public function masonryList(Request $request)
     {
-        $giphies = Giphy::inRandomOrder()->take(100)->get();
+        $giphies = Giphy::inRandomOrder()->take(70)->get();
         return response()->json([
             'success' => true,
             'giphies' => $giphies
