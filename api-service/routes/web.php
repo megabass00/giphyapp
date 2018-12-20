@@ -46,4 +46,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','usertype:admin']], f
 
 // ajax //
 Route::post('ajax/giphies/sum', 'GiphiesController@sum');
+Route::post('ajax/giphies/topViewed', 'HomeController@topViewed');
 Route::post('ajax/giphies/masonryList', 'HomeController@masonryList');

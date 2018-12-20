@@ -102,19 +102,12 @@
         </small>
         <div class="container-fluid">
             <div class="top-viewed-container">
-
-                @foreach ($giphies as $giphy)
-                    <div class="giphy-thumb btn-clipboard" data-clipboard-text="{{ $giphy->url }}" data-title="{{ $giphy->title }}" data-id="{{ $giphy->id }}">
-                        <img class="img-fluid mx-auto d-block" src="{{ $giphy->url }}" alt="Top Viewed">
-                    </div>
-                @endforeach
-
             </div>
         </div>
     </div>
 
     <div class="row masonry-list">
-        <div class="col-6">
+        <div class="col-lg-6">
             <div id="masonry-list-container">
             </div>
         </div>
@@ -155,7 +148,42 @@
     });
 </script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function() 
+    {
+        loadTopViewed();
+        loadMasonry();
+    });
+
+    function loadTopViewed() {
+        var $container = $('.top-viewed-container');
+
+        var options = {
+            'selector': $container,
+            'url': '/ajax/giphies/topViewed',
+            'data': {}
+        };
+        ajaxRequest(options, function(data){
+            if (data.success) { 
+                var items = '';
+                data.giphies.forEach(function(obj, index) {
+                    items += `
+                        <div class="giphy-thumb btn-clipboard" data-clipboard-text="`+obj.url+`" data-title="`+obj.title+`" data-id="`+obj.id+`">
+                            <img class="img-fluid mx-auto d-block" src="`+obj.url+`" alt="`+obj.title+`">
+                        </div>
+                    `;
+                });
+                $container.append(items);
+            }
+        }, function(percent) {
+            console.log(percent+'%');
+
+        }, function(error) {
+            console.log(error);
+
+        });
+    }
+
+    function loadMasonry() {
         var $container = $('#masonry-list-container').masonry({
             itemSelector: '.item-masonry',
             columnWidth: 200
@@ -169,7 +197,7 @@
         };
         ajaxRequest(options, function(data){
             if (data.success) { 
-                var $items = getItems(data.giphies);
+                var $items = getMasonryItems(data.giphies);
                 $container.masonryImagesReveal( $items );
             }
         }, function(percent) {
@@ -179,24 +207,7 @@
             console.log(error);
 
         });
-        
-        
-        //TODO: crear precarga
-        // $.ajax( {
-        //     url:'/ajax/giphies/masonryList',
-        //     method:'POST',
-        //     success: function(data) { 
-        //         if (data.success) { 
-        //             var $items = getItems(data.giphies);
-        //             // console.log($items);
-        //             $container.masonryImagesReveal( $items );
-        //         }   
-        //     }, 
-        //     fail: function() {
-        //         console.log('ERROR');
-        //     }   
-        // }); 
-    });
+    }
 
     $.fn.masonryImagesReveal = function( $items ) {
         var msnry = this.data('masonry');
@@ -206,12 +217,8 @@
         
         this.append( $items );
         $items.imagesLoaded().progress( function( imgLoad, image ) {
-            // get item
-            // image is imagesLoaded class, not <img>, <img> is image.img
             var $item = $( image.img ).parents( itemSelector );
-            // un-hide item
             $item.show();
-            // masonry does its thing
             msnry.appended( $item );
         });
         
@@ -222,16 +229,15 @@
         return Math.floor( Math.random() * max + min );
     }
 
-    function getItems(items) {
+    function getMasonryItems(items) {
         var retval = '';
         items.forEach(function(obj, index) {
-            retval += getItem(obj);
+            retval += getMasonryItem(obj);
         });
-        // console.log(retval);
         return $( retval );
     }
 
-    function getItem(item) {
+    function getMasonryItem(item) {
         var width = randomInt( 150, 400 );
         var height = randomInt( 150, 250 );
         var item = `<div class="item-masonry">

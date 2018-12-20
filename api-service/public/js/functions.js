@@ -62,16 +62,16 @@ function ajaxRequest(options, success, progress, error)
             //Upload progress
             xhr.upload.addEventListener("progress", function(evt){
                 if (evt.lengthComputable) {
-                    var percentComplete = evt.loaded / evt.total;
-                    console.log('Upload: '+ percentComplete+'%');
+                    var percent = evt.loaded / evt.total;
+                    console.log('Upload: '+ percent+'%');
                     progress(percent);
                 }
             }, false);
             //Download progress
             xhr.addEventListener("progress", function(evt){
                 if (evt.lengthComputable) {
-                    var percentComplete = evt.loaded / evt.total;
-                    console.log('Download: '+ percentComplete+'%');
+                    var percent = evt.loaded / evt.total;
+                    console.log('Download: '+ percent+'%');
                     progress(percent);
                 }
             }, false);
