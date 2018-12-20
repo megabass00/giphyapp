@@ -9,8 +9,17 @@ class HomeController extends Controller
 {
     public function consejo()
     {
-        $giphies = Giphy::orderBy('title')->limit(8)->get();
-        // dd($giphies);exit();
+        $giphies = Giphy::orderBy('rating')->limit(25)->get();
         return view('consejo')->with('giphies', $giphies);
+    }
+
+
+    public function masonryList(Request $request)
+    {
+        $giphies = Giphy::orderBy('title')->take(40)->get();
+        return response()->json([
+            'success' => true,
+            'giphies' => $giphies
+        ]);
     }
 }

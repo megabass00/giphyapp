@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 	<title>
         GiphyAPP · Consejo Jedi
     </title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="js/consejo.js"></script>
+    
+    <link rel="stylesheet" href="{{ asset('plugins/loading.io/loading-bar.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 <body>
 
@@ -35,92 +42,41 @@
         color: white;
     }
 
+
     .consejo-description{
         margin: 15px 0;
+        height: 20vh;
         text-align: center;
-        text-shadow: 0px -4px 4px rgba(0, 0, 0, 0.7);
+        /* text-shadow: 0px -4px 4px rgba(0, 0, 0, 0.7); */
+    }
+
+    .top-viewed {
+        text-align: center;
+    }
+    .top-viewed-container {
+        height: 20vh;
+        /* border: 3px white solid; */
+    }
+    .slick-slide img {
+        max-height: 19vh;
+        padding: 0 0.2vw;
+        border-radius: 10px;
+        cursor: pointer;
     }
 
 
-
-    @media (min-width: 768px) {
-
-    /* show 3 items */
-    .carousel-inner .active,
-    .carousel-inner .active + .carousel-item,
-    .carousel-inner .active + .carousel-item + .carousel-item,
-    .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item  {
+    #masonry-list-container {
+        background: rgba(0, 0, 0, .3);
+        max-width: 1000px;
+    }
+    .item-masonry {
+        width: 200px;
+        float: left;
+    }
+    .item-masonry img {
         display: block;
+        width: 100%;
     }
-
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item,
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
-        transition: none;
-    }
-
-    .carousel-inner .carousel-item-next,
-    .carousel-inner .carousel-item-prev {
-    position: relative;
-    transform: translate3d(0, 0, 0);
-    }
-
-    .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: absolute;
-        top: 0;
-        right: -25%;
-        z-index: -1;
-        display: block;
-        visibility: visible;
-    }
-
-    /* left or forward direction */
-    .active.carousel-item-left + .carousel-item-next.carousel-item-left,
-    .carousel-item-next.carousel-item-left + .carousel-item,
-    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
-    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item,
-    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(-100%, 0, 0);
-        visibility: visible;
-    }
-
-    /* farthest right hidden item must be abso position for animations */
-    .carousel-inner .carousel-item-prev.carousel-item-right {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        display: block;
-        visibility: visible;
-    }
-
-    /* right or prev direction */
-    .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
-    .carousel-item-prev.carousel-item-right + .carousel-item,
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item,
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(100%, 0, 0);
-        visibility: visible;
-        display: block;
-        visibility: visible;
-    }
-
-    }
-
-    /* Bootstrap Lightbox using Modal */
-
-    #profile-grid { overflow: auto; white-space: normal; } 
-    #profile-grid .profile { padding-bottom: 40px; }
-    #profile-grid .panel { padding: 0 }
-    #profile-grid .panel-body { padding: 15px }
-    #profile-grid .profile-name { font-weight: bold; }
-    #profile-grid .thumbnail {margin-bottom:6px;}
-    #profile-grid .panel-thumbnail { overflow: hidden; }
-    #profile-grid .img-rounded { border-radius: 4px 4px 0 0;}
 </style>
 
 
@@ -133,52 +89,157 @@
         </div>
     </div>
 
-    <div class="row consejo-description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quasi amet accusamus debitis voluptatum fugit facilis similique, reiciendis velit quos illum, perspiciatis quam iure veniam sunt iusto architecto veritatis temporibus ex distinctio
-            <br> voluptatem perferendis, hic voluptas a! Neque voluptates sunt error commodi vitae ea. Obcaecati perspiciatis, ratione optio, repellat fugit iure alias illum voluptatum omnis molestiae deserunt cupiditate at quia deleniti nobis ipsum sit fugiat beatae assumenda totam?
+    <div class="row consejo-description text-border">
+        Bienvenido al portal del consejo, el mejor desde luego de lejos. Aquí veras buenas almejas mientras el personal te aconseja. El mundo no es lo que era, a todo el mundo le falta más de una primavera. Mira a tu alrededor, todo destrucción, apestoso hedor. Vaya desesperación. La fauna que aquí aúna nos trae un rinoceronte lanudo, un cornudo que le lame el culo, y un barbudo de cuya inteligencia no dudo. Tienes un tio protestón, un tobillo como pilares del pateón y un equilibrista jefe de pista con un gran orejón. También hay cerditas, un yeti que huele braguitas y un moai. Esto es lo que hay.
     </div>
     
-    <div class="row">
+    <div class="row top-viewed">
+        <h1 class="text-border">
+            Top Viewed
+        </h1>
+        <small class="text-border">
+            Here you can see the most viewed giphies. If you click into some giphy it copies url to the clipboard.
+        </small>
         <div class="container-fluid">
-            <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="9000">
-                <div class="carousel-inner row w-100 mx-auto" role="listbox">
+            <div class="top-viewed-container">
 
-                    @foreach ($giphies as $giphy)
-                        <div class="carousel-item col-md-3 ">
-                            <div class="panel panel-default">
-                                <div class="panel-thumbnail">
-                                <a href="#" title="{{ $giphy->title }}" class="thumb" target="_blank">
-                                    <img class="img-fluid mx-auto d-block" src="{{ $giphy->url }}" alt="slide 2">
-                                </a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                @foreach ($giphies as $giphy)
+                    <div class="giphy-thumb btn-clipboard" data-clipboard-text="{{ $giphy->url }}" data-title="{{ $giphy->title }}" data-id="{{ $giphy->id }}">
+                        <img class="img-fluid mx-auto d-block" src="{{ $giphy->url }}" alt="Top Viewed">
+                    </div>
+                @endforeach
 
-                    {{-- <div class="carousel-item col-md-3  active">
-                        <div class="panel panel-default">
-                            <div class="panel-thumbnail">
-                            <a href="#" title="image 1" class="thumb">
-                                <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=1" alt="slide 1">
-                            </a>
-                            </div>
-                        </div>
-                    </div> --}}
+            </div>
+        </div>
+    </div>
 
-                </div>
-                <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+    <div class="row masonry-list">
+        <div class="col-6">
+            <div id="masonry-list-container">
             </div>
         </div>
     </div>
 </div>
 
+
+<script src="{{ asset('plugins/jquery/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap-4.0.0/js/bootstrap.js') }}"></script>
+<script src="{{ asset('plugins/loading.io/loading-bar.js') }}"></script>
+<script src="{{ asset('plugins/vue-slick/slick.min.js') }}"></script>
+<script src="{{ asset('plugins/masonry/masonry.pkgd.min.js') }}"></script>
+<script src="{{ asset('plugins/masonry/imagesloaded.pkgd.min.js') }}"></script>
+<script src="{{ asset('plugins/clipboard/clipboard.min.js') }}"></script>
+
+<script src="/js/init-clipboard.js"></script>
+<script src="/js/functions.js"></script>
+<script>
+    $.ajaxSetup({ // add csrf-token to all ajax headers
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.top-viewed-container').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            centerMode: true,
+            variableWidth: true,
+            autoplay: true,
+            autoplaySpeed: 1000,
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var $container = $('#masonry-list-container').masonry({
+            itemSelector: '.item-masonry',
+            columnWidth: 200
+        });
+
+
+        var options = {
+            'selector': $container,
+            'url': '/ajax/giphies/masonryList',
+            'data': {}
+        };
+        ajaxRequest(options, function(data){
+            if (data.success) { 
+                var $items = getItems(data.giphies);
+                $container.masonryImagesReveal( $items );
+            }
+        }, function(percent) {
+            console.log(percent+'%');
+
+        }, function(error) {
+            console.log(error);
+
+        });
+        
+        
+        //TODO: crear precarga
+        // $.ajax( {
+        //     url:'/ajax/giphies/masonryList',
+        //     method:'POST',
+        //     success: function(data) { 
+        //         if (data.success) { 
+        //             var $items = getItems(data.giphies);
+        //             // console.log($items);
+        //             $container.masonryImagesReveal( $items );
+        //         }   
+        //     }, 
+        //     fail: function() {
+        //         console.log('ERROR');
+        //     }   
+        // }); 
+    });
+
+    $.fn.masonryImagesReveal = function( $items ) {
+        var msnry = this.data('masonry');
+        var itemSelector = msnry.options.itemSelector;
+        
+        $items.hide();
+        
+        this.append( $items );
+        $items.imagesLoaded().progress( function( imgLoad, image ) {
+            // get item
+            // image is imagesLoaded class, not <img>, <img> is image.img
+            var $item = $( image.img ).parents( itemSelector );
+            // un-hide item
+            $item.show();
+            // masonry does its thing
+            msnry.appended( $item );
+        });
+        
+        return this;
+    };
+
+    function randomInt( min, max ) {
+        return Math.floor( Math.random() * max + min );
+    }
+
+    function getItems(items) {
+        var retval = '';
+        items.forEach(function(obj, index) {
+            retval += getItem(obj);
+        });
+        // console.log(retval);
+        return $( retval );
+    }
+
+    function getItem(item) {
+        var width = randomInt( 150, 400 );
+        var height = randomInt( 150, 250 );
+        var item = `<div class="item-masonry">
+                        <img src="`+ item.url +`" />
+                    </div>`;
+        return item;
+    }
+</script>
 
 </body>
 </html>

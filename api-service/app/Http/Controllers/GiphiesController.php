@@ -17,7 +17,7 @@ class GiphiesController extends Controller
      */
     public function index()
     {
-        $giphies = Giphy::orderBy('title')->paginate(20);
+        $giphies = Giphy::orderBy('title')->take(20);
         return view('admin.giphies.index')->with('giphies', $giphies);
     }
 
@@ -128,7 +128,7 @@ class GiphiesController extends Controller
         $giphy->save();
 
         return response()->json([
-            'success' => 'true',
+            'success' => true,
             'request' => $request
         ]);
     }

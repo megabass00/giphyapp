@@ -21,24 +21,7 @@ function hideTooltip(btn) {
     }, 1000);
 }
 
-function sumCopy(giphyId) {
-    console.log('Sumando a '+giphyId);
-    $.ajax( {
-        url:'/admin/ajax/giphies/sum',
-        method:'POST',
-        data: {
-           id: giphyId
-        },
-        success: function( bolUpdated ) { 
-            if( bolUpdated ) { 
-                console.log('Sum ('+giphyId+') OK');
-            }   
-        }, 
-        fail: function() {
-            console.log('Sum ('+giphyId+') ERROR');
-        }   
-    }); 
-}
+
 
 /**
  * Init Clipboard library

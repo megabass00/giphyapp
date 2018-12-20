@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "clipboard": "^2.0.4",
+        "masonry-layout": "^4.2.2",
         "popper": "^1.0.1"
     }
 }

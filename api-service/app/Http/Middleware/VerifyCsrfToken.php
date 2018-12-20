@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'admin/giphies/sum'
+        // 'ajax/giphies/sum',
+        // 'ajax/giphies/masonryList',
     ];
 }
