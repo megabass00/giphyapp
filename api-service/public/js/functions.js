@@ -105,3 +105,11 @@ function sumCopy(giphyId) {
         }   
     }); 
 }
+
+/**
+ * HELPERS
+ */
+
+function randomInt( min, max ) {
+    return Math.floor( Math.random() * max + min );
+}

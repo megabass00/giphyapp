@@ -9,8 +9,6 @@ class HomeController extends Controller
 {
     public function consejo()
     {
-        // $giphies = Giphy::orderBy('rating')->limit(25)->get();
-        // return view('consejo')->with('giphies', $giphies);
         return view('consejo');
     }
 
@@ -27,7 +25,7 @@ class HomeController extends Controller
 
     public function masonryList(Request $request)
     {
-        $giphies = Giphy::inRandomOrder()->take(40)->get();
+        $giphies = Giphy::inRandomOrder()->take(100)->get();
         return response()->json([
             'success' => true,
             'giphies' => $giphies

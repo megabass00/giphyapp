@@ -53,29 +53,55 @@
     .top-viewed {
         text-align: center;
     }
+    .top-viewed h1 {
+        margin-bottom: 0.1vh;
+    }
     .top-viewed-container {
         height: 20vh;
         /* border: 3px white solid; */
+        margin-left: 2vw;
+        margin-right: 2vw;
+        margin-top: 3.5vh;
+        margin-bottom: 2.5vh;
     }
     .slick-slide img {
         max-height: 19vh;
         padding: 0 0.2vw;
-        border-radius: 10px;
+        border-radius: 7px;
         cursor: pointer;
     }
 
 
+    .masonry-list {
+        text-align: center;
+    }
     #masonry-list-container {
         background: rgba(0, 0, 0, .3);
-        max-width: 1000px;
+        max-width: 100vw;
+        border-radius: 7px;
+        /* width: 50vw; */
     }
-    .item-masonry {
-        width: 200px;
+    
+    .masonry-item {
+        /* width: 200px; */
         float: left;
     }
-    .item-masonry img {
+    .masonry-item img {
         display: block;
         width: 100%;
+    }
+    .masonry-item-content {
+        width: 60px;
+        height: auto;
+    }
+    .masonry-item-content {
+        background: #09D;
+        transition: width 0.4s, height 0.4s;
+    }
+    .masonry-item.is-expanded,
+    .masonry-item.is-expanded .masonry-item-content {
+        width: 180px;
+        height: 120px;
     }
 </style>
 
@@ -107,9 +133,10 @@
     </div>
 
     <div class="row masonry-list">
-        <div class="col-lg-6">
-            <div id="masonry-list-container">
-            </div>
+        <h1 class="text-border">
+            Wellcome to giphy world!!!
+        </h1>
+        <div id="masonry-list-container">
         </div>
     </div>
 </div>
@@ -133,24 +160,15 @@
         }
     });
 </script>
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function() {
-        $('.top-viewed-container').slick({
-            dots: true,
-            infinite: true,
-            speed: 300,
-            slidesToShow: 1,
-            centerMode: true,
-            variableWidth: true,
-            autoplay: true,
-            autoplaySpeed: 1000,
-        });
+
     });
-</script>
+</script> --}}
 <script type="text/javascript">
     $(document).ready(function() 
     {
-        loadTopViewed();
+        // loadTopViewed();
         loadMasonry();
     });
 
@@ -172,7 +190,18 @@
                         </div>
                     `;
                 });
+                $container.hide();
                 $container.append(items);
+                $('.top-viewed-container').slick({
+                    dots: false,
+                    infinite: true,
+                    speed: 300,
+                    slidesToShow: 1,
+                    centerMode: true,
+                    variableWidth: true,
+                    autoplay: true,
+                    autoplaySpeed: 1000,
+                }).fadeIn('slow');
             }
         }, function(percent) {
             console.log(percent+'%');
@@ -184,9 +213,12 @@
     }
 
     function loadMasonry() {
-        var $container = $('#masonry-list-container').masonry({
-            itemSelector: '.item-masonry',
-            columnWidth: 200
+        var $container = $('#masonry-list-container');
+        var columnWidth = $container.width() / 10;
+        console.log();
+        var $container = $container.masonry({
+            itemSelector: '.masonry-item',
+            columnWidth: 60
         });
 
 
@@ -225,10 +257,6 @@
         return this;
     };
 
-    function randomInt( min, max ) {
-        return Math.floor( Math.random() * max + min );
-    }
-
     function getMasonryItems(items) {
         var retval = '';
         items.forEach(function(obj, index) {
@@ -240,9 +268,16 @@
     function getMasonryItem(item) {
         var width = randomInt( 150, 400 );
         var height = randomInt( 150, 250 );
-        var item = `<div class="item-masonry">
+        // var item = `<div class="masonry-item" width="`+ width +`" height="`+ height +`">
+        //                 <img src="`+ item.url +`" />
+        //             </div>`;
+        var item = `
+                <div class="masonry-item">
+                    <div class="masonry-item-content">
                         <img src="`+ item.url +`" />
-                    </div>`;
+                    </div>
+                </div>
+        `;
         return item;
     }
 </script>
