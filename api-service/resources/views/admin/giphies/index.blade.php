@@ -11,13 +11,13 @@
     <table class="table table-striped">
         <thead>
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">Giphy</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Title</th>
-            <th scope="col">Copies Number</th>
-            <th scope="col">Description</th>
-            <th scope="col">Actions</th>
+                <th scope="col">#</th>
+                <th scope="col">Giphy</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Title</th>
+                <th scope="col">Copies Number</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
