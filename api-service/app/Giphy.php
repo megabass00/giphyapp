@@ -11,4 +11,9 @@ class Giphy extends Model
 
     protected $fillable = ['title','description','url','rating','copies_number'];
     protected $dates = ['deleted_at'];
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

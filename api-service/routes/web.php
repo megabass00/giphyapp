@@ -50,6 +50,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','usertype:admin']], f
         'uses'  => 'TagsController@destroy',
         'as'    => 'admin.tags.destroy'
     ]);
+
+    // ajax //
+    Route::post('ajax/giphies/addTag', 'GiphiesController@addTag');
 });
 
 // ajax //

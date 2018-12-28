@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Giphy;
 use Laracasts\Flash\Flash;
 use App\Http\Requests\GiphyRequest;
 use App\Rules\ValidGiphyUrl;
+use App\Giphy;
+use App\Tag;
 
 class GiphiesController extends Controller
 {
@@ -17,7 +18,7 @@ class GiphiesController extends Controller
      */
     public function index()
     {
-        $giphies = Giphy::orderBy('title')->paginate(20);
+        $giphies = Giphy::orderBy('updated_at', 'DESC')->paginate(20);
         return view('admin.giphies.index')->with('giphies', $giphies);
     }
 
@@ -28,7 +29,10 @@ class GiphiesController extends Controller
      */
     public function create()
     {
-        return view('admin.giphies.create');
+        $tags = Tag::orderBy('name','ASC')->pluck('name','id');
+
+        return view('admin.giphies.create')
+                    ->with('tags', $tags);
     }
 
     /**
@@ -50,6 +54,9 @@ class GiphiesController extends Controller
         $giphy->rating = 0.0;
         $giphy->copies_number = 0;
         $giphy->save();
+
+        $giphy->tags()->sync($request->tags);
+        
         Flash::success('The giphy '.$giphy->title.' has been created succesfully');
         return redirect('admin/giphies');
     }
@@ -74,8 +81,16 @@ class GiphiesController extends Controller
      */
     public function edit($id)
     {
+        $tags = Tag::orderBy('name','ASC')->pluck('name','id');
+
         $giphy = Giphy::find($id);
-        return view('admin.giphies.edit')->with('giphy', $giphy);
+        $giphy->tags();
+        $selectedTags = $giphy->tags->pluck('id')->toArray();
+
+        return view('admin.giphies.edit')
+                ->with('giphy', $giphy)
+                ->with('tags', $tags)
+                ->with('selectedTags', $selectedTags);
     }
 
     /**
@@ -96,6 +111,8 @@ class GiphiesController extends Controller
         $giphy->description = $request->description;
         $giphy->url = $request->url;
         $giphy->save();
+        
+        $giphy->tags()->sync($request->tags);
 
         Flash::success($giphy->title.' has been updated successfully');
         return redirect('admin/giphies');
@@ -121,6 +138,17 @@ class GiphiesController extends Controller
      * AJAX Internal API
      * 
      */
+    public function addTag(Request $request)
+    {
+        $tag = new Tag();
+        $tag->name = $request->name;
+        $tag->save();
+        return response()->json([
+            'success' => true,
+            'tag' => $tag
+        ]);
+    }
+
     public function sum(Request $request)
     {
         $giphy = Giphy::find($request->id);

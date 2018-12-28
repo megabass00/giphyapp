@@ -10,6 +10,9 @@
 
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-4.0.0/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-5.5.0/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+
+    @yield('css')
 </head>
 <body>
     @include('admin.templates.navbar')
@@ -33,7 +36,9 @@
     <script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-4.0.0/js/bootstrap.js') }}"></script>
     <script src="{{ asset('plugins/fontawesome-5.5.0/js/all.js') }}"></script>
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('plugins/clipboard/clipboard.min.js') }}"></script>
+    <script src="/js/functions.js"></script>
     <script src="/js/init-clipboard.js"></script>
 
     <script>
@@ -43,5 +48,7 @@
             }
         });
     </script>
+
+    @yield('js')
 </body>
 </html>
