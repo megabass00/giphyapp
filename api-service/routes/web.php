@@ -55,7 +55,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','usertype:admin']], f
     Route::post('ajax/giphies/addTag', 'GiphiesController@addTag');
 });
 
+Route::get('search-results', 'HomeController@searchResults');
+
 // ajax //
 Route::post('ajax/giphies/sum', 'GiphiesController@sum');
+Route::post('ajax/giphies/rating', 'GiphiesController@rating');
+Route::get('ajax/giphies/autocomplete', 'HomeController@autocomplete');
 Route::post('ajax/giphies/topViewed', 'HomeController@topViewed');
 Route::post('ajax/giphies/masonryList', 'HomeController@masonryList');

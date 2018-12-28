@@ -11,6 +11,8 @@
         GiphyAPP · Consejo Jedi
     </title>
     
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-4.0.0/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/jquery-ui/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/loading.io/loading-bar.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick-theme.css') }}">
@@ -129,10 +131,45 @@
     .masonry-item.is-expanded .masonry-item-content {
         background: white;
     }
+
+
+
+    .searcher {
+        margin: 2vw 0;
+    }
+    .search-wrapper {
+        text-align: center;
+        width: 100%;
+    }
+    #q {
+        border: 1px solid transparent;
+        width: 80%;
+        height: 9vh;
+        min-height: 30px;
+        font-size: 5vh;
+        text-indent: 1vw;
+        border-radius: 5px;
+    }
+    .btn-search {
+        background-color: #51ce00;
+        border-color: #51ce00;
+        height: 9vh;
+        min-height: 30px;
+    }
+    .btn-search:hover {
+        color: #51ce00;
+        background-color: #fff;
+        border-color: #fff;
+    }
+
+    .title {
+        width: 100%;
+        text-align: center;
+    }
 </style>
 
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="btn-login">
             <a href="{{ url('/login') }}">
@@ -141,17 +178,30 @@
         </div>
     </div>
 
-    <div class="row consejo-description text-border">
+    {{-- <div class="row consejo-description text-border">
         Bienvenido al portal del consejo, el mejor desde luego de lejos. Aquí veras buenas almejas mientras el personal te aconseja. El mundo no es lo que era, a todo el mundo le falta más de una primavera. Mira a tu alrededor, todo destrucción, apestoso hedor. Vaya desesperación. La fauna que aquí aúna nos trae un rinoceronte lanudo, un cornudo que le lame el culo, y un barbudo de cuya inteligencia no dudo. Tienes un tio protestón, un tobillo como pilares del pateón y un equilibrista jefe de pista con un gran orejón. También hay cerditas, un yeti que huele braguitas y un moai. Esto es lo que hay.
+    </div> --}}
+
+    <div class="row searcher">
+        <div class="search-wrapper">
+            <div class="container container--add">
+                {{ Form::open(['url'=>'search-results', 'id'=>'search-form', 'method'=>'GET', 'class'=>'search']) }}
+                    {{ Form::text('q', '', ['id'=>'q', 'placeholder'=>'Search your giphy...', 'class'=>'seach-field']) }}
+                    {{ Form::submit('Search', ['class'=>'btn btn-primary btn-search']) }}
+                {{ Form::close() }}
+            </div>
+        </div>
     </div>
     
     <div class="row top-viewed">
-        <h1 class="text-border">
-            Top Viewed
-        </h1>
-        <small class="text-border">
-            Here you can see the most viewed giphies. If you click into some giphy it copies url to the clipboard.
-        </small>
+        <div class="title">
+            <h1 class="text-border">
+                Top Viewed
+            </h1>
+            <small class="text-border">
+                Here you can see the most viewed giphies. If you click into some giphy it copies url to the clipboard.
+            </small>
+        </div>
         <div class="container-fluid">
             <div class="top-viewed-container">
             </div>
@@ -159,9 +209,11 @@
     </div>
 
     <div class="row masonry-list">
-        <h1 class="text-border">
-            Wellcome to giphy world!!!
-        </h1>
+        <div class="title">
+            <h1 class="text-border">
+                Wellcome to giphy world!!!
+            </h1>
+        </div>
         <div id="masonry-list-container" class="masonry-list-container">
             <div class="masonry-sizer"></div>
         </div>
@@ -170,6 +222,7 @@
 
 
 <script src="{{ asset('plugins/jquery/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
 <script src="{{ asset('plugins/bootstrap-4.0.0/js/bootstrap.js') }}"></script>
 <script src="{{ asset('plugins/loading.io/loading-bar.js') }}"></script>
@@ -188,14 +241,12 @@
         }
     });
 </script>
-{{-- <script type="text/javascript">
-    $(document).ready(function() {
 
-    });
-</script> --}}
 <script type="text/javascript">
     $(document).ready(function() 
     {
+        initAutocompleteField();
+
         loadTopViewed();
 
         var transitionProp;
@@ -206,6 +257,29 @@
 
 
 
+
+    function initAutocompleteField() {
+        $('#q').autocomplete({
+            source: '{{ url('ajax/giphies/autocomplete') }}',
+            minLenght: 3,
+            select: function(event, ui) {
+                $('#q').val(ui.item.value);
+            }
+        });
+
+        $('#q').data('ui-autocomplete')._renderItem = function(ul, item) {
+            var $li = $('<li style="width:800px; margin-left:10px; margin-bottom:5px;">');
+            var $img = $('<img style="width:8%">');
+            $img.attr({
+                src: item.url,
+                alt: item.value
+            });
+            $li.attr('data-value', item.value);
+            $li.append('');
+            $li.append($img).append(''+item.value);
+            return $li.appendTo(ul);
+        };
+    }
 
     function loadTopViewed() {
         var $container = $('.top-viewed-container');

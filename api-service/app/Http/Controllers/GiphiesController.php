@@ -157,7 +157,19 @@ class GiphiesController extends Controller
 
         return response()->json([
             'success' => true,
-            'request' => $request
+            'giphy' => $giphy
+        ]);
+    }
+
+    public function rating(Request $request)
+    {
+        $giphy = Giphy::find($request->id);
+        $giphy->rating = $request->rating;
+        $giphy->save();
+
+        return response()->json([
+            'success' => true,
+            'giphy' => $giphy
         ]);
     }
 }

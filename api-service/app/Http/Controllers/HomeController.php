@@ -13,9 +13,34 @@ class HomeController extends Controller
     }
 
 
+    public function autocomplete(Request $request)
+    {
+        $term = $request->query('q');
+        $results = Giphy::where('title', 'LIKE', '%'.$term.'%')->take(6)->get();
+        foreach($results as $obj) {
+            $retval[] = [
+                'id' => $obj->id,
+                'value' => $obj->title,
+                'url' => $obj->url,
+            ];
+        }
+        return response()->json($retval);
+    }
+
+
+    public function searchResults(Request $request)
+    {
+        $term = $request->query('q');
+        $results = Giphy::where('title', 'LIKE', '%'.$term.'%')->get();
+        // dd($results);
+        return view('search-results')
+                ->with('results', $results);
+    }
+
+
     public function topViewed(Request $request)
     {
-        $giphies = Giphy::orderBy('rating')->limit(25)->get();
+        $giphies = Giphy::orderBy('copies_number','DESC')->limit(25)->get();
         return response()->json([
             'success' => true,
             'giphies' => $giphies
