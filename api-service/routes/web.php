@@ -42,6 +42,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','usertype:admin']], f
         'uses'  => 'GiphiesController@destroy',
         'as'    => 'admin.giphies.destroy'
     ]);
+
+    Route::resource('tags', 'TagsController', [
+        'as'    => 'admin'
+    ]);
+    Route::get('tags/{id}/destroy', [
+        'uses'  => 'TagsController@destroy',
+        'as'    => 'admin.tags.destroy'
+    ]);
 });
 
 // ajax //
