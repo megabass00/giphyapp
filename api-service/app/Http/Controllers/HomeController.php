@@ -15,7 +15,7 @@ class HomeController extends Controller
 
     public function autocomplete(Request $request)
     {
-        $term = $request->query('q');
+        $term = $request->term;
         $results = Giphy::where('title', 'LIKE', '%'.$term.'%')->take(6)->get();
         foreach($results as $obj) {
             $retval[] = [
