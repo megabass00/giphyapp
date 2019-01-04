@@ -10,9 +10,65 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
-
     require('bootstrap');
-} catch (e) {}
+} catch (e) {
+    console.log(e);
+}
+
+
+/**
+ * Load JS Libraries
+ */
+// jQuery bridge
+var jQueryBridget = require('jquery-bridget');
+
+
+// jQuery UI
+// import 'jquery-ui/ui/widgets/autocomplete.js';
+
+
+// Loading Bar
+require('./src/loading-bar.js');
+
+
+// Select2
+require('select2');
+
+
+// Star Rating
+require('bootstrap-star-rating');
+
+
+// Custom functions
+window.functions = require('./src/functions.js');
+
+
+// Clipboard
+var ClipboardJS = require('clipboard');
+
+// Init Clipboard
+var clipboard = new ClipboardJS('.btn-clipboard');
+clipboard.on('success', function(e) {
+    // console.info('Action:', e.action);
+    // console.info('Text:', e.text);
+    // console.info('Trigger:', e.trigger);
+    var title = $(e.trigger).data('title');
+    window.functions.showTooltip(e.trigger, title +' copied!');
+    window.functions.hideTooltip(e.trigger);
+
+    var giphyId = $(e.trigger).data('id');
+    window.functions.sumCopy(giphyId);
+    e.clearSelection();
+});
+clipboard.on('error', function(e) {
+    // console.error('Action:', e.action);
+    // console.error('Trigger:', e.trigger);
+    window.functions.showTooltip(e.trigger, fallbackMessage(e.action));
+    window.functions.hideTooltip(e.trigger);
+});
+
+
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -38,6 +94,16 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+
+/**
+ * Add token to ajax requests
+ */
+$.ajaxSetup({ // add csrf-token to all ajax headers
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -54,3 +120,16 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+/**
+ * Initialization
+ */
+$(document).ready(function() 
+{
+    $('.select2').select2({
+        placeholder: 'Select a value...'
+    });
+});
+
+

@@ -34,6 +34,40 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => '2018-12-20 22:07:32',
                 'deleted_at' => NULL,
             ),
+            1 => 
+            array (
+                'id' => 2,
+                'type' => 'member',
+                'name' => 'Fernando',
+                'last_name' => 'Pirri',
+                'image' => 'default.png',
+                'email' => 'mari@unpajo.te',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$TRdcuT0pQHd3JgbQuZLA3.BrnDGe3atROc15FZFqkgKKlwLyTPDGG',
+                'active' => 0,
+                'activation_token' => '',
+                'remember_token' => NULL,
+                'created_at' => '2019-01-04 09:54:54',
+                'updated_at' => '2019-01-04 09:54:54',
+                'deleted_at' => NULL,
+            ),
+            2 => 
+            array (
+                'id' => 3,
+                'type' => 'member',
+                'name' => 'Domador',
+                'last_name' => 'de girasoles',
+                'image' => 'default.png',
+                'email' => 'domador@girasol.anuel',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$gabq6oZKBIaCjeVn.yB83.bU7Re4V5Ldj7vYOBKiK7nfedMek/LMC',
+                'active' => 0,
+                'activation_token' => '',
+                'remember_token' => NULL,
+                'created_at' => '2019-01-04 09:55:23',
+                'updated_at' => '2019-01-04 09:55:23',
+                'deleted_at' => NULL,
+            ),
         ));
         
         

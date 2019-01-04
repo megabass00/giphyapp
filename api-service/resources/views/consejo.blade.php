@@ -11,12 +11,7 @@
         GiphyAPP · Consejo Jedi
     </title>
     
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-4.0.0/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/jquery-ui/jquery-ui.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/loading.io/loading-bar.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick-theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="css/frontend.css">
 </head>
 <body>
 
@@ -25,6 +20,7 @@
         background-image: url('/images/consejo-bg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
+        background-attachment: fixed;
         height: 100%;
         font-family: 'Numans', sans-serif;
         color: white;
@@ -81,7 +77,7 @@
         background: rgba(0, 0, 0, .3);
         max-width: 100vw;
         border-radius: 7px;
-        /* width: 50vw; */
+        width: 100%;
     }
 
 
@@ -221,26 +217,8 @@
 </div>
 
 
-<script src="{{ asset('plugins/jquery/jquery-3.3.1.min.js') }}"></script>
-<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
-<script src="{{ asset('plugins/bootstrap-4.0.0/js/bootstrap.js') }}"></script>
-<script src="{{ asset('plugins/loading.io/loading-bar.js') }}"></script>
-<script src="{{ asset('plugins/vue-slick/slick.min.js') }}"></script>
-<script src="{{ asset('plugins/masonry/masonry.pkgd.min.js') }}"></script>
-<script src="{{ asset('plugins/masonry/imagesloaded.pkgd.min.js') }}"></script>
-<script src="{{ asset('plugins/masonry/packery.pkgd.min.js') }}"></script>
-<script src="{{ asset('plugins/clipboard/clipboard.min.js') }}"></script>
+<script src="js/frontend.js"></script>
 
-<script src="/js/init-clipboard.js"></script>
-<script src="/js/functions.js"></script>
-<script>
-    $.ajaxSetup({ // add csrf-token to all ajax headers
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
 
 <script type="text/javascript">
     $(document).ready(function() 
@@ -251,11 +229,9 @@
 
         var transitionProp;
         var transitionEndEvent;
-        loadMasonry();
+        loadMasonry(transitionProp, transitionEndEvent);
         
     });
-
-
 
 
     function initAutocompleteField() {
@@ -289,7 +265,7 @@
             'url': '/ajax/giphies/topViewed',
             'data': {}
         };
-        ajaxRequest(options, function(data){
+        functions.ajaxRequest(options, function(data){
             if (data.success) { 
                 var items = '';
                 data.giphies.forEach(function(obj, index) {
@@ -321,10 +297,9 @@
         });
     }
 
-    function loadMasonry() {
+    function loadMasonry(transitionProp, transitionEndEvent) {
         var $container = $('#masonry-list-container');
         var columnWidth = $container.width() / 10;
-        console.log();
         var $container = $container.masonry({
             itemSelector: '.masonry-item',
             columnWidth: 60
@@ -336,11 +311,11 @@
             'url': '/ajax/giphies/masonryList',
             'data': {}
         };
-        ajaxRequest(options, function(data){
+        functions.ajaxRequest(options, function(data){
             if (data.success) { 
-                var $items = getMasonryItems(data.giphies);
+                var $items = functions.getMasonryItems(data.giphies);
                 $container.masonryImagesReveal( $items );
-                configureMasonryContainer();
+                functions.configureMasonryContainer('.masonry-list-container', transitionProp, transitionEndEvent);
             }
         }, function(percent) {
             console.log(percent+'%');
@@ -349,119 +324,6 @@
             console.log(error);
 
         });
-    }
-
-    $.fn.masonryImagesReveal = function( $items ) {
-        var msnry = this.data('masonry');
-        var itemSelector = msnry.options.itemSelector;
-        
-        $items.hide();
-        
-        this.append( $items );
-        $items.imagesLoaded().progress( function( imgLoad, image ) {
-            var $item = $( image.img ).parents( itemSelector );
-            $item.show();
-            msnry.appended( $item );
-        });
-        
-        return this;
-    };
-
-    function getMasonryItems(items) {
-        var retval = '';
-        items.forEach(function(obj, index) {
-            retval += getMasonryItem(obj);
-        });
-        return $( retval );
-    }
-
-    function getMasonryItem(item) {
-        var width = randomInt( 150, 400 );
-        var height = randomInt( 150, 250 );
-        // var item = `<div class="masonry-item" width="`+ width +`" height="`+ height +`">
-        //                 <img src="`+ item.url +`" />
-        //             </div>`;
-        var item = `
-                <div class="masonry-item">
-                    <div class="masonry-item-content">
-                        <img src="`+ item.url +`" />
-                    </div>
-                </div>
-        `;
-        // console.log(item);
-        return item;
-    }
-
-    function configureMasonryContainer() {
-        var masonry = document.querySelector('.masonry-list-container');
-        var pckry = new Packery( masonry, {
-            itemSelector: '.masonry-item',
-            percentPosition: true
-        });
-
-        masonry.addEventListener( 'click', function( event ) {
-            // only .masonry-item-content clicks
-            if ( !matchesSelector( event.target.parentElement, '.masonry-item-content' ) ) {
-                return;
-            }
-
-            var itemContent = event.target.parentElement;
-            // setItemContentPixelSize( itemContent );
-
-            var itemElem = itemContent.parentNode;
-
-            var isExpanded = itemElem.classList.contains('is-expanded');
-            itemElem.classList.toggle('is-expanded');
-
-            // force redraw
-            var redraw = itemContent.offsetWidth;
-            // renable default transition
-            itemContent.style[ transitionProp ] = '';
-
-            addTransitionListener( itemContent );
-            setItemContentTransitionSize( itemContent, itemElem );
-
-            if ( isExpanded ) {
-                // if shrinking, shiftLayout
-                pckry.shiftLayout();
-            } else {
-                // if expanding, fit it
-                pckry.fit( itemElem );
-            }
-        });
-
-        var docElem = document.documentElement;
-        transitionProp = typeof docElem.style.transition == 'string' ? 'transition' : 'WebkitTransition';
-        transitionEndEvent = {
-            WebkitTransition: 'webkitTransitionEnd',
-            transition: 'transitionend'
-        }[ transitionProp ];
-    }
-
-    function setItemContentPixelSize( itemContent ) {
-        var previousContentSize = getSize( itemContent );
-        // disable transition
-        itemContent.style[ transitionProp ] = 'none';
-        // set current size in pixels
-        itemContent.style.width = previousContentSize.width + 'px';
-        itemContent.style.height = previousContentSize.height + 'px';
-    }
-
-    function addTransitionListener( itemContent ) {
-        // reset 100%/100% sizing after transition end
-        var onTransitionEnd = function() {
-            itemContent.style.width = '';
-            itemContent.style.height = '';
-            itemContent.removeEventListener( transitionEndEvent, onTransitionEnd );
-        };
-        itemContent.addEventListener( transitionEndEvent, onTransitionEnd );
-    }
-
-    function setItemContentTransitionSize( itemContent, itemElem ) {
-        // set new size
-        var size = getSize( itemElem );
-        itemContent.style.width = size.width + 'px';
-        itemContent.style.height = size.height + 'px';
     }
 </script>
 

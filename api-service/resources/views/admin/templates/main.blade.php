@@ -8,9 +8,7 @@
 
     <title>@yield('title', 'Default') | GiphyAPP Admin</title>
 
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-4.0.0/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-5.5.0/css/fontawesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/backend.css') }}">
 
     @yield('css')
 </head>
@@ -32,22 +30,7 @@
     </div>
     @include('front.templates.footer')
 
-    <script src="{{ asset('plugins/jquery/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
-    <script src="{{ asset('plugins/bootstrap-4.0.0/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('plugins/fontawesome-5.5.0/js/all.js') }}"></script>
-    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('plugins/clipboard/clipboard.min.js') }}"></script>
-    <script src="/js/functions.js"></script>
-    <script src="/js/init-clipboard.js"></script>
-
-    <script>
-        $.ajaxSetup({ // add csrf-token to all ajax headers
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
+    <script src="{{ asset('js/backend.js') }}"></script>
 
     @yield('js')
 </body>

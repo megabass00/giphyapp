@@ -68,7 +68,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                {!! Form::submit('Update giphy', ['class'=>'btn btn-primary new-tag-submit']) !!}
+                {!! Form::submit('Add Tag', ['class'=>'btn btn-primary new-tag-submit']) !!}
             </div>
         </div>
     </div>
@@ -96,11 +96,11 @@
                     type: 'POST',
                     url: '{{ url('admin/ajax/giphies/addTag') }}',
                     success: function(data) {
-                        // console.log(data);
                         if (data.success) {
                             var newTag = data.tag;
                             var newOption = new Option(newTag.name, newTag.id, false, false);
                             list.append(newOption).trigger('change');
+                            modal.find('input[name="name"]').val('');
                             modal.modal('toggle');
                         }
                     },

@@ -11,17 +11,19 @@
         GiphyAPP · Consejo Jedi
     </title>
     
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-4.0.0/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="css/frontend.css">
+    
+    <!-- <link rel="stylesheet" href="{{ asset('plugins/star-rating/css/star-rating.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/star-rating/themes/krajee-fa/theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/star-rating/themes/krajee-svg/theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/star-rating/themes/krajee-uni/theme.css') }}"> -->
+    <!-- <link rel="stylesheet" href="{{ asset('plugins/bootstrap-4.0.0/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/jquery-ui/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-5.5.0/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/loading.io/loading-bar.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick-theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/star-rating/css/star-rating.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/star-rating/themes/krajee-fa/theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/star-rating/themes/krajee-svg/theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/star-rating/themes/krajee-uni/theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}"> -->
 </head>
 <body>
 
@@ -30,6 +32,7 @@
         background-image: url('/images/consejo-bg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
+        background-attachment: fixed;
         height: 100%;
         font-family: 'Numans', sans-serif;
         color: white;
@@ -186,29 +189,8 @@
     </div>
 </div>
 
+<script src="js/frontend.js"></script>
 
-<script src="{{ asset('plugins/jquery/jquery-3.3.1.min.js') }}"></script>
-<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
-<script src="{{ asset('plugins/bootstrap-4.0.0/js/bootstrap.js') }}"></script>
-<script src="{{ asset('plugins/fontawesome-5.5.0/js/all.js') }}"></script>
-<script src="{{ asset('plugins/loading.io/loading-bar.js') }}"></script>
-<script src="{{ asset('plugins/vue-slick/slick.min.js') }}"></script>
-<script src="{{ asset('plugins/star-rating/js/star-rating.min.js') }}"></script>
-<script src="{{ asset('plugins/star-rating/themes/krajee-fa/theme.js') }}"></script>
-<script src="{{ asset('plugins/star-rating/themes/krajee-svg/theme.js') }}"></script>
-<script src="{{ asset('plugins/star-rating/themes/krajee-uni/theme.js') }}"></script>
-<script src="{{ asset('plugins/clipboard/clipboard.min.js') }}"></script>
-
-<script src="/js/init-clipboard.js"></script>
-<script src="/js/functions.js"></script>
-<script>
-    $.ajaxSetup({ // add csrf-token to all ajax headers
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
 
 <script type="text/javascript">
     $(document).ready(function() 
@@ -218,7 +200,6 @@
         initAutocompleteField();
         loadTopViewed();
     });
-
 
 
     function initRatingFields() {
@@ -294,7 +275,7 @@
             'url': '/ajax/giphies/topViewed',
             'data': {}
         };
-        ajaxRequest(options, function(data){
+        functions.ajaxRequest(options, function(data){
             if (data.success) { 
                 var items = '';
                 data.giphies.forEach(function(obj, index) {

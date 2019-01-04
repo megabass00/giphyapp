@@ -1,0 +1,39 @@
+
+// Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Righteous');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// JQuery UI
+// @import '~jquery-ui/themes/base/all.css';
+
+// Fontawasome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+// Loading Bar
+@import './src/loading-bar.css';
+
+// Slick Carousel
+// @import './src/slick.css';
+// @import './src/slick-theme.css';
+
+// Select2
+@import '~select2/dist/css/select2.min.css';
+
+// Star Rating
+@import '~bootstrap-star-rating/css/star-rating.min.css';
+@import '~bootstrap-star-rating/themes/krajee-fa/theme.css';
+@import '~bootstrap-star-rating/themes/krajee-svg/theme.css';
+@import '~bootstrap-star-rating/themes/krajee-uni/theme.css';
+
+
+// Main Styles
+@import './src/main.css';

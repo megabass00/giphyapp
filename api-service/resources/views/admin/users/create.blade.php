@@ -41,7 +41,7 @@
 
     <div class="form-group">
         {!! Form::label('Profile') !!}
-        {!! Form::select('type', [''=>'Select a profile','member'=>'Member','admin'=>'Administrator'], null, ['class'=>'form-control']) !!}
+        {!! Form::select('type', [''=>'Select a profile','member'=>'Member','admin'=>'Administrator'], null, ['class'=>'select2 form-control']) !!}
     </div>
 
     <div class="form-group">

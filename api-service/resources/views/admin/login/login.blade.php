@@ -5,8 +5,7 @@
         GiphyAPP · Login
     </title>
    
-    <!--Bootsrap 4 CDN-->
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-4.0.0/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="css/frontend.css">
 </head>
 <body>
     
@@ -187,9 +186,7 @@
 	</div>
 </div>
 
-<script src="{{ asset('plugins/jquery/jquery-3.3.1.min.js') }}"></script>
-<script src="{{ asset('plugins/bootstrap-4.0.0/js/bootstrap.js') }}"></script>
-<script src="{{ asset('plugins/fontawesome-5.5.0/js/all.js') }}"></script>
+<script src="js/frontend.js"></script>
 
 </body>
 </html>
