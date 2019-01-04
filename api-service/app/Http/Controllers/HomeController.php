@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function consejo()
     {
-        return view('consejo');
+        return view('front.consejo');
     }
 
 
@@ -32,8 +32,7 @@ class HomeController extends Controller
     {
         $term = $request->query('q');
         $results = Giphy::where('title', 'LIKE', '%'.$term.'%')->get();
-        // dd($results);
-        return view('search-results')
+        return view('front.search-results')
                 ->with('results', $results);
     }
 
@@ -55,5 +54,11 @@ class HomeController extends Controller
             'success' => true,
             'giphies' => $giphies
         ]);
+    }
+
+
+    public function addGiphy(Request $request)
+    {
+        return view('front.add-giphy');
     }
 }

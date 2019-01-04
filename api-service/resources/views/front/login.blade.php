@@ -1,127 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>
-        GiphyAPP · Login
-    </title>
-   
-    <link rel="stylesheet" href="css/frontend.css">
-</head>
-<body>
-    
-<style>
-    /* Made with love by Mutiullah Samim*/
+@extends('front.templates.main')
 
-    @import url('https://fonts.googleapis.com/css?family=Numans');
+@section('title', 'Giphy List')
 
-    html,body{
-        background-image: url('/images/login-bg.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        height: 100%;
-        font-family: 'Numans', sans-serif;
-    }
+@section('css')
+    <link rel="stylesheet" href="css/frontend/login.css">
+@endsection
 
-    .container{
-        height: 100%;
-        align-content: center;
-    }
 
-    .card{
-        height: 370px;
-        margin-top: auto;
-        margin-bottom: auto;
-        width: 400px;
-        background-color: rgba(0,0,0,0.5) !important;
-    }
-
-    .social_icon span{
-        font-size: 60px;
-        margin-left: 10px;
-        color: #51ce00;
-    }
-
-    .social_icon span:hover{
-        color: white;
-        cursor: pointer;
-    }
-
-    .card-header h3{
-        color: white;
-    }
-
-    .social_icon{
-    position: absolute;
-    right: 20px;
-    top: -45px;
-    }
-
-    .input-group-prepend span{
-        width: 50px;
-        background-color: #51ce00;
-        color: black;
-        border:0 !important;
-    }
-
-    input:focus{
-        outline: 0 0 0 0  !important;
-        box-shadow: 0 0 0 0 !important;
-
-    }
-
-    .remember{
-        color: white;
-    }
-
-    .remember input
-    {
-        width: 20px;
-        height: 20px;
-        margin-left: 15px;
-        margin-right: 5px;
-    }
-
-    .login_btn{
-        color: black;
-        background-color: #51ce00;
-        width: 100px;
-    }
-
-    .login_btn:hover{
-        color: black;
-        background-color: white;
-    }
-
-    .links{
-        color: white;
-    }
-
-    .links a{
-        margin-left: 4px;
-    }
-
-    .btn-back{
-        float: left;
-        margin: 10px 10px;
-        border-radius: 3px;
-        width: 10%;
-        height: 25px;
-        color: white;
-        background-color: #51ce00;
-        text-align: center;
-    }
-    .btn-back a {
-        color: white;
-    }
-</style>
-
-<div class="btn-back">
-    <a href="{{ url('/consejo') }}">
-        Back init
-    </a>
-</div>
-
-<div class="container">
+@section('content')
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
@@ -184,9 +70,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-<script src="js/frontend.js"></script>
-
-</body>
-</html>
+@endsection

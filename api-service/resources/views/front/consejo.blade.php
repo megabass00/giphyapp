@@ -1,171 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
+@extends('front.templates.main')
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('title', 'Consejo')
 
-	<title>
-        GiphyAPP · Consejo Jedi
-    </title>
-    
-    <link rel="stylesheet" href="css/frontend.css">
-</head>
-<body>
-
-<style>
-    html,body{
-        background-image: url('/images/consejo-bg.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        height: 100%;
-        font-family: 'Numans', sans-serif;
-        color: white;
-    }
-
-    .btn-login{
-        float: left;
-        margin: 10px 10px;
-        border-radius: 3px;
-        width: 10%;
-        height: 25px;
-        color: white;
-        background-color: #51ce00;
-        text-align: center;
-    }
-    .btn-login a {
-        color: white;
-    }
+@section('css')
+    <link rel="stylesheet" href="css/frontend/consejo.css">
+@endsection
 
 
-    .consejo-description{
-        margin: 15px 0;
-        height: 20vh;
-        text-align: center;
-        /* text-shadow: 0px -4px 4px rgba(0, 0, 0, 0.7); */
-    }
-
-    .top-viewed {
-        text-align: center;
-    }
-    .top-viewed h1 {
-        margin-bottom: 0.1vh;
-    }
-    .top-viewed-container {
-        height: 20vh;
-        /* border: 3px white solid; */
-        margin-left: 2vw;
-        margin-right: 2vw;
-        margin-top: 3.5vh;
-        margin-bottom: 2.5vh;
-    }
-    .slick-slide img {
-        max-height: 19vh;
-        padding: 0 0.2vw;
-        border-radius: 7px;
-        cursor: pointer;
-    }
-
-
-    .masonry-list {
-        text-align: center;
-    }
-    #masonry-list-container {
-        background: rgba(0, 0, 0, .3);
-        max-width: 100vw;
-        border-radius: 7px;
-        width: 100%;
-    }
-
-
-
-    /* item is invisible, but used for layout */
-    .masonry-item,
-    .masonry-sizer {
-        width: 5%;
-        /* width: 20vw; */
-    }
-
-    .masonry-item {
-        float: left;
-        /* width: 200px; */
-        height: auto;
-    }
-    .masonry-item img {
-        display: block;
-        width: 100%;
-    }
-    .masonry-item-content {
-        width: 100%;
-        height: auto;
-    }
-
-    /* masonry-item-content is visible, and transitions size */
-    .masonry-item-content {
-        /* width: 100%;
-        height: 100%; */
-        border: 2px solid hsla(0, 0%, 0%, 0.9);
-        -webkit-transition: width 0.4s, height 0.4s;
-                transition: width 0.4s, height 0.4s;
-    }
-
-    .masonry-item:hover .masonry-item-content {
-        /* background: #C90; */
-        cursor: pointer;
-    }
-
-    /* both item and item content change size */
-    .masonry-item.is-expanded {
-        width: 9%;
-        height: auto;
-        z-index: 2;
-    }
-
-    .masonry-item.is-expanded .masonry-item-content {
-        background: white;
-    }
-
-
-
-    .searcher {
-        margin: 2vw 0;
-    }
-    .search-wrapper {
-        text-align: center;
-        width: 100%;
-    }
-    #q {
-        border: 1px solid transparent;
-        width: 80%;
-        height: 9vh;
-        min-height: 30px;
-        font-size: 5vh;
-        text-indent: 1vw;
-        border-radius: 5px;
-    }
-    .btn-search {
-        background-color: #51ce00;
-        border-color: #51ce00;
-        height: 9vh;
-        min-height: 30px;
-    }
-    .btn-search:hover {
-        color: #51ce00;
-        background-color: #fff;
-        border-color: #fff;
-    }
-
-    .title {
-        width: 100%;
-        text-align: center;
-    }
-</style>
-
-
-<div class="container-fluid">
+@section('content')
     <div class="row">
         <div class="btn-login">
             <a href="{{ url('/login') }}">
@@ -214,12 +56,10 @@
             <div class="masonry-sizer"></div>
         </div>
     </div>
-</div>
+@endsection
 
 
-<script src="js/frontend.js"></script>
-
-
+@section('js')
 <script type="text/javascript">
     $(document).ready(function() 
     {
@@ -326,6 +166,4 @@
         });
     }
 </script>
-
-</body>
-</html>
+@endsection

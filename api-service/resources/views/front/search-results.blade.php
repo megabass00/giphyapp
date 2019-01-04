@@ -1,131 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
+@extends('front.templates.main')
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('title', 'Giphy List')
 
-	<title>
-        GiphyAPP · Consejo Jedi
-    </title>
-    
-    <link rel="stylesheet" href="css/frontend.css">
-    
-    <!-- <link rel="stylesheet" href="{{ asset('plugins/star-rating/css/star-rating.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/star-rating/themes/krajee-fa/theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/star-rating/themes/krajee-svg/theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/star-rating/themes/krajee-uni/theme.css') }}"> -->
-    <!-- <link rel="stylesheet" href="{{ asset('plugins/bootstrap-4.0.0/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/jquery-ui/jquery-ui.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-5.5.0/css/fontawesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/loading.io/loading-bar.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/vue-slick/slick-theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}"> -->
-</head>
-<body>
+@section('css')
+    <link rel="stylesheet" href="css/frontend/search-results.css">
+@endsection
 
-<style>
-    html,body{
-        background-image: url('/images/consejo-bg.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        height: 100%;
-        font-family: 'Numans', sans-serif;
-        color: white;
-    }
-
-    .btn-login{
-        float: left;
-        margin: 10px 10px;
-        border-radius: 3px;
-        width: 10%;
-        height: 25px;
-        color: white;
-        background-color: #51ce00;
-        text-align: center;
-    }
-    .btn-login a {
-        color: white;
-    }
-
-
-    .consejo-description{
-        margin: 15px 0;
-        height: 20vh;
-        text-align: center;
-        /* text-shadow: 0px -4px 4px rgba(0, 0, 0, 0.7); */
-    }
-
-    .top-viewed {
-        text-align: center;
-    }
-    .top-viewed h1 {
-        margin-bottom: 0.1vh;
-    }
-    .top-viewed-container {
-        height: 20vh;
-        /* border: 3px white solid; */
-        margin-left: 2vw;
-        margin-right: 2vw;
-        margin-top: 3.5vh;
-        margin-bottom: 2.5vh;
-    }
-    .slick-slide img {
-        max-height: 19vh;
-        padding: 0 0.2vw;
-        border-radius: 7px;
-        cursor: pointer;
-    }
-
-
-    .searcher {
-        margin: 2vw 0;
-    }
-    .search-wrapper {
-        text-align: center;
-        width: 100%;
-    }
-    #q {
-        border: 1px solid transparent;
-        width: 80%;
-        height: 9vh;
-        min-height: 30px;
-        font-size: 5vh;
-        text-indent: 1vw;
-        border-radius: 5px;
-    }
-    .btn-search {
-        background-color: #51ce00;
-        border-color: #51ce00;
-        height: 9vh;
-        min-height: 30px;
-    }
-    .btn-search:hover {
-        color: #51ce00;
-        background-color: #fff;
-        border-color: #fff;
-    }
-
-    .title {
-        width: 100%;
-        text-align: center;
-    }
-
-
-    .card {
-        margin: 2vh 0;
-    }
-    .card-body {
-        background-color: black;
-    }
-</style>
-
-
-<div class="container-fluid">
+@section('content')
     <div class="row">
         <div class="btn-login">
             <a href="{{ url('/login') }}">
@@ -187,11 +68,10 @@
             </div>
         </div>
     </div>
-</div>
-
-<script src="js/frontend.js"></script>
+@endsection
 
 
+@section('js')
 <script type="text/javascript">
     $(document).ready(function() 
     {
@@ -307,6 +187,4 @@
         });
     }
 </script>
-
-</body>
-</html>
+@endsection

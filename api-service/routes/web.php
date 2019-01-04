@@ -15,10 +15,13 @@
 Route::get('/', 'HomeController@consejo')->name('consejo');
 Route::get('/consejo', 'HomeController@consejo')->name('consejo');
 
+Route::get('search-results', 'HomeController@searchResults');
+Route::get('add-giphy', 'HomeController@addGiphy')->middleware('auth');
+
 
 // LOGIN / LOGOUT //
 Route::get('/login', function() {
-    return view('/admin/login/login');
+    return view('/front/login');
 })->name('login');
 $this->post('login', 'LoginController@login');
 $this->get('logout', 'LoginController@logout')->name('logout');
@@ -54,8 +57,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','usertype:admin']], f
     // ajax //
     Route::post('ajax/giphies/addTag', 'GiphiesController@addTag');
 });
-
-Route::get('search-results', 'HomeController@searchResults');
 
 // ajax //
 Route::post('ajax/giphies/sum', 'GiphiesController@sum');

@@ -114,6 +114,27 @@
     font-size: 1em;
     line-height: 1;
 }
+/*
+* General Styles
+*/
+html,body{
+    background-image: url('/images/consejo-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    color: white;
+}
+
+#content {
+    margin-top: 80px;
+}
+
+.card {
+    color: white;
+}
+
 
 /*
 * Loders
@@ -130,6 +151,7 @@
 * Custom Styles
 */
 .text-border {
+    color: white;
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
 }@charset "UTF-8";
 
