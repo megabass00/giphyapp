@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
                 'type' => 'admin',
                 'name' => 'Luis',
                 'last_name' => 'Izquierdo Quintana',
+                'image' => 'default.png',
                 'email' => 'megabass00@hotmail.com',
                 'email_verified_at' => NULL,
                 'password' => '$2y$10$Y.1HrphROwAeBb6CC/qEiOIpyfdB4Qpn3qxm2NWYWanlKDgTXl36S',
