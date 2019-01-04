@@ -16,8 +16,9 @@ Route::get('/', 'HomeController@consejo')->name('consejo');
 Route::get('/consejo', 'HomeController@consejo')->name('consejo');
 
 Route::get('search-results', 'HomeController@searchResults');
-Route::get('add-giphy', 'HomeController@addGiphy')->middleware('auth');
 
+Route::match(['get','post'], 'giphies-list', 'HomeController@giphiesList')->middleware('auth');
+Route::post('add-giphy', 'HomeController@addGiphy')->middleware('auth');
 
 // LOGIN / LOGOUT //
 Route::get('/login', function() {

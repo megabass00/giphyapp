@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rules\ValidGiphyUrl;
 use App\Giphy;
 
 class HomeController extends Controller
@@ -57,8 +58,39 @@ class HomeController extends Controller
     }
 
 
+    public function giphiesList(Request $request)
+    {
+        if ($request->ajax()) {
+            $giphies = Giphy::all()->take(5);
+            return response()->json([
+                'success' => true,
+                'giphies' => $giphies
+            ], 200);
+        }
+        return view('front.giphies-list');
+    }
+
+
     public function addGiphy(Request $request)
     {
-        return view('front.add-giphy');
+        if ($request->ajax()) {
+            $request->validate([
+                'url' => ['required', new ValidGiphyUrl]
+            ]);
+            $giphy = new Giphy();
+            $giphy->title = $request->title;
+            $giphy->desccription = $request->description;
+            $giphy->url = $request->url;
+            $giphy->rating = 0.0;
+            $giphy->copies_number = 0;
+            $giphy->save();
+
+            // $giphy->tags()->sync($request->tags);
+
+            return response()->json([
+                'success' => true,
+                'giphy' => $giphy
+            ], 200);
+        }
     }
 }

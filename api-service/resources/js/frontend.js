@@ -20,7 +20,10 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('spinner', require('./components/widgets/spinner.vue').default);
+Vue.component('list-of-giphies', require('./components/frontend/giphies/list.vue').default);
+Vue.component('add-giphy-btn', require('./components/frontend/giphies/add-btn.vue').default);
+Vue.component('create-giphy', require('./components/frontend/giphies/create.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,6 +31,6 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// const app = new Vue({
-//     el: 'body'
-// });
+const app = new Vue({
+    el: '#content'
+});

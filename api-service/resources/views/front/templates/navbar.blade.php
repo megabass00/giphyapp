@@ -21,7 +21,7 @@
                     Menu
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="nav-link" href="{{ url('/add-giphy') }}">
+                    <a class="nav-link" href="{{ url('/giphies-list') }}">
                         Giphy List
                     </a>
                     <a class="nav-link" href="{{ url('/stadistics') }}">
