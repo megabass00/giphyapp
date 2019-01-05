@@ -36,6 +36,8 @@
     .btn-search {
         background-color: #51ce00;
         border-color: #51ce00;
+        height: 100%;
+        max-height: 9vh;
     }
     .btn-search:hover {
         color: #51ce00;

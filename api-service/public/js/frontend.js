@@ -2168,6 +2168,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7228,7 +7230,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.searcher {\n    margin: 2vw 0;\n}\n.search-wrapper {\n    text-align: center;\n    width: 100%;\n}\n#q {\n    border: 1px solid transparent;\n    width: 70%;\n    height: 9vh;\n    min-height: 30px;\n    font-size: 5vh;\n    text-indent: 1vw;\n    border-radius: 5px;\n}\n.btn-search {\n    background-color: #51ce00;\n    border-color: #51ce00;\n}\n.btn-search:hover {\n    color: #51ce00;\n    background-color: #fff;\n    border-color: #fff;\n}\n.autocomplete-item {\n    margin-left: 10px; \n    margin-bottom: 5px;\n    /* height: 50px; */\n    font-family: Righteous;\n}\n.autocomplete-image {\n    /* min-height: 50px; */\n    width: 8%;\n}\n", ""]);
+exports.push([module.i, "\n.searcher {\n    margin: 2vw 0;\n}\n.search-wrapper {\n    text-align: center;\n    width: 100%;\n}\n#q {\n    border: 1px solid transparent;\n    width: 70%;\n    height: 9vh;\n    min-height: 30px;\n    font-size: 5vh;\n    text-indent: 1vw;\n    border-radius: 5px;\n}\n.btn-search {\n    background-color: #51ce00;\n    border-color: #51ce00;\n    height: 100%;\n    max-height: 9vh;\n}\n.btn-search:hover {\n    color: #51ce00;\n    background-color: #fff;\n    border-color: #fff;\n}\n.autocomplete-item {\n    margin-left: 10px; \n    margin-bottom: 5px;\n    /* height: 50px; */\n    font-family: Righteous;\n}\n.autocomplete-image {\n    /* min-height: 50px; */\n    width: 8%;\n}\n", ""]);
 
 // exports
 
