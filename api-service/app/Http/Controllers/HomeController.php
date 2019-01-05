@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\GiphyRequest;
 use App\Rules\ValidGiphyUrl;
 use App\Giphy;
 
@@ -61,7 +62,7 @@ class HomeController extends Controller
     public function giphiesList(Request $request)
     {
         if ($request->ajax()) {
-            $giphies = Giphy::all()->take(5);
+            $giphies = Giphy::all()->take(7);
             return response()->json([
                 'success' => true,
                 'giphies' => $giphies
@@ -71,20 +72,47 @@ class HomeController extends Controller
     }
 
 
-    public function addGiphy(Request $request)
+    public function addGiphy(GiphyRequest $request)
     {
         if ($request->ajax()) {
             $request->validate([
+                'title' => ['required'],
+                'description' => ['required'],
                 'url' => ['required', new ValidGiphyUrl]
             ]);
             $giphy = new Giphy();
             $giphy->title = $request->title;
-            $giphy->desccription = $request->description;
+            $giphy->description = $request->description;
             $giphy->url = $request->url;
             $giphy->rating = 0.0;
             $giphy->copies_number = 0;
             $giphy->save();
+            
+            //TODO: add tags to modal
+            // $giphy->tags()->sync($request->tags);
 
+            return response()->json([
+                'success' => true,
+                'giphy' => $giphy
+            ], 200);
+        }
+    }
+
+    public function updateGiphy(GiphyRequest $request)
+    {
+        if ($request->ajax()) {
+            $request->validate([
+                'title' => ['required'],
+                'description' => ['required'],
+                'url' => ['required', new ValidGiphyUrl]
+            ]);
+            $giphy = Giphy::find($request->id);
+            $giphy->title = $request->title;
+            $giphy->description = $request->description;
+            $giphy->url = $request->url;
+            $giphy->save();
+            
+            //TODO: add tags to modal
             // $giphy->tags()->sync($request->tags);
 
             return response()->json([

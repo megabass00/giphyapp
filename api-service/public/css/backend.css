@@ -118,7 +118,12 @@
 * General Styles
 */
 html,body{
-    background-image: url('/images/consejo-bg.jpg');
+    background-image: 
+        linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+        ),
+        url('/images/consejo-bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -146,6 +151,47 @@ html,body{
     background-image: url('/images/static-loader.svg');
     background-size: contain;
 }
+
+
+/*
+* Footer
+*/
+footer a {
+    color: white;
+}
+
+
+/*
+* Searcher
+*/
+.searcher {
+    margin: 2vw 0;
+}
+.search-wrapper {
+    text-align: center;
+    width: 100%;
+}
+#q {
+    border: 1px solid transparent;
+    width: 80%;
+    height: 9vh;
+    min-height: 30px;
+    font-size: 5vh;
+    text-indent: 1vw;
+    border-radius: 5px;
+}
+.btn-search {
+    background-color: #51ce00;
+    border-color: #51ce00;
+    height: 9vh;
+    min-height: 30px;
+}
+.btn-search:hover {
+    color: #51ce00;
+    background-color: #fff;
+    border-color: #fff;
+}
+
 
 /*
 * Custom Styles

@@ -21,6 +21,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
 Vue.component('spinner', require('./components/widgets/spinner.vue').default);
+Vue.component('simple-spinner', require('./components/widgets/simple-spinner.vue').default);
 Vue.component('list-of-giphies', require('./components/frontend/giphies/list.vue').default);
 Vue.component('add-giphy-btn', require('./components/frontend/giphies/add-btn.vue').default);
 Vue.component('create-giphy', require('./components/frontend/giphies/create.vue').default);

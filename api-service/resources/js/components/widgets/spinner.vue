@@ -1,8 +1,14 @@
 <template>
-    <div id="ajax-loader-'+ uniqueId +'" class="static-loader"></div>
+    <div class="spinner-container">
+        <div id="ajax-loader-'+ uniqueId +'" class="static-loader"></div>
+    </div>
 </template>
 
 <style>
+    .spinner-container {
+        width: 100%;
+        text-align: center;
+    }
     .ldBar {
         position: relative;
     }

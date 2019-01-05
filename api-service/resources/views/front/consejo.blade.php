@@ -8,13 +8,6 @@
 
 
 @section('content')
-    <div class="row">
-        <div class="btn-login">
-            <a href="{{ url('/login') }}">
-                Login
-            </a>
-        </div>
-    </div>
 
     {{-- <div class="row consejo-description text-border">
         Bienvenido al portal del consejo, el mejor desde luego de lejos. Aquí veras buenas almejas mientras el personal te aconseja. El mundo no es lo que era, a todo el mundo le falta más de una primavera. Mira a tu alrededor, todo destrucción, apestoso hedor. Vaya desesperación. La fauna que aquí aúna nos trae un rinoceronte lanudo, un cornudo que le lame el culo, y un barbudo de cuya inteligencia no dudo. Tienes un tio protestón, un tobillo como pilares del pateón y un equilibrista jefe de pista con un gran orejón. También hay cerditas, un yeti que huele braguitas y un moai. Esto es lo que hay.

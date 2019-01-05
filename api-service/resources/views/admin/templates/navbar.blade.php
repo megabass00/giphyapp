@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="{{ route('consejo') }}">
         <img src="{{ asset('images/logo.svg') }}" width="100" height="40" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,14 +25,14 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Menu
+                {{ Auth::user()->name.' '.Auth::user()->last_name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">
-                    Show profile
+                <a class="dropdown-item" href="{{ url('/consejo') }}">
+                    Consejo
                 </a>
-                <a class="dropdown-item" href="#">
-                    Edit profile
+                <a class="dropdown-item" href="{{ url('/giphies-list') }}">
+                    Giphies List
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ url('/logout') }}">
