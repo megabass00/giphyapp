@@ -62,7 +62,7 @@ class HomeController extends Controller
     public function giphiesList(Request $request)
     {
         if ($request->ajax()) {
-            $giphies = Giphy::all()->take(7);
+            $giphies = Giphy::orderBy('updated_at', 'DESC')->paginate(10);
             return response()->json([
                 'success' => true,
                 'giphies' => $giphies

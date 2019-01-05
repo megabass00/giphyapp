@@ -9,7 +9,7 @@
                 {{ this.statusMsg.msg }}
             </div>
         </template>
-        <table class="table table-striped table-dark giphies-table" v-show="!loading">
+        <table class="table table-striped table-dark giphies-table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="giphy in giphies" v-bind:key="giphy">
+                <tr v-for="giphy in giphies.data" v-bind:key="giphy.id">
                     <template v-if="! giphy.editing">
                         <th scope="row">
                             {{ giphy.id }}
@@ -70,8 +70,11 @@
                 </tr>
             </tbody>
         </table>
+
         <spinner v-show="loading"></spinner>
         <create-giphy></create-giphy>
+        
+        <pagination :data="giphies" :limit="5" @pagination-change-page="getResults" v-show="!loading"></pagination>
     </div>
 </template>
 
@@ -82,7 +85,7 @@
     }
 
     .giphies-table {
-        margin-bottom: 50px;
+        margin-bottom: 20px;
     }
 </style>
 
@@ -93,7 +96,7 @@ import EventBus from '../../../event-bus.js'
 export default {
     data() {
         return {
-            giphies: [],
+            giphies: {},
             loading: true,
             statusMsg: null
         }
@@ -104,20 +107,24 @@ export default {
         })
     },
     mounted() {
-        axios
-            .post('/giphies-list', {})
-            .then((response) => {
-                this.loading = false
-                if (response.data.success) {
-                    this.giphies = response.data.giphies
-                }else{
-                    alert(response.data.error)
-                }
-            }).catch(function(err) {
-                alert(err);
-            })
+        this.getResults();
     },
     methods: {
+        getResults(page = 1) {
+            this.loading = true
+			axios.get('giphies-list?page=' + page)
+				.then(response => {
+                    this.loading = false
+                    if (response.data.success) {
+                        this.giphies = response.data.giphies
+                    }else{
+                        this.statusMsg = {
+                            error: true,
+                            msg: 'There was an error getting the giphies'
+                        }
+                    }
+				});
+		},
         cancel: function(giphy) {
             giphy.editing = false;
             this.statusMsg = null;
