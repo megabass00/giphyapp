@@ -16,7 +16,6 @@ class UserType
      */
     public function handle($request, Closure $next, ...$roles)
     {
-        // dd($request);exit();
         if (!Auth::check()) {
             return redirect('/login');
         }
