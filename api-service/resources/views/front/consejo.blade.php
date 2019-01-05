@@ -12,17 +12,8 @@
     {{-- <div class="row consejo-description text-border">
         Bienvenido al portal del consejo, el mejor desde luego de lejos. Aquí veras buenas almejas mientras el personal te aconseja. El mundo no es lo que era, a todo el mundo le falta más de una primavera. Mira a tu alrededor, todo destrucción, apestoso hedor. Vaya desesperación. La fauna que aquí aúna nos trae un rinoceronte lanudo, un cornudo que le lame el culo, y un barbudo de cuya inteligencia no dudo. Tienes un tio protestón, un tobillo como pilares del pateón y un equilibrista jefe de pista con un gran orejón. También hay cerditas, un yeti que huele braguitas y un moai. Esto es lo que hay.
     </div> --}}
-
-    <div class="row searcher">
-        <div class="search-wrapper">
-            <div class="container container--add">
-                {{ Form::open(['url'=>'search-results', 'id'=>'search-form', 'method'=>'GET', 'class'=>'search']) }}
-                    {{ Form::text('q', '', ['id'=>'q', 'placeholder'=>'Search your giphy...', 'class'=>'seach-field']) }}
-                    {{ Form::submit('Search', ['class'=>'btn btn-primary btn-search']) }}
-                {{ Form::close() }}
-            </div>
-        </div>
-    </div>
+    
+    <search-autocomplete></search-autocomplete>
     
     <div class="row top-viewed">
         <div class="title">
@@ -56,8 +47,6 @@
 <script type="text/javascript">
     $(document).ready(function() 
     {
-        initAutocompleteField();
-
         loadTopViewed();
 
         var transitionProp;
@@ -66,29 +55,6 @@
         
     });
 
-
-    function initAutocompleteField() {
-        $('#q').autocomplete({
-            source: '{{ url('ajax/giphies/autocomplete') }}',
-            minLenght: 3,
-            select: function(event, ui) {
-                $('#q').val(ui.item.value);
-            }
-        });
-
-        $('#q').data('ui-autocomplete')._renderItem = function(ul, item) {
-            var $li = $('<li style="width:800px; margin-left:10px; margin-bottom:5px;">');
-            var $img = $('<img style="width:8%">');
-            $img.attr({
-                src: item.url,
-                alt: item.value
-            });
-            $li.attr('data-value', item.value);
-            $li.append('');
-            $li.append($img).append(''+item.value);
-            return $li.appendTo(ul);
-        };
-    }
 
     function loadTopViewed() {
         var $container = $('.top-viewed-container');
