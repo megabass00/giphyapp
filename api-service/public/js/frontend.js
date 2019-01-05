@@ -1982,6 +1982,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2012,6 +2021,8 @@ __webpack_require__.r(__webpack_exports__);
 
         if (response.data.success) {
           _this2.giphies = response.data.giphies;
+
+          _this2.initClipboard();
         } else {
           _this2.statusMsg = {
             error: true,
@@ -2059,6 +2070,29 @@ __webpack_require__.r(__webpack_exports__);
           error: true,
           msg: 'Error ' + error.response.status + ': ' + error.response.data.message
         };
+      });
+    },
+    initClipboard: function initClipboard() {
+      // Init Clipboard
+      var ClipboardJS = __webpack_require__(/*! clipboard */ "./node_modules/clipboard/dist/clipboard.js");
+
+      var clipboard = new ClipboardJS('.btn-clipboard');
+      clipboard.on('success', function (e) {
+        // console.info('Action:', e.action);
+        // console.info('Text:', e.text);
+        // console.info('Trigger:', e.trigger);
+        var title = $(e.trigger).data('title');
+        window.functions.showTooltip(e.trigger, title + ' copied!');
+        window.functions.hideTooltip(e.trigger);
+        var giphyId = $(e.trigger).data('id');
+        window.functions.sumCopy(giphyId);
+        e.clearSelection();
+      });
+      clipboard.on('error', function (e) {
+        // console.error('Action:', e.action);
+        // console.error('Trigger:', e.trigger);
+        window.functions.showTooltip(e.trigger, fallbackMessage(e.action));
+        window.functions.hideTooltip(e.trigger);
       });
     }
   }
@@ -7058,7 +7092,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.status-msg {\n    width: 100%;\n    text-align: center;\n}\n.giphies-table {\n    margin-bottom: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.status-msg {\n    width: 100%;\n    text-align: center;\n}\n.giphies-table {\n    margin-bottom: 20px;\n}\n.actions a {\n    margin-left: 6px;\n}\n.btn-clipboard {\n    background: none;\n    border: none;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -46928,7 +46962,7 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c("td", [
+                        _c("td", { staticClass: "actions" }, [
                           _c(
                             "a",
                             {
@@ -46942,7 +46976,18 @@ var render = function() {
                             [_c("i", { staticClass: "fas fa-edit" })]
                           ),
                           _vm._v(" "),
-                          _vm._m(1, true)
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn-clipboard text-primary",
+                              attrs: {
+                                "data-clipboard-text": giphy.url,
+                                "data-title": giphy.title,
+                                "data-id": giphy.id
+                              }
+                            },
+                            [_c("i", { staticClass: "far fa-copy" })]
+                          )
                         ])
                       ]
                     : [
@@ -47034,6 +47079,7 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "td",
+                          { staticClass: "actions" },
                           [
                             _c("simple-spinner", {
                               directives: [
@@ -47130,14 +47176,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Actions")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "btn-clipboard", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "far fa-copy" })
     ])
   }
 ]
@@ -61785,32 +61823,13 @@ __webpack_require__(/*! bootstrap-star-rating */ "./node_modules/bootstrap-star-
 
 window.functions = __webpack_require__(/*! ./src/functions.js */ "./resources/js/src/functions.js"); // Clipboard
 
-var ClipboardJS = __webpack_require__(/*! clipboard */ "./node_modules/clipboard/dist/clipboard.js"); // Init Clipboard
-
-
-var clipboard = new ClipboardJS('.btn-clipboard');
-clipboard.on('success', function (e) {
-  // console.info('Action:', e.action);
-  // console.info('Text:', e.text);
-  // console.info('Trigger:', e.trigger);
-  var title = $(e.trigger).data('title');
-  window.functions.showTooltip(e.trigger, title + ' copied!');
-  window.functions.hideTooltip(e.trigger);
-  var giphyId = $(e.trigger).data('id');
-  window.functions.sumCopy(giphyId);
-  e.clearSelection();
-});
-clipboard.on('error', function (e) {
-  // console.error('Action:', e.action);
-  // console.error('Trigger:', e.trigger);
-  window.functions.showTooltip(e.trigger, fallbackMessage(e.action));
-  window.functions.hideTooltip(e.trigger);
-});
+var ClipboardJS = __webpack_require__(/*! clipboard */ "./node_modules/clipboard/dist/clipboard.js");
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
+
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -61851,6 +61870,35 @@ $.ajaxSetup({
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/**
+ * Initialization
+ */
+
+$(document).ready(function () {
+  // Init Clipboard
+  var clipboard = new ClipboardJS('.btn-clipboard');
+  clipboard.on('success', function (e) {
+    // console.info('Action:', e.action);
+    // console.info('Text:', e.text);
+    // console.info('Trigger:', e.trigger);
+    var title = $(e.trigger).data('title');
+    window.functions.showTooltip(e.trigger, title + ' copied!');
+    window.functions.hideTooltip(e.trigger);
+    var giphyId = $(e.trigger).data('id');
+    window.functions.sumCopy(giphyId);
+    e.clearSelection();
+  });
+  clipboard.on('error', function (e) {
+    // console.error('Action:', e.action);
+    // console.error('Trigger:', e.trigger);
+    window.functions.showTooltip(e.trigger, fallbackMessage(e.action));
+    window.functions.hideTooltip(e.trigger);
+  }); // Init select2
+  // $('.select2').select2({
+  //     placeholder: 'Select a value...'
+  // });
+});
 
 /***/ }),
 

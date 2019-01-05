@@ -19,6 +19,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $results = Giphy::where('title', 'LIKE', '%'.$term.'%')->take(6)->get();
+        $retval = [];
         foreach($results as $obj) {
             $retval[] = [
                 'id' => $obj->id,

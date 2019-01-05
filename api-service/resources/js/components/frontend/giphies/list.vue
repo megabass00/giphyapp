@@ -34,13 +34,13 @@
                         <td>
                             {{ giphy.description }}
                         </td>
-                        <td>
+                        <td class="actions">
                             <a href="#" @click="edit(giphy)">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" class="btn-clipboard">
+                            <button class="btn-clipboard text-primary" v-bind:data-clipboard-text="giphy.url" v-bind:data-title="giphy.title" v-bind:data-id="giphy.id">
                                 <i class="far fa-copy"></i>
-                            </a>
+                            </button>
                         </td>
                     </template>
                     <template v-else>
@@ -56,7 +56,7 @@
                         <td>
                             <textarea rows="3" class="form-control" v-model="giphy.description"></textarea>
                         </td>
-                        <td>
+                        <td class="actions">
                             <simple-spinner v-show="giphy.sending"></simple-spinner>
                             <a href="#" @click="update(giphy)">
                                 <i class="fas fa-check"></i>
@@ -87,6 +87,15 @@
     .giphies-table {
         margin-bottom: 20px;
     }
+    
+    .actions a {
+        margin-left: 6px;
+    }
+    .btn-clipboard {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
 </style>
 
 
@@ -103,11 +112,11 @@ export default {
     },
     created() {
         EventBus.$on('giphyAdded', data => {
-            this.giphies.data.unshift(data);
+            this.giphies.data.unshift(data)
         })
     },
     mounted() {
-        this.getResults();
+        this.getResults()
     },
     methods: {
         getResults(page = 1) {
@@ -117,6 +126,7 @@ export default {
                     this.loading = false
                     if (response.data.success) {
                         this.giphies = response.data.giphies
+                        this.initClipboard()
                     }else{
                         this.statusMsg = {
                             error: true,
@@ -161,6 +171,29 @@ export default {
                     error: true,
                     msg: 'Error '+ error.response.status +': '+ error.response.data.message
                 }
+            });
+        },
+        initClipboard: function() {
+            // Init Clipboard
+            var ClipboardJS = require('clipboard');
+            var clipboard = new ClipboardJS('.btn-clipboard');
+            clipboard.on('success', function(e) {
+                // console.info('Action:', e.action);
+                // console.info('Text:', e.text);
+                // console.info('Trigger:', e.trigger);
+                var title = $(e.trigger).data('title');
+                window.functions.showTooltip(e.trigger, title +' copied!');
+                window.functions.hideTooltip(e.trigger);
+
+                var giphyId = $(e.trigger).data('id');
+                window.functions.sumCopy(giphyId);
+                e.clearSelection();
+            });
+            clipboard.on('error', function(e) {
+                // console.error('Action:', e.action);
+                // console.error('Trigger:', e.trigger);
+                window.functions.showTooltip(e.trigger, fallbackMessage(e.action));
+                window.functions.hideTooltip(e.trigger);
             });
         }
     }

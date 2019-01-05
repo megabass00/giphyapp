@@ -1992,6 +1992,9 @@ html,body{
 /*
 * Footer
 */
+footer {
+    margin-top: 20px;
+}
 footer a {
     color: white;
 }

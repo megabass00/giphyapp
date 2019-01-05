@@ -8,7 +8,7 @@
             <div class="container container--add">
                 {{ Form::open(['url'=>'search-results', 'id'=>'search-form', 'method'=>'GET', 'class'=>'search']) }}
                     {{ Form::text('q', '', ['id'=>'q', 'placeholder'=>'Search your giphy...', 'class'=>'seach-field']) }}
-                    {{ Form::submit('Search', ['class'=>'btn btn-primary btn-search']) }}
+                    {{ Form::submit('Search', ['id'=>'search-button', 'class'=>'btn btn-primary btn-search']) }}
                 {{ Form::close() }}
             </div>
         </div>
@@ -31,6 +31,16 @@
             minLenght: 3,
             select: function(event, ui) {
                 $('#q').val(ui.item.value);
+            },
+            search: function( event, ui ) {
+                var $button = $('#search-button');
+                $button.prop('value', 'Searching...');
+                $button.prop("disabled", true);
+            },
+            response: function( event, ui ) {
+                var $button = $('#search-button');
+                $button.prop('value', 'Search');
+                $button.prop("disabled", false);
             }
         });
 

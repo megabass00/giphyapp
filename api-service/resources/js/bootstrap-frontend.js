@@ -59,29 +59,6 @@ window.functions = require('./src/functions.js');
 // Clipboard
 var ClipboardJS = require('clipboard');
 
-// Init Clipboard
-var clipboard = new ClipboardJS('.btn-clipboard');
-clipboard.on('success', function(e) {
-    // console.info('Action:', e.action);
-    // console.info('Text:', e.text);
-    // console.info('Trigger:', e.trigger);
-    var title = $(e.trigger).data('title');
-    window.functions.showTooltip(e.trigger, title +' copied!');
-    window.functions.hideTooltip(e.trigger);
-
-    var giphyId = $(e.trigger).data('id');
-    window.functions.sumCopy(giphyId);
-    e.clearSelection();
-});
-clipboard.on('error', function(e) {
-    // console.error('Action:', e.action);
-    // console.error('Trigger:', e.trigger);
-    window.functions.showTooltip(e.trigger, fallbackMessage(e.action));
-    window.functions.hideTooltip(e.trigger);
-});
-
-
-
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -133,3 +110,36 @@ $.ajaxSetup({ // add csrf-token to all ajax headers
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+/**
+ * Initialization
+ */
+$(document).ready(function() 
+{
+    // Init Clipboard
+    var clipboard = new ClipboardJS('.btn-clipboard');
+    clipboard.on('success', function(e) {
+        // console.info('Action:', e.action);
+        // console.info('Text:', e.text);
+        // console.info('Trigger:', e.trigger);
+        var title = $(e.trigger).data('title');
+        window.functions.showTooltip(e.trigger, title +' copied!');
+        window.functions.hideTooltip(e.trigger);
+
+        var giphyId = $(e.trigger).data('id');
+        window.functions.sumCopy(giphyId);
+        e.clearSelection();
+    });
+    clipboard.on('error', function(e) {
+        // console.error('Action:', e.action);
+        // console.error('Trigger:', e.trigger);
+        window.functions.showTooltip(e.trigger, fallbackMessage(e.action));
+        window.functions.hideTooltip(e.trigger);
+    });
+
+    // Init select2
+    // $('.select2').select2({
+    //     placeholder: 'Select a value...'
+    // });
+});
