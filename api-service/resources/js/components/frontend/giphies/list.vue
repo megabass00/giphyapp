@@ -103,7 +103,7 @@ export default {
     },
     created() {
         EventBus.$on('giphyAdded', data => {
-            this.giphies.push(data)
+            this.giphies.data.unshift(data);
         })
     },
     mounted() {

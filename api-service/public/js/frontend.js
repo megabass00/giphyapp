@@ -1995,7 +1995,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('giphyAdded', function (data) {
-      _this.giphies.push(data);
+      _this.giphies.data.unshift(data);
     });
   },
   mounted: function mounted() {
