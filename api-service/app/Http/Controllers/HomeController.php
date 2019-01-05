@@ -34,7 +34,7 @@ class HomeController extends Controller
     public function searchResults(Request $request)
     {
         $term = $request->query('q');
-        $results = Giphy::where('title', 'LIKE', '%'.$term.'%')->get();
+        $results = Giphy::with(['tags'])->where('title', 'LIKE', '%'.$term.'%')->get();
         return view('front.search-results')
                 ->with('results', $results);
     }

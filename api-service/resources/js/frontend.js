@@ -27,6 +27,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('list-of-giphies', require('./components/frontend/giphies/list.vue').default);
 Vue.component('add-giphy-btn', require('./components/frontend/giphies/add-btn.vue').default);
 Vue.component('create-giphy', require('./components/frontend/giphies/create.vue').default);
+Vue.component('giphie-card', require('./components/frontend/giphies/card.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

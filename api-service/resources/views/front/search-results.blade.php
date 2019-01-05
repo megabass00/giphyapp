@@ -30,23 +30,7 @@
             <div class="row">
                 @foreach ($results as $giphy)
                     <div class="col-lg-3">
-                        <div class="card" style="width: 100%;">
-                            <img class="card-img-top" src="{{ $giphy->url }}" alt="{{ $giphy->title }}">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    {{ $giphy->title }}
-                                </h5>
-                                <p class="card-text">
-                                    <small>
-                                        {{ $giphy->description }}
-                                    </small>
-                                </p>
-                                <input name="input-rating" class="rating-loading rating-giphy" value="{{ $giphy->rating }}" data-id="{{ $giphy->id }}">
-                                <a class="btn-rating">
-                                    Send rating                                
-                                </a>
-                            </div>
-                        </div>
+                        <giphie-card :giphy="{{ $giphy }}"></giphie-card>
                     </div>
                 @endforeach
             </div>
@@ -59,52 +43,9 @@
 <script type="text/javascript">
     $(document).ready(function() 
     {
-        initRatingFields();
         loadTopViewed();
     });
 
-
-    function initRatingFields() {
-        $('.rating-giphy').rating({
-            min: 0,
-            max: 5,
-            step: 1,
-            size: 'xs',
-            showClear: true,
-            showCaption: true,
-            clearButton: '<i class="fas fa-minus-circle"></i>',
-            emptyStar: '<i class="far fa-star"></i>',
-            filledStar: '<i class="fas fa-star"></i>'
-        });
-
-        $('.btn-rating').click(function() {
-            var $card = $(this).parent();
-            var $link = $(this);
-            var $inputRating = $card.find('input');
-            var rating = $card.find('input').val();
-            var giphyId = $card.find('input').data('id');
-            $link.text('Sending...');
-
-            $.ajax({
-                url: '/ajax/giphies/rating',
-                method:'POST',
-                data: {
-                    id: giphyId,
-                    rating: rating
-                },
-                success: function(data) { 
-                    if(data.success) { 
-                        $link.remove();
-                        $card.append('<div>Thanks for rating!</div>');
-                        $inputRating.rating('refresh', {disabled:true, showClear:false, showCaption:true});
-                    }   
-                }, 
-                fail: function() {
-                    console.log('ERROR');
-                } 
-            });
-        });
-    }
 
     function loadTopViewed() {
         var $container = $('.top-viewed-container');
