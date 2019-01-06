@@ -54,8 +54,6 @@ class HomeController extends Controller
     public function tagShow($name)
     {
         $tag = Tag::where('name',$name)->first();
-        // $tag->giphies();
-        // dd($tag->giphies);
         return view('front.tag-show')
                 ->with('tag', $tag);
     }

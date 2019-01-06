@@ -36,9 +36,13 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('Tags') !!}
-        {!! Form::select('tags[]', $tags, $selectedTags, ['class'=>'form-control select-tags', 'multiple']) !!}
-        {!! Form::button('New Tag', ['class'=>'btn btn-primary', 'data-toggle'=>'modal', 'data-target'=>'#newTag']) !!}
+        {!! Form::label('Tags') !!} 
+        <div class="input-group">
+            {!! Form::select('tags[]', $tags, $selectedTags, ['class'=>'form-control select-tags', 'multiple']) !!}
+            <span class="input-group-btn">
+                    {!! Form::button('New Tag', ['class'=>'btn btn-primary', 'data-toggle'=>'modal', 'data-target'=>'#newTag']) !!}
+            </span>
+        </div>
     </div>
 
     <div class="form-group">
@@ -68,7 +72,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                {!! Form::submit('Add Tag', ['class'=>'btn btn-primary new-tag-submit']) !!}
+                <button type="submit" class="btn btn-primary new-tag-submit">
+                    <simple-spinner></simple-spinner>
+                    Add Tag
+                </button>
             </div>
         </div>
     </div>
@@ -80,12 +87,15 @@
 @section('js')
     <script>
         $(document).ready(function() {
+            $('.simple-spinner-container').hide();
+
             $('.select-tags').select2({
                 placeholder: 'Select max 3 tags...',
                 maximumSelectionLength: 3
             });
 
             $('.new-tag-submit').click(function() {
+                $('.simple-spinner-container').show();
                 var modal = $('#newTag');
                 var name = modal.find('input[name="name"]').val();
                 var list = $('.select-tags');
@@ -96,15 +106,17 @@
                     type: 'POST',
                     url: '{{ url('admin/ajax/giphies/addTag') }}',
                     success: function(data) {
+                        $('.simple-spinner-container').hide();
                         if (data.success) {
                             var newTag = data.tag;
                             var newOption = new Option(newTag.name, newTag.id, false, false);
                             list.append(newOption).trigger('change');
                             modal.find('input[name="name"]').val('');
-                            modal.modal('toggle');
                         }
+                        modal.modal('toggle');
                     },
                     error: function() {
+                        $('.simple-spinner-container').hide();
                         alert('AJAX ERROR');
                         modal.modal('toggle');
                     }

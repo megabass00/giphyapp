@@ -15,7 +15,7 @@
 <body>
     @include('admin.templates.navbar')
     
-    <div class="container">
+    <div class="container" id="content">
         <div class="jumbotron mt-3">
             <h2>
                 @yield('title')

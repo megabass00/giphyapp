@@ -43,8 +43,12 @@
 
     <div class="form-group">
         {!! Form::label('Tags') !!}
-        {!! Form::select('tags[]', $tags, null, ['class'=>'form-control select-tags', 'multiple']) !!}
-        {!! Form::button('New Tag', ['class'=>'btn btn-primary', 'data-toggle'=>'modal', 'data-target'=>'#newTag']) !!}
+        <div class="input-group">
+            {!! Form::select('tags[]', $tags, null, ['class'=>'form-control select-tags', 'multiple']) !!}
+            <span class="input-group-btn">
+                {!! Form::button('New Tag', ['class'=>'btn btn-primary', 'data-toggle'=>'modal', 'data-target'=>'#newTag']) !!}
+            </span>
+        </div>
     </div>
 
     <div class="form-group">
