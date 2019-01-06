@@ -4,8 +4,7 @@ export function ajaxRequest(options, success, progress, error)
     if (options.selector) {
         var $selector = options.selector;
     }else{
-        console.log('No se ha recibido ningun selector');
-        return;
+        console.log('No se mostrara precarga');
     }
     if (options.url) {
         var url = options.url;
@@ -30,23 +29,25 @@ export function ajaxRequest(options, success, progress, error)
     }
 
 
-    var loaderHTML = '';
-    var uniqueId = new Date().getUTCMilliseconds();
-    if (loaderType == 'PROGRESS') {
-        loaderHTML = `
-            <div
-                id="ajax-loader-`+ uniqueId +`"
-                class="ldBar label-center"
-                style="width:50%;height:50%;margin:auto"
-                data-value="1"
-                data-preset="circle"
-            ></div>
-        `;
-    }else{
-        loaderHTML = '<div id="ajax-loader-'+ uniqueId +'" class="static-loader"></div>';
+    if ($selector) {
+        var loaderHTML = '';
+        var uniqueId = new Date().getUTCMilliseconds();
+        if (loaderType == 'PROGRESS') {
+            loaderHTML = `
+                <div
+                    id="ajax-loader-`+ uniqueId +`"
+                    class="ldBar label-center"
+                    style="width:50%;height:50%;margin:auto"
+                    data-value="1"
+                    data-preset="circle"
+                ></div>
+            `;
+        }else{
+            loaderHTML = '<div id="ajax-loader-'+ uniqueId +'" class="static-loader"></div>';
+        }
+        $selector.append(loaderHTML);
+        var $loader = $('#ajax-loader-'+ uniqueId);
     }
-    $selector.append(loaderHTML);
-    var $loader = $('#ajax-loader-'+ uniqueId);
 
     $.ajax({
         url: url,
@@ -74,10 +75,14 @@ export function ajaxRequest(options, success, progress, error)
             return xhr;
         }
     }).done(function (e) {
-        $loader.remove();
+        if ($loader) {
+            $loader.remove();
+        }
         success(e);
     }).fail(function (e) {
-        $loader.remove();
+        if ($loader) {
+            $loader.remove();
+        }
         error(e);
     });
 }

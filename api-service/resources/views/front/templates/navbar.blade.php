@@ -27,7 +27,7 @@
                         Menu  
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="nav-link" href="{{ url('/giphies-list') }}">
+                        <a class="nav-link" href="{{ url('/edit-profile') }}">
                             Edit Profile
                         </a>
                         <a class="nav-link" href="{{ url('/stadistics') }}">
@@ -68,9 +68,12 @@
             @endauth
         </ul>
         @auth
-            <ul class="navbar-nav ml-auto">
+            <div class="navbar-nav ml-auto d-flex align-items-center">
                 Welcome again master {{ Auth::user()->name }}!!!
-            </ul>
+                <div class="navbar-avatar">
+                    <img src="{{ Auth::user()->url_image }}" alt="{{ 'Master '.Auth::user()->name }}">
+                </div>
+            </div>
         @endauth
         <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search giphies!!!" aria-label="Search">

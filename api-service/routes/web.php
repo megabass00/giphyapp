@@ -17,10 +17,11 @@ Route::get('/consejo', 'HomeController@consejo')->name('consejo');
 
 Route::get('search-results', 'HomeController@searchResults');
 
+Route::get('tag/{name}', 'HomeController@tagShow');
 Route::match(['get','post'], 'giphies-list', 'HomeController@giphiesList')->middleware('auth');
+Route::match(['get','post'], 'edit-profile', 'HomeController@editUserProfile')->middleware('auth');
 Route::post('add-giphy', 'HomeController@addGiphy')->middleware('auth');
 Route::post('update-giphy', 'HomeController@updateGiphy')->middleware('auth');
-Route::get('tag/{name}', 'HomeController@tagShow');
 
 // LOGIN / LOGOUT //
 Route::get('/login', function() {
@@ -68,3 +69,4 @@ Route::get('ajax/giphies/autocomplete', 'HomeController@autocomplete');
 Route::post('ajax/giphies/topViewed', 'HomeController@topViewed');
 Route::post('ajax/giphies/masonryList', 'HomeController@masonryList');
 Route::post('ajax/tags/bestTags', 'HomeController@bestTags');
+Route::post('ajax/users/updateImage', 'HomeController@updateProfileImage')->middleware('auth');

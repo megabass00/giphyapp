@@ -16,7 +16,15 @@
                 <span>
                     {{ $tag->giphies->count() }}
                 </span>
-                results for <strong>#{{ $tag->name }}</strong>
+                @if($tag->giphies->count() <= 0)
+                    No giphies :(
+                @else
+                    @if($tag->giphies->count() <2)
+                        giphy for <strong>#{{ $tag->name }}</strong>
+                    @else
+                        giphies for <strong>#{{ $tag->name }}</strong>
+                    @endif
+                @endif
             </div>
             <div class="row">
                 @foreach ($tag->giphies as $giphy)

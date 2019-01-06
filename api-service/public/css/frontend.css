@@ -1991,8 +1991,26 @@ html,body{
 /*
 * Nav Links
 */
+.navbar {
+    padding: 0 !important;
+}
+
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
     color: #51ce00 !important;
+}
+
+.navbar-avatar img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: lightgray;
+    border: 2px solid darkgray;
+    margin-left: 20px;
+    margin-right: 10px;
+    transition: border 0.4s;
+}
+.navbar-avatar img:hover {
+    border: 3px solid #51ce00;
 }
 
 

@@ -3,7 +3,7 @@
         <h4 class="text-border">
             Best Tags
         </h4>
-        <spinner v-if="loading"></spinner>
+        <simple-spinner v-if="loading"></simple-spinner>
         <div class="d-flex justify-content-center tags" v-else>
             <div v-for="tag in tags" :key="'tag-'+tag.id">
                 <a :href="'/tag/'+tag.name" class="tag text-border">

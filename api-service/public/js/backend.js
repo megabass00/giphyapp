@@ -55466,8 +55466,7 @@ function ajaxRequest(options, success, progress, error) {
   if (options.selector) {
     var $selector = options.selector;
   } else {
-    console.log('No se ha recibido ningun selector');
-    return;
+    console.log('No se mostrara precarga');
   }
 
   if (options.url) {
@@ -55495,17 +55494,20 @@ function ajaxRequest(options, success, progress, error) {
     var data = {};
   }
 
-  var loaderHTML = '';
-  var uniqueId = new Date().getUTCMilliseconds();
+  if ($selector) {
+    var loaderHTML = '';
+    var uniqueId = new Date().getUTCMilliseconds();
 
-  if (loaderType == 'PROGRESS') {
-    loaderHTML = "\n            <div\n                id=\"ajax-loader-" + uniqueId + "\"\n                class=\"ldBar label-center\"\n                style=\"width:50%;height:50%;margin:auto\"\n                data-value=\"1\"\n                data-preset=\"circle\"\n            ></div>\n        ";
-  } else {
-    loaderHTML = '<div id="ajax-loader-' + uniqueId + '" class="static-loader"></div>';
+    if (loaderType == 'PROGRESS') {
+      loaderHTML = "\n                <div\n                    id=\"ajax-loader-" + uniqueId + "\"\n                    class=\"ldBar label-center\"\n                    style=\"width:50%;height:50%;margin:auto\"\n                    data-value=\"1\"\n                    data-preset=\"circle\"\n                ></div>\n            ";
+    } else {
+      loaderHTML = '<div id="ajax-loader-' + uniqueId + '" class="static-loader"></div>';
+    }
+
+    $selector.append(loaderHTML);
+    var $loader = $('#ajax-loader-' + uniqueId);
   }
 
-  $selector.append(loaderHTML);
-  var $loader = $('#ajax-loader-' + uniqueId);
   $.ajax({
     url: url,
     type: methodType,
@@ -55531,10 +55533,16 @@ function ajaxRequest(options, success, progress, error) {
       return xhr;
     }
   }).done(function (e) {
-    $loader.remove();
+    if ($loader) {
+      $loader.remove();
+    }
+
     success(e);
   }).fail(function (e) {
-    $loader.remove();
+    if ($loader) {
+      $loader.remove();
+    }
+
     error(e);
   });
 }
