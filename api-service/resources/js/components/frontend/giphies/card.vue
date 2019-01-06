@@ -14,7 +14,7 @@
                 {{ giphy.title }}
             </h5>
             <div class="tags">
-                <span v-for="tag in giphy.tags" :key="tag">
+                <span v-for="tag in giphy.tags" :key="'card-tag-'+tag.id">
                     #{{ tag.name }}
                 </span>
             </div>

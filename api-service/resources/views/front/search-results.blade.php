@@ -8,8 +8,6 @@
 
 @section('content')
 
-    <search-autocomplete></search-autocomplete>
-    
     <div class="row top-viewed">
         <div class="title">
             <h1 class="text-border">
@@ -24,6 +22,9 @@
             </div>
         </div>
     </div>
+
+    <best-tags></best-tags>
+    <search-autocomplete></search-autocomplete>
 
     <div class="row results">
         <div class="container">

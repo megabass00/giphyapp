@@ -10,7 +10,7 @@
         GiphyAPP | @yield('title', 'Default')
     </title>
 
-    <link rel="stylesheet" href="css/frontend.css">
+    <link rel="stylesheet" href="/css/frontend.css">
     @yield('css')
 </head>
 <body>
@@ -22,7 +22,7 @@
 
     @include('front.templates.footer')
 
-    <script src="js/frontend.js"></script>
+    <script src="/js/frontend.js"></script>
     @yield('js')
 
 </body>

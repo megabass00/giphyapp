@@ -30,6 +30,8 @@
         </div>
     </div>
 
+    <best-tags></best-tags>
+    
     <div class="row masonry-list">
         <div class="title">
             <h1 class="text-border">

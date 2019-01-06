@@ -1,0 +1,9 @@
+
+.results-info span {
+    margin-left: 15px;
+    margin-right: 5px;
+}
+.results-info strong {
+    margin-left: 5px;
+    color: #51ce00;
+}

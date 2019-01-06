@@ -24,6 +24,7 @@ Vue.component('spinner', require('./components/widgets/spinner.vue').default);
 Vue.component('simple-spinner', require('./components/widgets/simple-spinner.vue').default);
 Vue.component('search-autocomplete', require('./components/widgets/searcher.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('best-tags', require('./components/widgets/best-tags.vue').default);
 Vue.component('list-of-giphies', require('./components/frontend/giphies/list.vue').default);
 Vue.component('add-giphy-btn', require('./components/frontend/giphies/add-btn.vue').default);
 Vue.component('create-giphy', require('./components/frontend/giphies/create.vue').default);

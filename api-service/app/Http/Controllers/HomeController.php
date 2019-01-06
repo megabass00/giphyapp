@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\GiphyRequest;
 use App\Rules\ValidGiphyUrl;
 use App\Giphy;
+use App\Tag;
 
 class HomeController extends Controller
 {
@@ -37,6 +38,26 @@ class HomeController extends Controller
         $results = Giphy::with(['tags'])->where('title', 'LIKE', '%'.$term.'%')->get();
         return view('front.search-results')
                 ->with('results', $results);
+    }
+
+
+    public function bestTags(Request $request)
+    {
+        $tags = Tag::orderBy('id','ASC')->take(7)->get();
+        return response()->json([
+            'success' => true,
+            'tags' => $tags
+        ]);
+    }
+
+
+    public function tagShow($name)
+    {
+        $tag = Tag::where('name',$name)->first();
+        // $tag->giphies();
+        // dd($tag->giphies);
+        return view('front.tag-show')
+                ->with('tag', $tag);
     }
 
 

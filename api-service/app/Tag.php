@@ -10,6 +10,6 @@ class Tag extends Model
 
     public function giphies()
     {
-        return $this->hasMany(Tag::class);
+        return $this->belongsToMany(Giphy::class);
     }
 }
