@@ -1,0 +1,56 @@
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #000;
+    color: #51ce00;
+}
+
+#chat-container {
+    max-width: 600px;
+    margin: 30px auto;
+    border: 1px solid white;
+    /* box-shadow: 1px 3px 5px rgba(0, 0, 0, .5); */
+}
+
+#chat-window {
+    padding: 14px 0;
+    margin: 0 20px;
+    border-bottom: 1px solid white;
+    color: #555;
+}
+
+#output p {
+    color: white;
+    padding: 14px 0;
+    margin: 0 20px;
+}
+
+#actions p {
+    padding: 14px 0;
+    margin: 0 20px;
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+input {
+    padding: 10px 20px;
+    box-sizing: border-box;
+    font-size: 1.1em;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    border: 0;
+    background: #333;
+    display: block;
+    width: 100%;
+}
+
+#send {
+    background: white;
+    color: #51ce00;
+    font-size: 1.2em;
+    border: 0;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 0 0 2px 2px;
+
+}
