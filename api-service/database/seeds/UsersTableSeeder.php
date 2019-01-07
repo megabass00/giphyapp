@@ -85,6 +85,23 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => '2019-01-07 09:26:35',
                 'deleted_at' => NULL,
             ),
+            4 => 
+            array (
+                'id' => 5,
+                'type' => 'admin',
+                'name' => 'Miguel',
+                'last_name' => 'Regueton',
+                'image' => 'default.png',
+                'email' => 'miguelin@giphy.com',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$zuMj7Rr4FGm1IjzgHZ8qI.niXbs1gUcBEcyF2tU4kshteYfGXbFtS',
+                'active' => 0,
+                'activation_token' => '',
+                'remember_token' => NULL,
+                'created_at' => '2019-01-07 11:55:29',
+                'updated_at' => '2019-01-07 11:55:29',
+                'deleted_at' => NULL,
+            ),
         ));
         
         
