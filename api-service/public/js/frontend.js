@@ -64584,9 +64584,9 @@ var require;var require;(function e(t, n, r) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/luisizquierdo/Projects/api-service/resources/js/frontend.js */"./resources/js/frontend.js");
-__webpack_require__(/*! /Users/luisizquierdo/Projects/api-service/resources/sass/frontend.scss */"./resources/sass/frontend.scss");
-module.exports = __webpack_require__(/*! /Users/luisizquierdo/Projects/api-service/resources/sass/backend.scss */"./resources/sass/backend.scss");
+__webpack_require__(/*! /Users/luismaizquierdo/giphy/api-service/resources/js/frontend.js */"./resources/js/frontend.js");
+__webpack_require__(/*! /Users/luismaizquierdo/giphy/api-service/resources/sass/frontend.scss */"./resources/sass/frontend.scss");
+module.exports = __webpack_require__(/*! /Users/luismaizquierdo/giphy/api-service/resources/sass/backend.scss */"./resources/sass/backend.scss");
 
 
 /***/ })

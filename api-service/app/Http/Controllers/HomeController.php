@@ -170,7 +170,6 @@ class HomeController extends Controller
     public function editUserProfile(Request $request) //UserRequest
     {
         $user = User::find(Auth::user()->id);
-        // dd($user->url_image);
         if ($request->post()) 
         {
             $validator = Validator::make($request->all(), [

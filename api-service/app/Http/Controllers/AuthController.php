@@ -10,6 +10,7 @@ use App\Notifications\SignupActivate;
 
 class AuthController extends Controller
 {
+    
     public function signup(Request $request)
     {
         $request->validate([

@@ -56642,7 +56642,7 @@ var require;var require;(function e(t, n, r) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/luisizquierdo/Projects/api-service/resources/js/backend.js */"./resources/js/backend.js");
+module.exports = __webpack_require__(/*! /Users/luismaizquierdo/giphy/api-service/resources/js/backend.js */"./resources/js/backend.js");
 
 
 /***/ })
