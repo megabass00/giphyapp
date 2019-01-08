@@ -18,6 +18,7 @@ import { Event } from '../../services/chat.service';
 })
 export class ChatComponent implements OnInit {
   @ViewChild('contentScroll') private contentScroll: ElementRef;
+  @ViewChild('sendMessageInput') private sendMessageInput: ElementRef;
 
   // action = Action;
   idle: Idle;
@@ -43,6 +44,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.initIoConnection();
     // this.initAutoLogout();
+    this.sendMessageInput.nativeElement.focus();
   }
 
   // initialization
@@ -62,11 +64,11 @@ export class ChatComponent implements OnInit {
 
     this.chatService.onEvent(Event.CONNECT).subscribe(() => {
         console.log('connected');
-      });
+    });
       
     this.chatService.onEvent(Event.DISCONNECT).subscribe(() => {
         console.log('disconnected');
-      });
+    });
   }
 
   private initAutoLogout(): void {
@@ -105,17 +107,27 @@ export class ChatComponent implements OnInit {
   }
 
   public sendTyping(event: any): void {
-      // if (event) event.stopPropagation();
-      if (!this.newMsg) return;
-      var newMessage = this.newMsg.trim();
-      if (newMessage.length <= 0) return;
-      
-      this.chatService.sendTyping({
-        user: this.user,
-        content: '',
-        date: Date.now(),
-      });
-    }
+    // if (event) event.stopPropagation();
+    if (!this.newMsg) return;
+    var newMessage = this.newMsg.trim();
+    if (newMessage.length <= 0) return;
+    
+    this.chatService.sendTyping({
+      user: this.user,
+      content: '',
+      date: Date.now(),
+    });
+  }
+
+  public replyMessage(message: ChatMessage) {
+    console.log(message);
+    var replyHtml = `<p>
+      Reply to: ${ message.content }
+    </p>`;
+    this.newMsg = replyHtml;
+    // console.log(replyHtml);
+    // this.sendMessageInput.nativeElement.insertAdjacentHTML('afterbegin', replyHtml);
+  }
 
   public sendNotification(params: any, action: Action): void {
     let message: ChatMessage;

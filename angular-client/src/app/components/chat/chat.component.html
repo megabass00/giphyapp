@@ -82,7 +82,7 @@
         <div class="card-header msg_head">
           <div class="d-flex bd-highlight">
             <div class="img_cont">
-              <img src="https://devilsworkshop.org/files/2013/01/enlarged-facebook-profile-picture.jpg" class="rounded-circle user_img">
+              <img [src]="user.avatar" class="rounded-circle user_img">
               <span class="online_icon"></span>
             </div>
             <div class="user_info">
@@ -106,16 +106,20 @@
         </div>
         <div #contentScroll class="card-body msg_card_body">
             <!-- CONTENT -->
-            <div class="d-flex justify-content-start mb-4" *ngFor="let message of messages">
+            <div class="message-row d-flex justify-content-start mb-4" *ngFor="let message of messages">
               <div class="img_cont_msg">
                   <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
               </div>
-              <div class="msg_cotainer" [innerHTML]="message.content">
+              <div class="msg_cotainer">
+                <div class="msg_content" [innerHTML]="message.content"></div>
                 <span class="msg_time">
                   <!-- date:'medium' -->
-                  {{ message.date | date:'shortTime' }}
+                  {{ message.date | date:'medium' }}
                 </span>
               </div>
+              <button class="reply-btn" (click)="replyMessage(message)">
+                  <i class="fa fa-reply"></i>
+              </button>
             </div>
             <!-- end CONTENT -->
         </div>
@@ -125,7 +129,7 @@
             <div class="input-group-append">
               <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
             </div>
-            <textarea [(ngModel)]="newMsg" (keydown.enter)="sendMessage($event)" class="form-control type_msg" placeholder="Type your message..."></textarea>
+            <textarea #sendMessageInput [(ngModel)]="newMsg" [innerHTML]="newMsg" (keydown.enter)="sendMessage($event)" class="form-control type_msg" placeholder="Type your message..."></textarea>
             <div class="input-group-append">
               <button (click)="sendMessage()" class="input-group-text send_btn">
                 <i class="fas fa-location-arrow"></i>
