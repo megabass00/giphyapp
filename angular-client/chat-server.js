@@ -9,6 +9,8 @@ const port = process.env.PORT || 3000;
 
 var environment = { production: false };
 
+
+
 var staticPath = (environment.production) ? 'dist/angular-client' : 'app';
 app.use(express.static(path.join(__dirname, staticPath)));
 // app.use(express.static(path.join(__dirname, 'dist/angular-client')));
@@ -40,3 +42,21 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
     console.log(`Server running on port ${port}`); 
 });
+
+
+
+
+// this.ioConnection = this.socketService.onMessage()
+//     .subscribe((message: Message) => {
+//         this.messages.push(message);
+// });
+
+// this.socketService.onEvent(Event.CONNECT)
+//     .subscribe(() => {
+//     console.log('connected');
+// });
+    
+// this.socketService.onEvent(Event.DISCONNECT)
+//     .subscribe(() => {
+//     console.log('disconnected');
+// });

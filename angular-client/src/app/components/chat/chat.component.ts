@@ -1,7 +1,14 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 import { Idle } from 'idlejs/dist';
-import * as io from 'socket.io-client';
+// import * as io from 'socket.io-client';
 import { DatePipe } from '@angular/common';
+import { ChatService } from '../../services/chat.service';
+
+import { User } from '../../interfaces/user'
+import { ChatMessage } from '../../interfaces/chat-message'
+
+import { Action } from '../../services/chat.service';
+import { Event } from '../../services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -10,14 +17,146 @@ import { DatePipe } from '@angular/common';
   encapsulation: ViewEncapsulation.None,
 })
 export class ChatComponent implements OnInit {
-  
-  socket: SocketIOClient.Socket;
+  @ViewChild('contentScroll') private contentScroll: ElementRef;
+
+  // action = Action;
   idle: Idle;
-  newMsg: String;
-  content: String;
+  user: User;
+  ioConnection: any;
+  messages: ChatMessage[] = [];
+  messageContent: string;
+  newMsg: string;
+  content: string;
+
+  constructor(private chatService: ChatService) 
+  { 
+    this.user = {
+      id: 1,
+      masterName: 'Joda',
+      userName: 'Luisma',
+      avatar: 'https://i.pinimg.com/originals/9f/6b/75/9f6b7541d759a6677ab8611a4fa596a8.jpg'
+    };
+    // console.log(this.user);
+  }
+
+
+  ngOnInit(): void {
+    this.initIoConnection();
+    // this.initAutoLogout();
+  }
+
+  // initialization
+  private initIoConnection(): void {
+    this.chatService.initSocket();
+
+    this.ioConnection = this.chatService.onMessage().subscribe((message: ChatMessage) => {
+        this.messages.push(message);
+        // console.log(this.messages);
+    });
+
+    this.ioConnection = this.chatService.onType().subscribe((message: ChatMessage) => {
+        var msg = message.user.masterName+' is typing...';
+        // console.log(this.messages);
+    });
+    
+
+    this.chatService.onEvent(Event.CONNECT).subscribe(() => {
+        console.log('connected');
+      });
+      
+    this.chatService.onEvent(Event.DISCONNECT).subscribe(() => {
+        console.log('disconnected');
+      });
+  }
+
+  private initAutoLogout(): void {
+    this.idle = new Idle()
+      .whenNotInteractive()
+      .within(1)
+      .do(() => {
+        console.log('Closing tab after security time');
+        window.location.href = '/';
+      })
+      .start();
+  }
+
+
+  // public methods
+  public sendMessage(event: any): boolean {
+  // public sendMessage(message: string): void {
+      if (event) event.stopPropagation();
+      if (!this.newMsg) return false;
+      var newMessage = this.newMsg.trim();
+      if (newMessage.length <= 0) return false;
+      
+      newMessage = this.filterMessage(newMessage);
+      this.chatService.sendMessage({
+        user: this.user,
+        content: newMessage,
+        date: Date.now(),
+      });
+
+      this.newMsg = '';
+
+      try {
+          this.contentScroll.nativeElement.scrollTop = this.contentScroll.nativeElement.scrollHeight;
+      } catch(err) { }     
+      return false;
+  }
+
+  public sendTyping(event: any): void {
+      // if (event) event.stopPropagation();
+      if (!this.newMsg) return;
+      var newMessage = this.newMsg.trim();
+      if (newMessage.length <= 0) return;
+      
+      this.chatService.sendTyping({
+        user: this.user,
+        content: '',
+        date: Date.now(),
+      });
+    }
+
+  public sendNotification(params: any, action: Action): void {
+    let message: ChatMessage;
+
+    // if (action === Action.JOINED) {
+    //   message = {
+    //     user: this.user,
+    //     action: action
+    //   }
+    // } else if (action === Action.RENAME) {
+    //   message = {
+    //     action: action,
+    //     user: this.user
+    //   };
+    // }
+    message = {
+      user: this.user,
+      content: this.newMsg,
+      date: Date.now(),
+    }
+
+    this.chatService.sendMessage(message); 
+  }
+
+  public filterMessage(message: string): string {
+    var words = message.split(' ');
+    return words.map(word => {
+      if (word === word.toUpperCase()) {
+        return `<strong>${ word.toLowerCase() }</strong>`;
+      }else{
+        return word;
+      }
+    }).join(' ');
+  }
+  
+  /*socket: SocketIOClient.Socket;
+  idle: Idle;
+  newMsg: string;
+  content: string;
   messages: Array<any>;
     
-  
   constructor() {
     // this.socket = io.connect();
     this.socket = require('socket.io-client')('http://localhost:3000');
@@ -30,7 +169,7 @@ export class ChatComponent implements OnInit {
       .within(1)
       .do(() => {
         console.log('Closing tab after security time');
-        window.close();
+        window.location.href = 'http://google.es';
       })
       .start();
 
@@ -60,14 +199,15 @@ export class ChatComponent implements OnInit {
       console.log(this.content);
       console.log(this.messages);
     });
-  }
+  }*/
 
-  sendMesage() {
-    console.log('Clickkkk');
-    this.socket.emit('chat:message', {
-      message: this.newMsg,
-      user: 'Joda Master'
-    });
-    this.newMsg = '';
-  }
+  // sendMessage() {
+  //   console.log('Clickkkk');
+  //   let message: ChatMessage;
+  //   this.socket.emit('chat:message', {
+  //     user: this.user,
+  //     content: this.newMsg
+  //   });
+  //   this.newMsg = '';
+  // }
 }
