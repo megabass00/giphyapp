@@ -15,9 +15,9 @@ export class ListComponent implements OnInit {
 
   constructor(private giphyService: GiphiesService, private httpClient: HttpClient) {
     httpClient.get(this.API_URL + '/giphies')
-    .subscribe((data: Giphy[]) => {
-      console.log(data);
-      this.giphies = data;
+      .subscribe((data: Giphy[]) => {
+        console.log(data);
+        this.giphies = data;
     });
    }
 

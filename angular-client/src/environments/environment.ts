@@ -4,6 +4,9 @@
 
 export const environment = {
   production: false,
+  // apiUrl: 'http://192.168.14.111:8081/api/', // ofi
+  apiUrl: 'http://192.168.1.192:8081/', // casa
+  clientSecret: '',
   chatServerURL: location.protocol+'//'+location.hostname+':'+3000 //'http://localhost:3000'
 };
 

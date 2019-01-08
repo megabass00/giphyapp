@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { FormComponent } from './components/giphy/form/form.component';
 import { ListComponent } from './components/giphy/list/list.component';
@@ -9,6 +10,7 @@ import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'giphies/add', component: FormComponent},
   {path: 'giphies/list', component: ListComponent},
   {path: 'chat', component: ChatComponent},

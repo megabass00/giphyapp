@@ -122,7 +122,7 @@ export class ChatComponent implements OnInit {
   public replyMessage(message: ChatMessage) {
     console.log(message);
     var replyHtml = `<p>
-      Reply to: ${ message.content }
+      Reply to: (${ message.user.masterName }) ${ message.content }
     </p>`;
     this.newMsg = replyHtml;
     // console.log(replyHtml);
@@ -160,7 +160,9 @@ export class ChatComponent implements OnInit {
       }else{
         return word;
       }
-    }).join(' ');
+    })
+    .join(' ')
+    .replace(/(\\r\\n)|([\r\n])/gmi, '<br/>');
   }
   
   /*socket: SocketIOClient.Socket;

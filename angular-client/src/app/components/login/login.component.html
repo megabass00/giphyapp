@@ -1,0 +1,34 @@
+<div id="LoginForm">
+  <div class="container">
+    <div class="login-form">
+      <div class="main-div">
+        <div class="panel">
+          <h2>
+              Giphy<strong>APP</strong>
+          </h2>
+          <p>
+              Please enter your email and password
+          </p>
+        </div>
+        <div id="Login">
+            <div class="form-group">
+                <input [(ngModel)]="username" type="email" class="form-control" id="inputEmail" placeholder="Email Address">
+            </div>
+    
+            <div class="form-group">
+                <input [(ngModel)]="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+            </div>
+            <!-- <div class="forgot">
+              <a href="reset.html">Forgot password?</a>
+            </div> -->
+            <button (click)="login()" type="submit" class="btn btn-primary">
+                Login
+            </button>
+        </div>
+      </div>
+      <p class="botto-text">
+        Giphy<strong>APP</strong>
+      </p>
+    </div>
+  </div>
+</div>  
