@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-// import * as io from 'socket.io-client';
+import { Idle } from 'idlejs/dist';
+import * as io from 'socket.io-client';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -11,9 +12,11 @@ import { DatePipe } from '@angular/common';
 export class ChatComponent implements OnInit {
   
   socket: SocketIOClient.Socket;
-  newMsg: string;
-  content: string;
+  idle: Idle;
+  newMsg: String;
+  content: String;
   messages: Array<any>;
+    
   
   constructor() {
     // this.socket = io.connect();
@@ -21,6 +24,16 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
+    // close window after 10 minutes
+    this.idle = new Idle()
+      .whenNotInteractive()
+      .within(1)
+      .do(() => {
+        console.log('Closing tab after security time');
+        window.close();
+      })
+      .start();
+
     this.content = '';
     this.messages = new Array();
     this.socket.on('chat:message', function(data) {
