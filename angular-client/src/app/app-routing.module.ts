@@ -5,11 +5,13 @@ import { FormComponent } from './components/giphy/form/form.component';
 import { ListComponent } from './components/giphy/list/list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'giphies/add', component: FormComponent},
   {path: 'giphies/list', component: ListComponent},
+  {path: 'chat', component: ChatComponent},
   {path: '**', component: NotFoundComponent},
 ];
 
