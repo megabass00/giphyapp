@@ -74,7 +74,7 @@ export class ChatComponent implements OnInit {
   private initAutoLogout(): void {
     this.idle = new Idle()
       .whenNotInteractive()
-      .within(1)
+      .within(10)
       .do(() => {
         console.log('Closing tab after security time');
         window.location.href = '/';
