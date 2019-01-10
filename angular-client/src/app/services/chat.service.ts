@@ -35,7 +35,7 @@ export class ChatService {
   private socket;
 
   public initSocket(): void {
-      console.log(environment.chatServerURL);
+      console.log('Initializing chatService with server url: '+ environment.chatServerURL);
       this.socket = socketIo(environment.chatServerURL);
   }
 

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { FormComponent } from './components/giphy/form/form.component';
 import { ListComponent } from './components/giphy/list/list.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { LoginComponent } from './components/login/login.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SimpleSpinnerComponent } from './components/simple-spinner/simple-spinner.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { LoginComponent } from './components/login/login.component';
     FormComponent,
     ListComponent,
     ChatComponent,
-    LoginComponent
+    LoginComponent,
+    SpinnerComponent,
+    SimpleSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,11 @@ import { LoginComponent } from './components/login/login.component';
     HttpModule,
     HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    CookieService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

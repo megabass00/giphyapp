@@ -7,27 +7,42 @@
               Giphy<strong>APP</strong>
           </h2>
           <p>
-              Please enter your email and password
+              Dear jedi master enter your email and password please
           </p>
         </div>
         <div id="Login">
             <div class="form-group">
-                <input [(ngModel)]="username" type="email" class="form-control" id="inputEmail" placeholder="Email Address">
+                <input [(ngModel)]="Formdata.username" type="email" class="form-control" id="inputEmail" placeholder="Email Address">
             </div>
     
             <div class="form-group">
-                <input [(ngModel)]="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <input [(ngModel)]="Formdata.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
             </div>
-            <!-- <div class="forgot">
-              <a href="reset.html">Forgot password?</a>
-            </div> -->
+
+            <div class="remember-me">
+                <label><input type="checkbox" [(ngModel)]="Formdata.rememberme"> Remember me</label>
+            </div>
+
             <button (click)="login()" type="submit" class="btn btn-primary">
-                Login
+                <div *ngIf="sendind; else spinner">
+                    <app-simple-spinner></app-simple-spinner>
+                </div>
+                <ng-template #spinner>Login</ng-template>
             </button>
+
+            <div class="alert alert-danger error-message" role="alert" *ngIf="(validationError | json) != '{}'">
+                <strong>
+                    {{ validationError.message }}
+                </strong>
+            </div>
+
+            <div class="register">
+                If you don't have a account you can register <a href="/register">here</a>
+            </div>
         </div>
       </div>
       <p class="botto-text">
-        Giphy<strong>APP</strong>
+          Giphy<strong>APP</strong>
       </p>
     </div>
   </div>

@@ -24,6 +24,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
     "@fortawesome/free-solid-svg-icons": "^5.6.3",
     "angular-font-awesome": "^3.1.2",
+    "angular2-cookie": "^1.2.6",
     "ansi-regex": "^4.0.0",
     "bootstrap": "^4.0.0",
     "bootswatch": "^4.1.3",

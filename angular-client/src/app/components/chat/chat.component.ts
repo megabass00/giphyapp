@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
   user: User;
   ioConnection: any;
   messages: ChatMessage[] = [];
-  messageContent: string;
+  usersTyping: User[] = [];
   newMsg: string;
   content: string;
 
@@ -58,7 +58,9 @@ export class ChatComponent implements OnInit {
 
     this.ioConnection = this.chatService.onType().subscribe((message: ChatMessage) => {
         var msg = message.user.masterName+' is typing...';
-        // console.log(this.messages);
+        console.log(msg);
+        // this.usersTyping.push(message.user);
+        // console.log(this.usersTyping);
     });
     
 
@@ -84,6 +86,14 @@ export class ChatComponent implements OnInit {
 
 
   // public methods
+  public typeMessage(event: any) {
+    if (event.key === "Enter") {
+      this.sendMessage(event);
+    }else{
+      this.sendTyping(event);
+    }
+  }
+
   public sendMessage(event: any): boolean {
   // public sendMessage(message: string): void {
       if (event) event.stopPropagation();
@@ -107,14 +117,9 @@ export class ChatComponent implements OnInit {
   }
 
   public sendTyping(event: any): void {
-    // if (event) event.stopPropagation();
-    if (!this.newMsg) return;
-    var newMessage = this.newMsg.trim();
-    if (newMessage.length <= 0) return;
-    
     this.chatService.sendTyping({
       user: this.user,
-      content: '',
+      content: this.newMsg, 
       date: Date.now(),
     });
   }

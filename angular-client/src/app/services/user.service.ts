@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Http, Headers, Response } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment'
 import { User } from '../interfaces/user'
@@ -12,8 +12,6 @@ import { User } from '../interfaces/user'
 export class UserService {
 
   private apiUrl = environment.apiUrl;
-  // private oauthUrl = "http://server.techalin.com/oauth/token";
-  // private usersUrl = "http://server.techalin.com/api/users";
 
   constructor(private http: Http) { }
 
@@ -25,7 +23,7 @@ export class UserService {
 
     let postData = {
         grant_type: "password",
-        client_id: 2,
+        client_id: 2, // id dentro de oauth_clients
         client_secret: environment.clientSecret,
         username: username,
         password: password,
@@ -36,11 +34,18 @@ export class UserService {
         headers: headers
       })
       .pipe(
-        map((res: Response) => res.json()),
-        catchError((error: any) => Observable.throw(error.json().error || 'Server error'))
+        map(function(res: Response) {
+          var tokenJson = res.json();
+          localStorage.setItem('giphy_token', tokenJson);
+          console.log('AuthToken was saved ok');
+          return tokenJson;
+        }),
+        catchError(function(error: any) {
+          var errorJson = error.json();
+          console.log(errorJson);
+          return Observable.throw(errorJson || 'Server error')
+        })
       );
-        // .map((res: Response) => res.json())
-        // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   getUserData(accessToken: string): Observable<User[]> {
@@ -56,8 +61,6 @@ export class UserService {
         map((res: Response) => res.json()),
         catchError((error: any) => Observable.throw(error.json().error || 'Server error'))
       );
-        // .map((res: Response) => res.json())
-        // .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 }

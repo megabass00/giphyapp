@@ -37,26 +37,15 @@ io.on('connection', (socket) => {
        console.log(data);
        io.sockets.emit('chat:message', data);
     });
+
+    socket.on('chat:typing', (data) => {
+        console.log('Received typing from '+data.user.masterName);
+        // console.log(data);
+        // io.sockets.emit('chat:typing', data);
+        socket.broadcast.send('chat:typing', data);
+     });
 });
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`); 
 });
-
-
-
-
-// this.ioConnection = this.socketService.onMessage()
-//     .subscribe((message: Message) => {
-//         this.messages.push(message);
-// });
-
-// this.socketService.onEvent(Event.CONNECT)
-//     .subscribe(() => {
-//     console.log('connected');
-// });
-    
-// this.socketService.onEvent(Event.DISCONNECT)
-//     .subscribe(() => {
-//     console.log('disconnected');
-// });
