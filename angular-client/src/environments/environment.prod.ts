@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: '',
+  hostUrl: '',
   clientSecret: '',
   chatServerURL: 'http://localhost:3000'
 };

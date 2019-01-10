@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'angular2-cookie/core';
 import { UserService } from '../../services/user.service'
+import { LoggedUser } from '../../services/logged-user.service'
+import { User } from 'src/app/interfaces/user';
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-login',
@@ -13,7 +16,11 @@ export class LoginComponent implements OnInit {
   public validationError:any = {};
   public sendind:boolean = false;
 
-  constructor(private ws: UserService, private _cookieService:CookieService) {
+  constructor(
+    private ws: UserService, 
+    private _cookieService:CookieService,
+    private loggedUser:LoggedUser
+  ) {
     if(_cookieService.get('remember')) {
       this.Formdata.username = this._cookieService.get('username');
       this.Formdata.password = this._cookieService.get('password');
@@ -41,15 +48,34 @@ export class LoginComponent implements OnInit {
 
     this.ws.getAccessToken(username, password)
       .subscribe(
-        data => this.loginOk(data),
-        err => this.manageError(err),
-        // () => console.log('yay')
+        data => this.getUserData(data),
+        err => this.manageError(err)
     );
   }
 
-  private loginOk(data) {
+
+  private getUserData(data) {
+    console.log(data);
+    this.ws.getUserData(data.access_token)
+      .subscribe(
+        data => this.saveUserData(data),
+        err => this.manageError(err)
+    );
+  }
+
+  private saveUserData(data) {
     this.sendind = false;
-    console.log('Login OK, redirect to home');
+    console.log('Saving user data:');
+    console.log(data);
+    this.loggedUser.data = new User();
+    this.loggedUser.data.id = data.id;
+    this.loggedUser.data.type = data.type;
+    this.loggedUser.data.masterName = data.name;
+    this.loggedUser.data.userName = data.last_name;
+    this.loggedUser.data.email = data.email;
+    this.loggedUser.data.avatar = environment.hostUrl+ 'images/users/' +data.image;
+    
+    localStorage.setItem('giphyUser', JSON.stringify(this.loggedUser.data));
   }
 
   private manageError(error) {

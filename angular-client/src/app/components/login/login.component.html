@@ -23,7 +23,7 @@
                 <label><input type="checkbox" [(ngModel)]="Formdata.rememberme"> Remember me</label>
             </div>
 
-            <button (click)="login()" type="submit" class="btn btn-primary">
+            <button [disabled]="sendind" (click)="login()" type="submit" class="btn btn-primary">
                 <div *ngIf="sendind; else spinner">
                     <app-simple-spinner></app-simple-spinner>
                 </div>

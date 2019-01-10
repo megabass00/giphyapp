@@ -93,13 +93,13 @@ background-color: rgba(0,0,0,0.3) !important;
     height: 70px;
     width: 70px;
     border:1.5px solid #f5f6fa;
-
+    background: #bbb;
 }
 .user_img_msg{
     height: 40px;
     width: 40px;
     border:1.5px solid #f5f6fa;
-
+    background: #bbb;
 }
 .img_cont{
     position: relative;

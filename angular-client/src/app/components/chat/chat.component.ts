@@ -4,6 +4,7 @@ import { Idle } from 'idlejs/dist';
 import { DatePipe } from '@angular/common';
 import { ChatService } from '../../services/chat.service';
 
+import { LoggedUser } from '../../services/logged-user.service'
 import { User } from '../../interfaces/user'
 import { ChatMessage } from '../../interfaces/chat-message'
 
@@ -22,22 +23,22 @@ export class ChatComponent implements OnInit {
 
   // action = Action;
   idle: Idle;
-  user: User;
   ioConnection: any;
+
+  user: User;
   messages: ChatMessage[] = [];
+  usersConnected: User[] = [];
   usersTyping: User[] = [];
+
   newMsg: string;
   content: string;
 
-  constructor(private chatService: ChatService) 
+  constructor(
+    private chatService: ChatService,
+    private loggedUser: LoggedUser
+  ) 
   { 
-    this.user = {
-      id: 1,
-      masterName: 'Joda',
-      userName: 'Luisma',
-      avatar: 'https://i.pinimg.com/originals/9f/6b/75/9f6b7541d759a6677ab8611a4fa596a8.jpg'
-    };
-    // console.log(this.user);
+    this.user = this.loggedUser.data;
   }
 
 
@@ -51,6 +52,11 @@ export class ChatComponent implements OnInit {
   private initIoConnection(): void {
     this.chatService.initSocket();
 
+    this.ioConnection = this.chatService.onUserConnected().subscribe((message: ChatMessage) => {
+        // this.messages.push(message);
+        console.log(message);
+    });
+  
     this.ioConnection = this.chatService.onMessage().subscribe((message: ChatMessage) => {
         this.messages.push(message);
         // console.log(this.messages);
@@ -66,6 +72,8 @@ export class ChatComponent implements OnInit {
 
     this.chatService.onEvent(Event.CONNECT).subscribe(() => {
         console.log('connected');
+        this.usersConnected.push(this.user);
+        this.chatService.sendUser(this.user);
     });
       
     this.chatService.onEvent(Event.DISCONNECT).subscribe(() => {

@@ -29,42 +29,53 @@ export enum Event {
 })
 export class ChatService {
 
-  constructor() { }
+    constructor() { }
 
 
-  private socket;
+    private socket;
 
-  public initSocket(): void {
-      console.log('Initializing chatService with server url: '+ environment.chatServerURL);
-      this.socket = socketIo(environment.chatServerURL);
-  }
+    public initSocket(): void {
+        console.log('Initializing chatService with server url: '+ environment.chatServerURL);
+        this.socket = socketIo(environment.chatServerURL);
+    }
 
-  // sendind messages
-  public sendMessage(message: ChatMessage): void {
-      this.socket.emit('chat:message', message);
-  }
+    // sendind messages
+    public sendUser(user: User): void {
+        console.log('sendUser');
+        this.socket.emit('chat:user', user);
+    }
 
-  public onMessage(): Observable<ChatMessage> {
-      return new Observable<ChatMessage>(observer => {
-          this.socket.on('chat:message', (data: ChatMessage) => observer.next(data));
-      });
-  }
+    public onUserConnected(): Observable<ChatMessage> {
+        return new Observable<ChatMessage>(observer => {
+            this.socket.on('chat:user', (data: ChatMessage) => observer.next(data));
+        });
+    }
 
-  // someone is typing
-  public sendTyping(message: ChatMessage): void {
-    this.socket.emit('chat:typing', message);
-  }
+    public sendMessage(message: ChatMessage): void {
+        this.socket.emit('chat:message', message);
+    }
 
-  public onType(): Observable<ChatMessage> {
-      return new Observable<ChatMessage>(observer => {
-          this.socket.on('chat:typing', (data: ChatMessage) => observer.next(data));
-      });
-  }
+    public onMessage(): Observable<ChatMessage> {
+        return new Observable<ChatMessage>(observer => {
+            this.socket.on('chat:message', (data: ChatMessage) => observer.next(data));
+        });
+    }
 
-  // manage events
-  public onEvent(event: Event): Observable<any> {
-      return new Observable<Event>(observer => {
-          this.socket.on(event, () => observer.next());
-      });
-  }
+    // someone is typing
+    public sendTyping(message: ChatMessage): void {
+        this.socket.emit('chat:typing', message);
+    }
+
+    public onType(): Observable<ChatMessage> {
+        return new Observable<ChatMessage>(observer => {
+            this.socket.on('chat:typing', (data: ChatMessage) => observer.next(data));
+        });
+    }
+
+    // manage events
+    public onEvent(event: Event): Observable<any> {
+        return new Observable<Event>(observer => {
+            this.socket.on(event, () => observer.next());
+        });
+    }
 }

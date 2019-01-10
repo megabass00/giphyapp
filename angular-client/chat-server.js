@@ -44,6 +44,12 @@ io.on('connection', (socket) => {
         // io.sockets.emit('chat:typing', data);
         socket.broadcast.send('chat:typing', data);
      });
+
+    socket.on('chat:user', (data) => {
+        console.log('Received user');
+        console.log(data);
+        io.sockets.emit('chat:user', data);
+    });
 });
 
 server.listen(port, () => {
