@@ -49,12 +49,12 @@ export class LoginComponent implements OnInit {
 
   private loginOk(data) {
     this.sendind = false;
+    console.log('Login OK, redirect to home');
   }
 
   private manageError(error) {
     this.sendind = false;
     this.validationError = error;
-    console.log('Managing error');
-    console.log(error);
+    console.log('Managing error: '+ error.message);
   }
 }

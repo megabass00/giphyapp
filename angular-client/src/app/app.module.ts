@@ -17,6 +17,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { LoginComponent } from './components/login/login.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SimpleSpinnerComponent } from './components/simple-spinner/simple-spinner.component';
+import { LoggedUser } from './services/logged-user.service'
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SimpleSpinnerComponent } from './components/simple-spinner/simple-spinn
     HttpClientModule
   ],
   providers: [
-    CookieService
+    CookieService,
+    LoggedUser
   ],
   bootstrap: [
     AppComponent
