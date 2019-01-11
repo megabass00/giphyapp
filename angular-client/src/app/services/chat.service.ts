@@ -45,9 +45,10 @@ export class ChatService {
         this.socket.emit('chat:user', user);
     }
 
-    public onUserConnected(): Observable<ChatMessage> {
-        return new Observable<ChatMessage>(observer => {
-            this.socket.on('chat:user', (data: ChatMessage) => observer.next(data));
+    public onUserConnected(): Observable<User> {
+        return new Observable<User>(observer => {
+            console.log('New user connected');
+            this.socket.on('chat:user', (data: User) => observer.next(data));
         });
     }
 

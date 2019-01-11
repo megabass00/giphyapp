@@ -45,10 +45,11 @@ io.on('connection', (socket) => {
         socket.broadcast.send('chat:typing', data);
      });
 
-    socket.on('chat:user', (data) => {
+    socket.on('chat:user', (user) => {
         console.log('Received user');
-        console.log(data);
-        io.sockets.emit('chat:user', data);
+        console.log(user);
+        // io.sockets.emit('chat:user', user);
+        socket.broadcast.send('chat:user', user);
     });
 });
 

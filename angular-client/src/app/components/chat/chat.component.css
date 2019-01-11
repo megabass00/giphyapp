@@ -167,7 +167,7 @@ background-color: rgba(0,0,0,0.3) !important;
     background-color: #78e08f;
     padding: 10px;
     position: relative;
-    width: 100%;
+    /* width: 100%; */
 }
 .msg_content {
     width: 100%;

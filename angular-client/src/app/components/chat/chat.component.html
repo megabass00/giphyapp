@@ -20,7 +20,7 @@
               </div>
               <div class="user_info">
                 <span>{{ user.masterName }}</span>
-                <p>{{ user.email }}<br>is online</p>
+                <p>{{ user.email }}<br><strong>is online</strong></p>
               </div>
             </div>
           </li>
@@ -58,31 +58,40 @@
         </div>
         <div #contentScroll class="card-body msg_card_body">
             <!-- CONTENT -->
-            <div *ngIf="message.user.id===user.id; else reponse" class="message-row d-flex justify-content-start mb-4" *ngFor="let message of messages">
-              <div class="img_cont_msg">
-                  <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
-              </div>
-              <div class="msg_cotainer">
-                <div class="msg_content" [innerHTML]="message.content"></div>
-                <span class="msg_time">
-                  <!-- date:'medium' -->
-                  {{ message.date | date:'medium' }}
-                </span>
-              </div>
-              <button class="reply-btn" (click)="replyMessage(message)">
-                  <i class="fa fa-reply"></i>
-              </button>
+            <div *ngFor="let message of messages">
+              <div *ngIf="message.user.id===user.id; then send else response"></div>
+              <ng-template #send>
+                  <div class="justify-content-end message-row d-flex mb-4">
+                      <div class="msg_cotainer_send" [innerHTML]="message.content">
+                        <span class="msg_time_send">
+                          {{ message.date | date:'medium' }}
+                        </span>
+                      </div>
+                      <div class="img_cont_msg">
+                      <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+                    </div>
+                  </div>
+              </ng-template>
+              <ng-template #response>
+                  <div class="justify-content-start message-row d-flex mb-4">
+                      <div class="img_cont_msg">
+                          <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+                      </div>
+                      <div class="msg_cotainer">
+                        <div class="msg_content" [innerHTML]="message.content"></div>
+                        <span class="msg_time">
+                          <!-- date:'medium' -->
+                          {{ message.date | date:'medium' }}
+                        </span>
+                      </div>
+                      <button class="reply-btn" (click)="replyMessage(message)">
+                          <i class="fa fa-reply"></i>
+                      </button>
+                  </div>
+              </ng-template>
             </div>
-            <div #reponse class="message-row d-flex justify-content-end mb-4">
-								<div class="msg_cotainer_send" [innerHTML]="message.content">
-									<span class="msg_time_send">
-                    {{ message.date | date:'medium' }}
-                  </span>
-								</div>
-								<div class="img_cont_msg">
-                <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
-              </div>
-            </div>
+
+            
             <!-- end CONTENT -->
         </div>
         <!-- INPUT MSG -->
