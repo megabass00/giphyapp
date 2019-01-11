@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 var environment = { production: false };
-
+var usersConnected = {};
 
 
 var staticPath = (environment.production) ? 'dist/angular-client' : 'app';
@@ -46,10 +46,22 @@ io.on('connection', (socket) => {
      });
 
     socket.on('chat:user', (user) => {
-        console.log('Received user');
-        console.log(user);
-        // io.sockets.emit('chat:user', user);
-        socket.broadcast.send('chat:user', user);
+        console.log('Connected new user: '+ socket.id);
+        var identifier = socket.id;
+        usersConnected[identifier] = user;
+        // console.log(usersConnected);
+
+        var data = [];
+        for (let [key, user] of Object.entries(usersConnected)) {
+            console.log(user);
+            data.push(user);
+        }
+
+        var dataToSend = JSON.stringify(data);
+        // var dataToSend = JSON.stringify(usersConnected);
+        // console.log(dataToSend);
+        io.sockets.emit('chat:user', dataToSend);
+        // socket.broadcast.send('chat:user', dataToSend);
     });
 });
 

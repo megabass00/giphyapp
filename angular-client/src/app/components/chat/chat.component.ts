@@ -52,11 +52,16 @@ export class ChatComponent implements OnInit {
   private initIoConnection(): void {
     this.chatService.initSocket();
 
-    this.ioConnection = this.chatService.onUserConnected().subscribe((user: User) => {
-        this.usersConnected.push(user);
-        // console.log(user);
+    this.ioConnection = this.chatService.onUserConnected().subscribe((usersData: string) => {
         console.log('ADDING USER');
-        console.log(this.usersConnected);
+        console.log(usersData);  
+        var users = JSON.parse(usersData);
+        console.log(users);  
+        // this.usersConnected = users;
+        // console.log(this.usersConnected);  
+
+        // this.usersConnected.push(user);
+        // console.log(user);
     });
   
     this.ioConnection = this.chatService.onMessage().subscribe((message: ChatMessage) => {
@@ -74,7 +79,7 @@ export class ChatComponent implements OnInit {
 
     this.chatService.onEvent(Event.CONNECT).subscribe(() => {
         console.log('connected');
-        this.usersConnected.push(this.user);
+        // this.usersConnected.push(this.user);
         this.chatService.sendUser(this.user);
     });
       
