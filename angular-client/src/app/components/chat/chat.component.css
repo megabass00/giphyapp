@@ -56,9 +56,14 @@ border-radius: 0 0 15px 15px !important;
      box-shadow:none !important;
    outline:0px !important;
 }
+.input-group-append label {
+    padding: 0;
+    margin: 0;
+}
 .attach_btn{
-border-radius: 15px 0 0 15px !important;
-background-color: rgba(0,0,0,0.3) !important;
+    height: 100%;
+    border-radius: 15px 0 0 15px !important;
+    background-color: rgba(0,0,0,0.3) !important;
     border:0 !important;
     color: white !important;
     cursor: pointer;
@@ -179,7 +184,7 @@ background-color: rgba(0,0,0,0.3) !important;
     /* bottom: -15px; */
     margin-top: 12px;
     color: rgba(255,255,255,0.5);
-    font-size: 10px;
+    font-size: .7em;
 }
 .msg_time_send{
     position: absolute;
@@ -196,6 +201,24 @@ background-color: rgba(0,0,0,0.3) !important;
     border: none;
     color: white;
     cursor: pointer;
+}
+
+.content-file-container {
+    float: left;
+}
+.content-file-container img {
+    border-radius: 5px;
+    height: 50px;
+}
+.msg_fileinfo {
+    width: 100%;
+    margin-left: 10px;
+    color: rgba(255,255,255,0.5);
+    font-size: .9em;
+}
+
+.reply-msg {
+    font-style: italic;
 }
 
 .users-typing {

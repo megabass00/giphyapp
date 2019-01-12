@@ -39,9 +39,8 @@ export class ChatService {
         this.socket = socketIo(environment.chatServerURL);
     }
 
-    // sendind messages
+    // sendind user
     public sendUser(user: User): void {
-        console.log('sendUser');
         this.socket.emit('chat:user', user);
     }
 
@@ -52,6 +51,7 @@ export class ChatService {
         });
     }
 
+    // sendind messages
     public sendMessage(message: ChatMessage): void {
         this.socket.emit('chat:message', message);
     }
@@ -71,6 +71,28 @@ export class ChatService {
         return new Observable<string>(observer => {
             this.socket.on('chat:typing', (data:string) => observer.next(data));
         });
+    }
+
+    // sendind files
+    public sendFile(message: ChatMessage): void {
+        this.socket.emit('chat:file', message);
+    }
+
+    public onFile(): Observable<ChatMessage> {
+        return new Observable<ChatMessage>(observer => {
+            this.socket.on('chat:file', (data: ChatMessage) => observer.next(data));
+        });
+    }
+
+    // close all tabs
+    public sendCloseAllTabs(): void {
+        this.socket.emit('chat:closeAllTabs');
+    }
+
+    public onCloseAllTabs(): Observable<string> {
+        return new Observable<string>(observer => {
+            this.socket.on('chat:closeAllTabs', (data: string) => observer.next(data));
+        })
     }
 
 

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { PopoverModule } from 'ngx-popover'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,7 +39,8 @@ import { LoggedUser } from './services/logged-user.service'
     AppRoutingModule,
     FormsModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    PopoverModule
   ],
   providers: [
     CookieService,

@@ -49,54 +49,83 @@
           <span (click)="menu()" id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
           <div class="action_menu" *ngIf="showActionMenu">
             <ul>
-              <li><i class="fas fa-user-circle"></i> View profile</li>
-              <li><i class="fas fa-users"></i> Add to close friends</li>
-              <li><i class="fas fa-plus"></i> Add to group</li>
-              <li><i class="fas fa-ban"></i> Block</li>
+              <li><i class="fas fa-code"></i> Encript chatroom</li>
+              <li><i class="fas fa-fighter-jet"></i> Camouflage mode</li>
+              <li>
+                <i class="fas fa-times"></i>
+                <a (click)="closeAllTabs()">Close all tabs</a>
+              </li>
             </ul>
           </div>
         </div>
         <div #contentScroll class="card-body msg_card_body">
             <!-- CONTENT -->
             <div *ngFor="let message of messages">
-              <div *ngIf="message.user.id===user.id; then send; else response"></div>
-
-              <ng-template #send>
-                  <div class="justify-content-end message-row d-flex mb-4">
-                      <div class="msg_cotainer_send" [innerHTML]="message.content"></div>
-                      <div class="img_cont_msg">
-                      <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+              <div *ngIf="message.type===chatMessageType.FILE; then file; else text"></div>
+              <!-- TYPE FILE -->
+              <popover-content #filePreview 
+                placement="right"
+                [animation]="true" 
+                [closeOnMouseOutside]="true"
+                [closeOnClickOutside]="true" >
+                  <img [src]="message.content" height="400" width="400">
+              </popover-content>
+              <ng-template #file>
+                <div class="justify-content-start message-row d-flex mb-4">
+                  <div class="content-file-container">
+                    <button [popover]="filePreview" [popoverOnHover]="true">
+                      <img [src]="message.content" height="80">
+                    </button>
+                    <span class="msg_fileinfo">
+                        File from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
+                    </span>
+                  </div>
+                </div>
+              </ng-template>
+              <!-- end FILE -->
+              <!-- TYPE TEXT -->
+              <ng-template #text>
+                <div *ngIf="message.user.id===user.id; then send; else response"></div>
+                <ng-template #send>
+                    <div class="justify-content-end message-row d-flex mb-4">
+                        <div class="msg_cotainer_send" [innerHTML]="message.content"></div>
+                        <div class="img_cont_msg">
+                        <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+                      </div>
                     </div>
-                  </div>
+                </ng-template>
+                <ng-template #response>
+                    <div class="justify-content-start message-row d-flex mb-4">
+                        <div class="img_cont_msg">
+                            <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+                        </div>
+                        <div class="msg_cotainer">
+                          <div class="msg_content" [innerHTML]="message.content"></div>
+                          <span class="msg_time">
+                            <!-- date:'medium' -->
+                            {{ message.date | date:'medium' }}
+                          </span>
+                        </div>
+                        <button class="reply-btn" (click)="replyMessage(message)">
+                            <i class="fa fa-reply"></i>
+                        </button>
+                    </div>
+                </ng-template>
               </ng-template>
-              
-              <ng-template #response>
-                  <div class="justify-content-start message-row d-flex mb-4">
-                      <div class="img_cont_msg">
-                          <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
-                      </div>
-                      <div class="msg_cotainer">
-                        <div class="msg_content" [innerHTML]="message.content"></div>
-                        <span class="msg_time">
-                          <!-- date:'medium' -->
-                          {{ message.date | date:'medium' }}
-                        </span>
-                      </div>
-                      <button class="reply-btn" (click)="replyMessage(message)">
-                          <i class="fa fa-reply"></i>
-                      </button>
-                  </div>
-              </ng-template>
+              <!-- end TEXT -->
             </div>
-
-            
             <!-- end CONTENT -->
         </div>
         <!-- INPUT MSG -->
         <div class="card-footer">
           <div class="input-group">
             <div class="input-group-append">
-              <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+              <label>
+                <input type="file" (change)="sendInputFile($event)" accept="images/*" hidden>
+                <span class="input-group-text attach_btn">
+                  <i class="fas fa-paperclip"></i>
+                </span>
+              </label>
             </div>
             <textarea #sendMessageInput [(ngModel)]="newMsg" [innerHTML]="newMsg" (keydown)="typeMessage($event)" class="form-control type_msg" placeholder="Type your message..."></textarea>
             <div class="input-group-append">

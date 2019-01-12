@@ -43,6 +43,16 @@ io.on('connection', (socket) => {
             delete usersConnected[socket.id];
     });
 
+
+    socket.on('chat:user', (user) => {
+        var identifier = socket.id;
+        usersConnected[identifier] = user;
+        console.log('Added new user ('+ socket.id +') :: Users connected '+Object.keys(usersConnected).length);
+        var dataToSend = prepareJson(usersConnected);
+        io.sockets.emit('chat:user', dataToSend);
+        // socket.broadcast.send('chat:user', dataToSend);
+    });
+
     socket.on('chat:message', (data) => {
        console.log(data);
        io.sockets.emit('chat:message', data);
@@ -60,22 +70,16 @@ io.on('connection', (socket) => {
         var dataToSend = prepareJson(usersTyping);
         io.sockets.emit('chat:typing', dataToSend);
         // socket.broadcast.send('chat:typing', dataToSend);
-     });
+    });
 
-    socket.on('chat:user', (user) => {
-        var identifier = socket.id;
-        usersConnected[identifier] = user;
-        console.log('Added new user ('+ socket.id +') :: Users connected '+Object.keys(usersConnected).length);
-    
-        var data = [];
-        for (let [key, user] of Object.entries(usersConnected)) {
-            data.push(user);
-        }
-        var dataToSend = JSON.stringify(data);
-        // var dataToSend = JSON.stringify(usersConnected);
-        // console.log(dataToSend);
-        io.sockets.emit('chat:user', dataToSend);
-        // socket.broadcast.send('chat:user', dataToSend);
+    socket.on('chat:file', (data) => {
+        console.log('Reveived file from '+ data.user.masterName);
+        io.sockets.emit('chat:file', data);
+    });
+
+    socket.on('chat:closeAllTabs', () => {
+        console.log('Receved message to close all tabs');
+        io.sockets.emit('chat:closeAllTabs', 'closeTabs');
     });
 });
 
