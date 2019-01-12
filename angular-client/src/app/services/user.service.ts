@@ -39,7 +39,7 @@ export class UserService {
         map(function (res: Response) {
           var tokenJson = res.json();
           // console.log(tokenJson.access_token);
-          localStorage.setItem('giphyToken', tokenJson);
+          localStorage.setItem('giphyToken', tokenJson.access_token);
           console.log('AuthToken was saved ok');
           return tokenJson;
         }),
@@ -66,5 +66,5 @@ export class UserService {
         map((res: Response) => res.json()),
         catchError((error: any) => Observable.throw(error.json().error || 'Server error'))
       );
-  }
+  } 
 }

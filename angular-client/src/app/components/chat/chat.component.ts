@@ -1,15 +1,17 @@
 import { Component, Input, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 import { Idle } from 'idlejs/dist';
-// import * as io from 'socket.io-client';
 import { DatePipe } from '@angular/common';
 import { ChatService } from '../../services/chat.service';
+import { GiphiesService } from '../../services/giphies.service'
 
 import { LoggedUser } from '../../services/logged-user.service'
 import { User } from '../../interfaces/user'
+import { Giphy } from '../../interfaces/giphy'
 import { ChatMessage, ChatMessageType } from '../../interfaces/chat-message'
 
 import { Action } from '../../services/chat.service';
 import { Event } from '../../services/chat.service';
+import { from } from 'rxjs';
 
 
 @Component({
@@ -31,6 +33,7 @@ export class ChatComponent implements OnInit {
   messages: ChatMessage[] = [];
   usersConnected: User[] = [];
   usersTyping: User[] = [];
+  giphies: Giphy[] = [];
 
   showActionMenu: boolean = false;
   newMsg: string;
@@ -38,6 +41,7 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
+    private giphiesService: GiphiesService,
     private loggedUser: LoggedUser
   ) 
   { 
@@ -49,6 +53,7 @@ export class ChatComponent implements OnInit {
     this.initIoConnection();
     this.initAutoLogout();
     this.sendMessageInput.nativeElement.focus();
+    this.initGiphies();
   }
 
   // initialization
@@ -108,6 +113,14 @@ export class ChatComponent implements OnInit {
       .start();
   }
 
+  private initGiphies(): void {
+    console.log('Initializing giphies');
+    this.giphiesService.getGiphies().subscribe(
+      data => { this.giphies = data },
+      err => console.log(err)
+    );
+  }
+
   public menu() {
     this.showActionMenu = !this.showActionMenu;
   }
@@ -117,6 +130,12 @@ export class ChatComponent implements OnInit {
         this.contentScroll.nativeElement.scrollTop = this.contentScroll.nativeElement.scrollHeight;
     } catch(err) { }
   }
+
+
+  // giphies
+  // private loadGiphiesOnList(data) {
+    
+  // }
 
   
 

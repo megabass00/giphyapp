@@ -1,12 +1,10 @@
 <div class="chat-container container-fluid h-100">
   <div class="row justify-content-center h-100">
-    <div class="col-md-4 col-xl-3 chat"><div class="card mb-sm-3 mb-md-0 contacts_card">
+    <div class="col-md-3 col-xl-3 chat">
+      <div class="card mb-sm-3 mb-md-0 contacts_card">
       <div class="card-header">
-        <div class="input-group">
-          <input type="text" placeholder="Search..." name="" class="form-control search">
-          <div class="input-group-prepend">
-            <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
-          </div>
+        <div class="card-header-title">
+          Masters online now:
         </div>
       </div>
       <div class="card-body contacts_body">
@@ -28,8 +26,9 @@
         <!-- end CONTACTS -->
       </div>
       <div class="card-footer"></div>
-    </div></div>
-    <div class="col-md-8 col-xl-6 chat">
+      </div>
+    </div>
+    <div class="col-md-7 col-xl-6 chat">
       <div class="card">
         <div class="card-header msg_head">
           <div class="d-flex bd-highlight">
@@ -49,8 +48,12 @@
           <span (click)="menu()" id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
           <div class="action_menu" *ngIf="showActionMenu">
             <ul>
-              <li><i class="fas fa-code"></i> Encript chatroom</li>
-              <li><i class="fas fa-fighter-jet"></i> Camouflage mode</li>
+              <li>
+                <i class="fas fa-code"></i> Encript chatroom
+              </li>
+              <li>
+                <i class="fas fa-fighter-jet"></i> Camouflage mode
+              </li>
               <li>
                 <i class="fas fa-times"></i>
                 <a (click)="closeAllTabs()">Close all tabs</a>
@@ -74,7 +77,7 @@
                 <div class="justify-content-start message-row d-flex mb-4">
                   <div class="content-file-container">
                     <button [popover]="filePreview" [popoverOnHover]="true">
-                      <img [src]="message.content" height="80">
+                      <img [src]="message.content" height="40">
                     </button>
                     <span class="msg_fileinfo">
                         File from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
@@ -143,6 +146,38 @@
         </div>
         <!-- end INPUT MSG -->
       </div>
+    </div>
+    <div class="col-md-2 col-xl-3 chat">
+      <div class="card mb-sm-3 mb-md-0 contacts_card">
+          <div class="card-header">
+            <div class="input-group">
+              <input type="text" placeholder="Search your giphy..." name="" class="form-control search">
+              <div class="input-group-prepend">
+                <span (click)="searchGiphy()" class="input-group-text search_btn">
+                  <i class="fas fa-search"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body contacts_body">
+            <!-- CONTACTS -->
+            <ul id="contacts" class="contacts">
+                <li *ngFor="let giphy of giphies">
+                  <div class="d-flex bd-highlight">
+                    <div class="giphy_cont">
+                      <img [src]="giphy.url" class="giphy_img">
+                    </div>
+                    <div class="giphy_info">
+                      <div>{{ giphy.title }}</div>
+                      <p>{{ giphy.copies_number }} copies<br><strong>Rating: </strong> ({{ giphy.rating }})</p>
+                    </div>
+                  </div>
+                </li>
+            </ul>
+            <!-- end CONTACTS -->
+          </div>
+          <div class="card-footer"></div>
+        </div>
     </div>
   </div>
 </div>
