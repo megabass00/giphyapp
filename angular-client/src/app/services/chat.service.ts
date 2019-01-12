@@ -84,6 +84,17 @@ export class ChatService {
         });
     }
 
+    // sending giphies
+    public sendGiphy(message: ChatMessage): void {
+        this.socket.emit('chat:giphy', message);
+    }
+
+    public onGiphy(): Observable<ChatMessage> {
+        return new Observable<ChatMessage>(observer => {
+            this.socket.on('chat:giphy', (data: ChatMessage) => observer.next(data));
+        });
+    }
+
     // close all tabs
     public sendCloseAllTabs(): void {
         this.socket.emit('chat:closeAllTabs');

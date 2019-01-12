@@ -160,21 +160,22 @@
             </div>
           </div>
           <div class="card-body contacts_body">
-            <!-- CONTACTS -->
+            <app-spinner *ngIf="! initializedGiphies" message="Loading giphies from server..."></app-spinner>
+            <!-- GIPHY LIST-->
             <ul id="contacts" class="contacts">
                 <li *ngFor="let giphy of giphies">
                   <div class="d-flex bd-highlight">
-                    <div class="giphy_cont">
+                    <div (dblclick)="sendGiphy(giphy)" class="giphy_cont">
                       <img [src]="giphy.url" class="giphy_img">
                     </div>
                     <div class="giphy_info">
                       <div>{{ giphy.title }}</div>
-                      <p>{{ giphy.copies_number }} copies<br><strong>Rating: </strong> ({{ giphy.rating }})</p>
+                      <p>{{ giphy.copies_number }} copies<br><strong>{{ giphy.rating }}</strong> stars</p>
                     </div>
                   </div>
                 </li>
             </ul>
-            <!-- end CONTACTS -->
+            <!-- end GIPHY LIST -->
           </div>
           <div class="card-footer"></div>
         </div>

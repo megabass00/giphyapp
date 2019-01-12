@@ -1,4 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,10 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./spinner.component.css']
 })
 export class SpinnerComponent implements OnInit {
-  @Input() message = '';
+  @Input("message") message: string;
 
   constructor() { 
-    this.message = 'Loading...';
+    // this.message = 'Loading...';
   }
 
   ngOnInit() {

@@ -1,47 +1,27 @@
 
-.spinner {
-    width: 100px;
-    height: 100px;
-}
-
 .wrapper {
     width: 100%;
     height: 100%;
 }
 
 .overlay {
-    position: absolute;
-    z-index: 1002;
-    background-color: rgba(255, 255, 255, 0.5);
-    width: 100%;
-    height: 100%;
-}
-
-.spinner-wrapper {
     display: flex;
     justify-content: center;
     justify-items: center;
+    /* background-color: rgba(255, 255, 255, 0.5); */
 }
 
+.spinner-wrapper {
+    width: 30%;
+}
 
-.simple-spinner-container {
+.spinner {
+    margin: auto;
+}
+
+.spinner-message {
     text-align: center;
-    width: 100%;
-}
-.simple-spinner {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    border: 2px solid rgba(255,255,255,.3);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s ease-in-out infinite;
-    -webkit-animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
-}
-@-webkit-keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
+    color: white;
+    font-size: 1.1em;
+    white-space: pre-wrap;
 }

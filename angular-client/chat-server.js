@@ -77,6 +77,11 @@ io.on('connection', (socket) => {
         io.sockets.emit('chat:file', data);
     });
 
+    socket.on('chat:giphy', (data) => {
+        console.log('Reveived giphy from '+ data.user.masterName);
+        io.sockets.emit('chat:giphy', data);
+     });
+
     socket.on('chat:closeAllTabs', () => {
         console.log('Receved message to close all tabs');
         io.sockets.emit('chat:closeAllTabs', 'closeTabs');

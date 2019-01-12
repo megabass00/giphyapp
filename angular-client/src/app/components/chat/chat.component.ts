@@ -33,7 +33,9 @@ export class ChatComponent implements OnInit {
   messages: ChatMessage[] = [];
   usersConnected: User[] = [];
   usersTyping: User[] = [];
+
   giphies: Giphy[] = [];
+  initializedGiphies: boolean = false;
 
   showActionMenu: boolean = false;
   newMsg: string;
@@ -83,6 +85,11 @@ export class ChatComponent implements OnInit {
         this.messages.push(message);
     });
 
+    // giphy received
+    this.ioConnection = this.chatService.onGiphy().subscribe((message: ChatMessage) => {
+        this.messages.push(message);
+    });
+
 
     // close all tabs meesage
     this.ioConnection = this.chatService.onCloseAllTabs().subscribe((data: string) => {
@@ -116,7 +123,10 @@ export class ChatComponent implements OnInit {
   private initGiphies(): void {
     console.log('Initializing giphies');
     this.giphiesService.getGiphies().subscribe(
-      data => { this.giphies = data },
+      data => { 
+        this.giphies = data;
+        this.initializedGiphies = true;
+      },
       err => console.log(err)
     );
   }
@@ -210,6 +220,15 @@ export class ChatComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
     }
   } 
+
+  public sendGiphy(giphy) {
+    this.chatService.sendGiphy({
+      user: this.user,
+      date: Date.now(),
+      content: giphy,
+      type: ChatMessageType.GIPHY
+    })
+  }
 
   public closeAllTabs() {
     this.chatService.sendCloseAllTabs();

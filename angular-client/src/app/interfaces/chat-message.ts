@@ -3,7 +3,8 @@ import { User } from './user'
 
 export enum ChatMessageType {
     TEXT,
-    FILE
+    FILE,
+    GIPHY
 }
 export interface ChatMessage {
     date: Number,
