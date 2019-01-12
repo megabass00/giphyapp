@@ -9,28 +9,38 @@ const port = process.env.PORT || 3000;
 
 var environment = { production: false };
 var usersConnected = {};
+var usersTyping = {};
 
 
 var staticPath = (environment.production) ? 'dist/angular-client' : 'app';
 app.use(express.static(path.join(__dirname, staticPath)));
-// app.use(express.static(path.join(__dirname, 'dist/angular-client')));
-// app.use(express.static(path.join(__dirname, 'app')));
 
 var redirectPath = (environment.production) ? 'dist/angular-client/index.html' : 'src/index.html';
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, redirectPath));
-    // res.sendFile(path.join(__dirname, 'dist/angular-client/index.html'));
-    // res.sendFile(path.join(__dirname, 'src/index.html'));
 });
 
 const server = http.createServer(app);
 const io = socketIO.listen(server);
 
+
+function prepareJson(data) {
+    var retval = [];
+    for (let [key, user] of Object.entries(data)) {
+        retval.push(user);
+    }
+    return JSON.stringify(retval);
+}
+
+
 io.on('connection', (socket) => {
     console.log('New user connected: '+socket.id);
 
     socket.on('disconnect', () => {
-        console.log('User disconnected: '+socket.id);
+        console.log('User disconnected: '+socket.id +') :: Users connected '+Object.keys(usersConnected).length);
+        delete usersConnected[socket.id];
+        if (usersConnected[socket.id])
+            delete usersConnected[socket.id];
     });
 
     socket.on('chat:message', (data) => {
@@ -39,24 +49,28 @@ io.on('connection', (socket) => {
     });
 
     socket.on('chat:typing', (data) => {
-        console.log('Received typing from '+data.user.masterName);
-        // console.log(data);
-        // io.sockets.emit('chat:typing', data);
-        socket.broadcast.send('chat:typing', data);
+        if (!data.content) return;
+        console.log('Received typing from '+data.user.masterName+' ('+data.content+')');
+        var identifier = socket.id;
+        if (data.content.length > 1) {
+            usersTyping[identifier] = data.user;
+        }else{
+            delete usersTyping[identifier];
+        }
+        var dataToSend = prepareJson(usersTyping);
+        io.sockets.emit('chat:typing', dataToSend);
+        // socket.broadcast.send('chat:typing', dataToSend);
      });
 
     socket.on('chat:user', (user) => {
-        console.log('Connected new user: '+ socket.id);
         var identifier = socket.id;
         usersConnected[identifier] = user;
-        // console.log(usersConnected);
-
+        console.log('Added new user ('+ socket.id +') :: Users connected '+Object.keys(usersConnected).length);
+    
         var data = [];
         for (let [key, user] of Object.entries(usersConnected)) {
-            console.log(user);
             data.push(user);
         }
-
         var dataToSend = JSON.stringify(data);
         // var dataToSend = JSON.stringify(usersConnected);
         // console.log(dataToSend);

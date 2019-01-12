@@ -67,11 +67,12 @@ export class ChatService {
         this.socket.emit('chat:typing', message);
     }
 
-    public onType(): Observable<ChatMessage> {
-        return new Observable<ChatMessage>(observer => {
-            this.socket.on('chat:typing', (data: ChatMessage) => observer.next(data));
+    public onType(): Observable<string> {
+        return new Observable<string>(observer => {
+            this.socket.on('chat:typing', (data:string) => observer.next(data));
         });
     }
+
 
     // manage events
     public onEvent(event: Event): Observable<any> {

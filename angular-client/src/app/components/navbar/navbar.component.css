@@ -1,0 +1,13 @@
+.navbar-mastername {
+    color: white;
+    font-style: bold;
+    /* font-size: 1.2em; */
+}
+.navbar-mastername img {
+    margin-left: 15px;
+    border-radius: 50%;
+    background: #aaa;
+    border: 2px solid white;
+    width: 35px;
+    height: 35px;
+}

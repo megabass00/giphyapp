@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 import { Idle } from 'idlejs/dist';
 // import * as io from 'socket.io-client';
 import { DatePipe } from '@angular/common';
@@ -30,6 +30,7 @@ export class ChatComponent implements OnInit {
   usersConnected: User[] = [];
   usersTyping: User[] = [];
 
+  showActionMenu: boolean = false;
   newMsg: string;
   content: string;
 
@@ -44,7 +45,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.initIoConnection();
-    // this.initAutoLogout();
+    this.initAutoLogout();
     this.sendMessageInput.nativeElement.focus();
   }
 
@@ -52,34 +53,27 @@ export class ChatComponent implements OnInit {
   private initIoConnection(): void {
     this.chatService.initSocket();
 
+    // user reveived //
     this.ioConnection = this.chatService.onUserConnected().subscribe((usersData: string) => {
-        console.log('ADDING USER');
-        console.log(usersData);  
         var users = JSON.parse(usersData);
-        console.log(users);  
-        // this.usersConnected = users;
-        // console.log(this.usersConnected);  
-
-        // this.usersConnected.push(user);
-        // console.log(user);
-    });
-  
-    this.ioConnection = this.chatService.onMessage().subscribe((message: ChatMessage) => {
-        this.messages.push(message);
-        // console.log(this.messages);
-    });
-
-    this.ioConnection = this.chatService.onType().subscribe((message: ChatMessage) => {
-        var msg = message.user.masterName+' is typing...';
-        console.log(msg);
-        // this.usersTyping.push(message.user);
-        // console.log(this.usersTyping);
+        this.usersConnected = users;
     });
     
+    // message received //
+    this.ioConnection = this.chatService.onMessage().subscribe((message: ChatMessage) => {
+        this.messages.push(message);
+        this.scrollToBottom();
+    });
 
+    // type received //
+    this.ioConnection = this.chatService.onType().subscribe((usersData: string) => {
+        var users = JSON.parse(usersData);
+        this.usersTyping = users;
+    });
+    
+    // events //
     this.chatService.onEvent(Event.CONNECT).subscribe(() => {
         console.log('connected');
-        // this.usersConnected.push(this.user);
         this.chatService.sendUser(this.user);
     });
       
@@ -99,8 +93,31 @@ export class ChatComponent implements OnInit {
       .start();
   }
 
+  private menu() {
+    this.showActionMenu = !this.showActionMenu;
+  }
 
-  // public methods
+  private scrollToBottom() {
+    try {
+        this.contentScroll.nativeElement.scrollTop = this.contentScroll.nativeElement.scrollHeight;
+    } catch(err) { }
+  }
+
+  private _userTypingString = '';
+  @Input()
+  get userTypingString(): string { 
+    if (!this.usersTyping.length) return '';
+    var retval = '';    
+    for (var i=0; i<this.usersTyping.length; i++) {
+      var u:User = this.usersTyping[i];
+      retval += u.masterName+', ';
+    }
+    retval += (this.usersTyping.length > 1) ? ' are typing...' : ' is typing...';
+    return retval;
+  }
+
+
+  // chat methods
   public typeMessage(event: any) {
     if (event.key === "Enter") {
       this.sendMessage(event);
@@ -125,9 +142,7 @@ export class ChatComponent implements OnInit {
 
       this.newMsg = '';
 
-      try {
-          this.contentScroll.nativeElement.scrollTop = this.contentScroll.nativeElement.scrollHeight;
-      } catch(err) { }     
+      this.scrollToBottom();
       return false;
   }
 
@@ -184,64 +199,4 @@ export class ChatComponent implements OnInit {
     .join(' ')
     .replace(/(\\r\\n)|([\r\n])/gmi, '<br/>');
   }
-  
-  /*socket: SocketIOClient.Socket;
-  idle: Idle;
-  newMsg: string;
-  content: string;
-  messages: Array<any>;
-    
-  constructor() {
-    // this.socket = io.connect();
-    this.socket = require('socket.io-client')('http://localhost:3000');
-  }
-
-  ngOnInit() {
-    // close window after 10 minutes
-    this.idle = new Idle()
-      .whenNotInteractive()
-      .within(1)
-      .do(() => {
-        console.log('Closing tab after security time');
-        window.location.href = 'http://google.es';
-      })
-      .start();
-
-    this.content = '';
-    this.messages = new Array();
-    this.socket.on('chat:message', function(data) {
-      this.messages.push(data);
-      // console.log('New message received:');
-      var today = new Date().toString();
-      // var today = new DatePipe().transform(date, 'dd/MM/yyyy');
-      // console.log(today);
-      var li = `
-        <div class="d-flex justify-content-start mb-4">
-          <div class="img_cont_msg">
-            <img src="https://devilsworkshop.org/files/2013/01/enlarged-facebook-profile-picture.jpg" class="rounded-circle user_img_msg">
-          </div>
-          <div class="msg_cotainer">
-            ${ data.message }
-            <span class="msg_time">
-              ${ today }
-            </span>
-          </div>
-        </div>
-      `;
-      this.content += li;
-      // this.content += '<p>'+data.message+'</p>';
-      console.log(this.content);
-      console.log(this.messages);
-    });
-  }*/
-
-  // sendMessage() {
-  //   console.log('Clickkkk');
-  //   let message: ChatMessage;
-  //   this.socket.emit('chat:message', {
-  //     user: this.user,
-  //     content: this.newMsg
-  //   });
-  //   this.newMsg = '';
-  // }
 }

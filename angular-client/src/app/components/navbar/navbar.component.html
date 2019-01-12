@@ -8,21 +8,36 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" routerLink="/">Home</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/login">Login</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/giphies/list">List</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="giphies/add">Add Giphy</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="chat">Chat of Masters</a>
-      </li>
+      <ng-template
+        *ngIf="loggedUser; then menu; else login">
+      </ng-template>
+      <ng-template #login>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+      </ng-template>
+      <ng-template #menu>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Menu
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/giphies/list">List</a>
+            <a class="dropdown-item" href="/giphies/add">Add Giphy</a>
+            <a class="dropdown-item" href="chat">Chat of Masters</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/logout">Logout</a>
+          </div>
+        </li>
+      </ng-template>
     </ul>
+
+    <div *ngIf="loggedUser" class="navbar-mastername float-right">
+      Welcome Master {{ loggedUser.data.masterName }}
+      <img [src]="loggedUser.data.avatar">
+    </div>
   </div>
 </nav>

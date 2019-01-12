@@ -167,7 +167,6 @@ background-color: rgba(0,0,0,0.3) !important;
     background-color: #78e08f;
     padding: 10px;
     position: relative;
-    /* width: 100%; */
 }
 .msg_content {
     width: 100%;
@@ -199,6 +198,14 @@ background-color: rgba(0,0,0,0.3) !important;
     cursor: pointer;
 }
 
+.users-typing {
+    color: #bbb;
+    font-size: .8em;
+    height: 20px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
 #action_menu_btn{
     position: absolute;
     right: 10px;
@@ -216,7 +223,7 @@ background-color: rgba(0,0,0,0.3) !important;
     border-radius: 15px;
     top: 30px;
     right: 15px;
-    display: none;
+    /* display: none; */
 }
 .action_menu ul{
     list-style: none;
