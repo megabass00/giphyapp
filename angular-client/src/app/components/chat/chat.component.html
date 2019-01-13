@@ -30,6 +30,7 @@
     </div>
     <div class="col-md-7 col-xl-6 chat">
       <div class="card">
+        <!-- HEADER -->
         <div class="card-header msg_head">
           
           <file-drop headertext="" customstyle="drop-file-zone"
@@ -71,6 +72,7 @@
             </ul>
           </div>
         </div>
+        <!-- end HEADER -->
         <!-- CONTENT -->
         <div #contentScroll class="card-body msg_card_body">
             <!-- CONTENT -->
@@ -112,7 +114,7 @@
                         <img [src]="message.content" class="content-file-container-img">
                       </button>
                       <span class="msg_fileinfo">
-                          File from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
+                          <img src="{{ message.user.avatar }}" class="rounded-circle user_thumb_msg"> File from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
                       </span>
                     </div>
                   </div>
@@ -156,7 +158,7 @@
                         <img [src]="message.content.url" class="content-file-container-img">
                       </button>
                       <span class="msg_fileinfo">
-                          Giphy from <strong>{{ message.user.masterName }}</strong> <img src="{{ message.user.avatar }}" class="rounded-circle user_thumb_msg">at {{ message.date | date:'medium' }}
+                        <img src="{{ message.user.avatar }}" class="rounded-circle user_thumb_msg"> Giphy from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
                       </span>
                     </div>
                   </div>
@@ -165,19 +167,31 @@
                 <!-- LINK -->
                 <div *ngSwitchCase="chatMessageType.LINK">
                     <div class="justify-content-start message-row d-flex mb-4">
-                      <div class="img_cont_msg">
-                          <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+                      <div *ngIf="isImageLink(message.content); else linkContent">
+                          <div class="content-file-container">
+                            <button [popover]="filePreview" [popoverOnHover]="true">
+                              <img [src]="message.content" class="content-file-container-img">
+                            </button>
+                            <span class="msg_fileinfo">
+                                <img src="{{ message.user.avatar }}" class="rounded-circle user_thumb_msg"> Image Link from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
+                            </span>
+                          </div>
                       </div>
-                      <div class="link_cotainer">
-                        <!-- <span [popover]="linkPreview" [popoverOnHover]="true"> -->
-                          <a [href]="message.content" class="link-message" target="_blank">
-                              {{ message.content }}
-                          </a>
-                        <!-- </span> -->
-                        <span class="msg_fileinfo">
-                            Link from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
-                        </span>
-                      </div>
+                      <ng-template #linkContent>
+                        <div class="img_cont_msg">
+                            <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+                        </div>
+                        <div class="link_cotainer">
+                          <!-- <span [popover]="linkPreview" [popoverOnHover]="true"> -->
+                            <a [href]="message.content" class="link-message" target="_blank">
+                                {{ message.content }}
+                            </a>
+                          <!-- </span> -->
+                          <span class="msg_fileinfo">
+                              Link from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
+                          </span>
+                        </div>
+                      </ng-template>
                     </div>
                 </div>
                 <!-- end LINK -->

@@ -193,6 +193,7 @@ export class ChatComponent implements OnInit {
   }
 
 
+
   // chat methods
   public typeMessage(event: any) {
     if (event.key === "Enter") {
@@ -329,6 +330,23 @@ export class ChatComponent implements OnInit {
     })
     .join(' ')
     .replace(/(\\r\\n)|([\r\n])/gmi, '<br/>');
+  }
+
+  public isImageLink(link: string): boolean {
+    var extension = link.substr(link.lastIndexOf('.') + 1);
+    if (!extension) return false;
+    extension = extension.toLocaleLowerCase();
+    console.log(extension);
+    if (extension === 'jpg'
+      || extension === 'jpeg'
+      || extension === 'png'
+      || extension === 'gif'
+      || extension === 'svg')
+    {
+      return true;
+    }else{
+      return false;
+    }
   }
 
 
