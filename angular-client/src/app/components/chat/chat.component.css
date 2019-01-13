@@ -111,9 +111,57 @@ background-color: rgba(0,0,0,0.3) !important;
     border:1.5px solid #f5f6fa;
     background: #bbb;
 }
+.user_thumb_msg {
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    margin-right: 10px;
+    border:1.5px solid #f5f6fa;
+    /* background: #bbb; */
+}
+
+.preview-popover-content {
+    padding: 2px;
+}
+.file-preview {
+    /* width: 300px;
+    height: 300px; */
+    width: 100%;
+}
+.iframe-preview {
+    width: 200px;
+    height: 200px;
+}
+
 .giphy_cont {
     width: 30%;
+    position: relative;
 }
+.giphy_cont .send-giphy-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    color: black;
+    opacity: 0;
+    -webkit-transition: opacity 0.4s, color 0.4s;
+            transition: opacity 0.4s, color 0.4s;
+}
+.giphy_cont:hover .send-giphy-overlay {
+    display: block;
+    color: white;
+    opacity: 1;
+    background: rgba(0, 0, 0, .6);
+}
+.send-giphy-overlay {
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .giphy_img {
     border-radius: 7px;
     border: 1px solid white;
@@ -230,10 +278,37 @@ background-color: rgba(0,0,0,0.3) !important;
     cursor: pointer;
 }
 
+.link_cotainer{
+    margin-top: auto;
+    margin-bottom: auto;
+    /* margin-left: 10px; */
+    /* border-radius: 25px; */
+    /* background-color: #82ccdd; */
+    position: relative;
+}
+.link-message {
+    color: white;
+    font-style: italic;
+    font-size: 1em;
+    float: left;
+    padding: 10px;
+    width: 100%;
+    -webkit-transition: font-size 0.4s, color 0.4s;
+            transition: font-size 0.4s, color 0.4s;
+}
+.link-message:hover {
+    color: #51ce00;
+    /* font-size: 1.05em; */
+}
+
 .content-file-container {
     float: left;
 }
-.content-file-container img {
+.content-file-container button {
+    background: none;
+    border: none;
+}
+.content-file-container-img {
     border-radius: 5px;
     height: 50px;
 }
@@ -268,7 +343,7 @@ background-color: rgba(0,0,0,0.3) !important;
     z-index: 1;
     position: absolute;
     padding: 15px 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.8);
     color: white;
     border-radius: 15px;
     top: 30px;

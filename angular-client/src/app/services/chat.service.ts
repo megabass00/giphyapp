@@ -95,6 +95,17 @@ export class ChatService {
         });
     }
 
+    // sending links
+    public sendLink(message: ChatMessage): void {
+        this.socket.emit('chat:link', message);
+    }
+
+    public onLink(): Observable<ChatMessage> {
+        return new Observable<ChatMessage>(observer => {
+            this.socket.on('chat:link', (data: ChatMessage) => observer.next(data));
+        });
+    }
+
     // close all tabs
     public sendCloseAllTabs(): void {
         this.socket.emit('chat:closeAllTabs');

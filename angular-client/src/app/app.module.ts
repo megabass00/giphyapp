@@ -18,7 +18,8 @@ import { ChatComponent } from './components/chat/chat.component';
 import { LoginComponent } from './components/login/login.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SimpleSpinnerComponent } from './components/simple-spinner/simple-spinner.component';
-import { LoggedUser } from './services/logged-user.service'
+import { LoggedUser } from './services/logged-user.service';
+import { SafeUrlPipe } from './pipes/safe-url.pipe'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { LoggedUser } from './services/logged-user.service'
     ChatComponent,
     LoginComponent,
     SpinnerComponent,
-    SimpleSpinnerComponent
+    SimpleSpinnerComponent,
+    SafeUrlPipe
   ],
   imports: [
     BrowserModule,

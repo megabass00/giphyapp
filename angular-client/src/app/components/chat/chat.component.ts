@@ -35,6 +35,7 @@ export class ChatComponent implements OnInit {
   usersTyping: User[] = [];
 
   giphies: Giphy[] = [];
+  giphiesFiltered: Giphy[] = [];
   initializedGiphies: boolean = false;
 
   showActionMenu: boolean = false;
@@ -83,12 +84,20 @@ export class ChatComponent implements OnInit {
     // file received
     this.ioConnection = this.chatService.onFile().subscribe((message: ChatMessage) => {
         this.messages.push(message);
+        this.scrollToBottom();
     });
 
     // giphy received
     this.ioConnection = this.chatService.onGiphy().subscribe((message: ChatMessage) => {
         this.messages.push(message);
+        this.scrollToBottom();
     });
+
+    // link received
+    this.ioConnection = this.chatService.onLink().subscribe((message: ChatMessage) => {
+        this.messages.push(message);
+        this.scrollToBottom();
+    })
 
 
     // close all tabs meesage
@@ -124,7 +133,8 @@ export class ChatComponent implements OnInit {
     console.log('Initializing giphies');
     this.giphiesService.getGiphies().subscribe(
       data => { 
-        this.giphies = data;
+        console.log(data);
+        this.giphies = this.giphiesFiltered = data;
         this.initializedGiphies = true;
       },
       err => console.log(err)
@@ -141,13 +151,20 @@ export class ChatComponent implements OnInit {
     } catch(err) { }
   }
 
-
-  // giphies
-  // private loadGiphiesOnList(data) {
-    
-  // }
-
+  public clearMessages() {
+    this.messages = [];
+    this.showActionMenu = false;
+  }
   
+  public searchGiphy(event: any) {
+    var term = event.target.value;
+    if (!term || term==='') return;
+    term = term.toLowerCase();
+    console.log('Searching: '+ term);
+    this.giphiesFiltered = this.giphies.filter(
+      giphy => giphy.title.toLocaleLowerCase().includes(term)
+    );
+  }
 
   
   // custom properties
@@ -180,6 +197,24 @@ export class ChatComponent implements OnInit {
       if (!this.newMsg) return false;
       var newMessage = this.newMsg.trim();
       if (newMessage.length <= 0) return false;
+
+      if (newMessage.includes('http://') ||
+          newMessage.includes('https://')) 
+      {
+        console.log('URL detected!!!');
+        var urlRegex = /(https?:\/\/[^ ]*)/;
+        var link = newMessage.match(urlRegex)[1];
+        this.chatService.sendLink({
+          user: this.user,
+          date: Date.now(),
+          content: link,
+          type: ChatMessageType.LINK
+        });
+        this.newMsg = '';
+        this.scrollToBottom();
+        this.sendMessageInput.nativeElement.focus();
+        return false;
+      }
       
       newMessage = this.filterMessage(newMessage);
       this.chatService.sendMessage({
@@ -190,7 +225,6 @@ export class ChatComponent implements OnInit {
       });
 
       this.newMsg = '';
-
       this.scrollToBottom();
       return false;
   }
@@ -231,6 +265,7 @@ export class ChatComponent implements OnInit {
   }
 
   public closeAllTabs() {
+    this.showActionMenu = false;
     this.chatService.sendCloseAllTabs();
   }
 

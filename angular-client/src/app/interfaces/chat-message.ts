@@ -4,6 +4,7 @@ import { User } from './user'
 export enum ChatMessageType {
     TEXT,
     FILE,
+    LINK,
     GIPHY
 }
 export interface ChatMessage {

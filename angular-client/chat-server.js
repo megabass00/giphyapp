@@ -80,7 +80,12 @@ io.on('connection', (socket) => {
     socket.on('chat:giphy', (data) => {
         console.log('Reveived giphy from '+ data.user.masterName);
         io.sockets.emit('chat:giphy', data);
-     });
+    });
+
+    socket.on('chat:link', (data) => {
+        console.log('Reveived link from '+ data.user.masterName);
+        io.sockets.emit('chat:link', data);
+    });
 
     socket.on('chat:closeAllTabs', () => {
         console.log('Receved message to close all tabs');
