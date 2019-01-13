@@ -24,7 +24,6 @@
             ],
             "styles": [
               "./node_modules/bootswatch/dist/simplex/bootstrap.css",
-              "./node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css"
             ],
             "scripts": [

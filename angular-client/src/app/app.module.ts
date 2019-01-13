@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { PopoverModule } from 'ngx-popover'
+import { FileDropModule } from 'ngx-file-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SimpleSpinnerComponent } from './components/simple-spinner/simple-spinner.component';
 import { LoggedUser } from './services/logged-user.service';
+
 import { SafeUrlPipe } from './pipes/safe-url.pipe'
 
 @NgModule({
@@ -42,7 +44,8 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe'
     FormsModule,
     HttpModule,
     HttpClientModule,
-    PopoverModule
+    PopoverModule,
+    FileDropModule
   ],
   providers: [
     CookieService,

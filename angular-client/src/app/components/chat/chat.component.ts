@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 import { Idle } from 'idlejs/dist';
 import { DatePipe } from '@angular/common';
+import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+
 import { ChatService } from '../../services/chat.service';
 import { GiphiesService } from '../../services/giphies.service'
 
@@ -42,6 +44,8 @@ export class ChatComponent implements OnInit {
   showActionMenu: boolean = false;
   newMsg: string;
   content: string;
+  isDroppingFile: boolean = false;
+  
 
   constructor(
     private chatService: ChatService,
@@ -55,8 +59,8 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.initIoConnection();
-    this.initAutoLogout();
     this.sendMessageInput.nativeElement.focus();
+    this.initAutoLogout();
     this.initGiphies();
   }
 
@@ -245,20 +249,24 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  public sendFile(file): void {
+    var reader = new FileReader();
+    reader.onload = (e: any) => {
+      console.log('File readed OK');
+      // console.log(e.target.result)
+      this.chatService.sendFile({
+        user: this.user,
+        content: e.target.result,
+        date: Date.now(),
+        type: ChatMessageType.FILE
+      });
+    }
+    reader.readAsDataURL(file);
+  }
+
   public sendInputFile(event: any) {
     if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      reader.onload = (e: any) => {
-        console.log('File readed OK');
-        // console.log(e.target.result)
-        this.chatService.sendFile({
-          user: this.user,
-          content: e.target.result,
-          date: Date.now(),
-          type: ChatMessageType.FILE
-        });
-      }
-      reader.readAsDataURL(event.target.files[0]);
+      this.sendFile(event.target.files[0]);
     }
   } 
 
@@ -321,5 +329,46 @@ export class ChatComponent implements OnInit {
     })
     .join(' ')
     .replace(/(\\r\\n)|([\r\n])/gmi, '<br/>');
+  }
+
+
+  // file drop/drag
+  public dropped(event: UploadEvent) {
+    if (event.files.length > 1) {
+      alert('You only send one image file each time');
+      return;
+    }
+
+    var file:UploadFile = event.files[0];
+    if (file.fileEntry.isFile) {
+      const fileEntry = file.fileEntry as FileSystemFileEntry;
+      fileEntry.file((file: File) => {
+        // console.log(droppedFile.relativePath);
+        // console.log(file);
+        if (file.type.includes('jpg') 
+          || file.type.includes('jpeg')
+          || file.type.includes('png')
+          || file.type.includes('gif'))
+        {
+          this.sendFile(file);
+        }else{
+          alert('You can not send not image files');
+        }
+      });
+    } else {
+      const fileEntry = file.fileEntry as FileSystemDirectoryEntry;
+      console.log(file.relativePath, fileEntry);
+      alert('You must send a valid file');
+    }
+  }
+ 
+  public fileOver(event){
+    this.isDroppingFile = true;
+    // console.log(event);
+  }
+ 
+  public fileLeave(event){
+    this.isDroppingFile = true;
+    // console.log(event);
   }
 }

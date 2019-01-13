@@ -31,6 +31,12 @@
     <div class="col-md-7 col-xl-6 chat">
       <div class="card">
         <div class="card-header msg_head">
+          
+          <file-drop headertext="" customstyle="drop-file-zone"
+          (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+              <span>Drag and drop a image to send</span>
+          </file-drop>
+
           <div class="d-flex bd-highlight">
             <div class="img_cont">
               <img [src]="user.avatar" class="rounded-circle user_img">
@@ -65,6 +71,7 @@
             </ul>
           </div>
         </div>
+        <!-- CONTENT -->
         <div #contentScroll class="card-body msg_card_body">
             <!-- CONTENT -->
             <div *ngFor="let message of messages">
@@ -178,6 +185,7 @@
             </div>
             <!-- end CONTENT -->
         </div>
+        <!-- end CONTENT -->
         <!-- INPUT MSG -->
         <div class="card-footer">
           <div class="input-group">
@@ -235,7 +243,7 @@
                     </div>
                     <div class="giphy_info">
                       <div>{{ giphy.title }}</div>
-                      <p>{{ giphy.copies_number }} copies and <strong>{{ giphy.rating }}</strong> stars</p>
+                      <p>{{ giphy.copies_number }} copies / <strong>{{ giphy.rating }}</strong> stars</p>
                     </div>
                   </div>
                 </li>
