@@ -10,7 +10,13 @@ class ApiGiphyController extends Controller
     
     public function index()
     {
-        $giphies = Giphy::get();
+        $giphies = Giphy::select('id','title','url','rating','copies_number')
+                        ->with(['tags' => function($q) {
+                            $q->select('name');
+                        }])
+                        ->orderBy('copies_number','DESC')
+                        // ->limit(30)
+                        ->get();
         echo json_encode($giphies);
     }
 

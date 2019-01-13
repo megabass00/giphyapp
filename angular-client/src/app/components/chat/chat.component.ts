@@ -23,6 +23,7 @@ import { from } from 'rxjs';
 export class ChatComponent implements OnInit {
   @ViewChild('contentScroll') private contentScroll: ElementRef;
   @ViewChild('sendMessageInput') private sendMessageInput: ElementRef;
+  @ViewChild('searchGiphyInput') private searchGiphyInput: ElementRef;
 
   // action = Action;
   idle: Idle;
@@ -133,7 +134,7 @@ export class ChatComponent implements OnInit {
     console.log('Initializing giphies');
     this.giphiesService.getGiphies().subscribe(
       data => { 
-        console.log(data);
+        // console.log(data);
         this.giphies = this.giphiesFiltered = data;
         this.initializedGiphies = true;
       },
@@ -164,6 +165,12 @@ export class ChatComponent implements OnInit {
     this.giphiesFiltered = this.giphies.filter(
       giphy => giphy.title.toLocaleLowerCase().includes(term)
     );
+  }
+
+  public resetSearch() {
+    this.searchGiphyInput.nativeElement.value = '';
+    this.searchGiphyInput.nativeElement.focus();
+    this.giphiesFiltered = this.giphies;
   }
 
   

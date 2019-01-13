@@ -210,8 +210,11 @@
       <div class="card mb-sm-3 mb-md-0 contacts_card">
           <div class="card-header">
             <div class="input-group">
-              <input (input)="searchGiphy($event)" type="text" placeholder="Search your giphy..." name="" class="form-control search">
+              <input #searchGiphyInput (input)="searchGiphy($event)" type="text" placeholder="Search your giphy..." name="" class="form-control search">
               <div class="input-group-prepend">
+                <span (click)="resetSearch()" class="input-group-text reset_search_btn">
+                  <i class="fas fa-times"></i>
+                </span>
                 <span class="input-group-text search_btn">
                   <i class="fas fa-search"></i>
                 </span>
@@ -227,12 +230,12 @@
                     <div (dblclick)="sendGiphy(giphy)" class="giphy_cont">
                       <img [src]="giphy.url" class="giphy_img">
                       <div class="send-giphy-overlay" style="display:flex; align-items:center; justify-content:center;">
-                        Double click to send
+                        Double Click
                       </div>
                     </div>
                     <div class="giphy_info">
                       <div>{{ giphy.title }}</div>
-                      <p>{{ giphy.copies_number }} copies<br><strong>{{ giphy.rating }}</strong> stars</p>
+                      <p>{{ giphy.copies_number }} copies and <strong>{{ giphy.rating }}</strong> stars</p>
                     </div>
                   </div>
                 </li>
