@@ -84,6 +84,18 @@ export class ChatService {
         });
     }
 
+    public onFileUploaded(): Observable<string> {
+        return new Observable<string>(observer => {
+            this.socket.on('chat:fileUploaded', (data: string) => observer.next(data));
+        });
+    }
+
+    public onReceivingFile(): Observable<string> {
+        return new Observable<string>(observer => {
+            this.socket.on('chat:receivingFile', (data: string) => observer.next(data));
+        });
+    }
+
     // sending giphies
     public sendGiphy(message: ChatMessage): void {
         this.socket.emit('chat:giphy', message);

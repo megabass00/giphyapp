@@ -74,7 +74,9 @@ io.on('connection', (socket) => {
 
     socket.on('chat:file', (data) => {
         console.log('Reveived file from '+ data.user.masterName);
-        io.sockets.emit('chat:file', data);
+        socket.emit('chat:fileUploaded', 'File uploaded successfully in server');
+        io.sockets.emit('chat:receivingFile', 'Downloading file').emit('chat:file', data);
+        // io.sockets.emit('chat:file', data);
     });
 
     socket.on('chat:giphy', (data) => {

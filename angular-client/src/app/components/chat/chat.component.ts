@@ -44,6 +44,8 @@ export class ChatComponent implements OnInit {
   showActionMenu: boolean = false;
   newMsg: string;
   content: string;
+  fileUploading: boolean = false;
+  receivingFile: boolean = false;
   isDroppingFile: boolean = false;
   
 
@@ -86,10 +88,16 @@ export class ChatComponent implements OnInit {
         this.usersTyping = users;
     });
 
+    // receiving file
+    this.ioConnection = this.chatService.onReceivingFile().subscribe((message: string) => {
+        this.receivingFile = true;
+        console.log(message);
+    });
     // file received
     this.ioConnection = this.chatService.onFile().subscribe((message: ChatMessage) => {
         this.messages.push(message);
         this.scrollToBottom();
+        this.receivingFile = false;
     });
 
     // giphy received
@@ -251,15 +259,19 @@ export class ChatComponent implements OnInit {
   }
 
   public sendFile(file): void {
+    this.fileUploading = true;
     var reader = new FileReader();
     reader.onload = (e: any) => {
       console.log('File readed OK');
-      // console.log(e.target.result)
       this.chatService.sendFile({
         user: this.user,
         content: e.target.result,
         date: Date.now(),
         type: ChatMessageType.FILE
+      });
+      this.ioConnection = this.chatService.onFileUploaded().subscribe((data) => {
+        console.log(data);
+        this.fileUploading = false;
       });
     }
     reader.readAsDataURL(file);

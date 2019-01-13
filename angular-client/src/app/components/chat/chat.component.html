@@ -35,7 +35,8 @@
           
           <file-drop headertext="" customstyle="drop-file-zone"
           (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-              <span>Drag and drop a image to send</span>
+              <app-simple-spinner *ngIf="fileUploading"></app-simple-spinner>
+              <div class="drop-file-message">Drag and drop a image to send</div>
           </file-drop>
 
           <div class="d-flex bd-highlight">
@@ -200,6 +201,7 @@
             <!-- end CONTENT -->
         </div>
         <!-- end CONTENT -->
+        <app-simple-spinner *ngIf="receivingFile"></app-simple-spinner>
         <!-- INPUT MSG -->
         <div class="card-footer">
           <div class="input-group">

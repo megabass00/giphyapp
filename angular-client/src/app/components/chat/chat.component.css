@@ -67,15 +67,24 @@ border-radius: 0 0 15px 15px !important;
 .drop-file-zone:hover {
     color: #aaa !important;
 }
-.drop-file-zone .over {
-    opacity: 0 !important;
-    color: red !important;
-}
+/* .over {
+    opacity: 1 !important;
+    color: 51ce00 !important;
+} */
 .drop-file-zone .content {
     /* color: #51ce00 !important; */
     color: #888 !important;
+    display: inline !important;
+    text-align: center !important;
     font-size: .8em;
     font-style: italic;
+}
+.drop-file-message {
+    position: absolute;
+    bottom: 15%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 .type_msg{
     background-color: rgba(0,0,0,0.3) !important;
