@@ -213,7 +213,11 @@ export class ChatComponent implements OnInit {
 
   public sendMessage(event: any): boolean {
   // public sendMessage(message: string): void {
-      if (event) event.stopPropagation();
+      // if (event) event.stopPropagation();
+      if (event) {
+        event.preventDefault();
+        event. stopPropagation();
+      }
       if (!this.newMsg) return false;
       var newMessage = this.newMsg.trim();
       if (newMessage.length <= 0) return false;
@@ -231,7 +235,7 @@ export class ChatComponent implements OnInit {
           type: ChatMessageType.LINK
         });
         this.newMsg = '';
-        this.scrollToBottom();
+        // this.scrollToBottom();
         this.sendMessageInput.nativeElement.focus();
         return false;
       }
