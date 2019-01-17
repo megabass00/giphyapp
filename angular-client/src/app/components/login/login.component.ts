@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 import { CookieService } from 'angular2-cookie/core';
 import { UserService } from '../../services/user.service'
 import { LoggedUser } from '../../services/logged-user.service'
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private ws: UserService, 
     private _cookieService:CookieService,
-    private loggedUser:LoggedUser
+    private loggedUser:LoggedUser,
+    private router: Router
   ) {
     if(_cookieService.get('remember')) {
       this.Formdata.username = this._cookieService.get('username');
@@ -76,6 +78,7 @@ export class LoginComponent implements OnInit {
     this.loggedUser.data.avatar = environment.hostUrl+ 'images/users/' +data.image;
     
     localStorage.setItem('giphyUser', JSON.stringify(this.loggedUser.data));
+    this.router.navigate(['/']);
   }
 
   private manageError(error) {
