@@ -6,7 +6,6 @@ import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry 
 import { ChatService } from '../../services/chat.service';
 import { GiphiesService } from '../../services/giphies.service'
 
-import { LoggedUser } from '../../services/logged-user.service'
 import { User } from '../../interfaces/user'
 import { Giphy } from '../../interfaces/giphy'
 import { ChatMessage, ChatMessageType } from '../../interfaces/chat-message'
@@ -14,6 +13,7 @@ import { ChatMessage, ChatMessageType } from '../../interfaces/chat-message'
 import { Action } from '../../services/chat.service';
 import { Event } from '../../services/chat.service';
 import { from } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -52,10 +52,10 @@ export class ChatComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private giphiesService: GiphiesService,
-    private loggedUser: LoggedUser
+    private authService: UserService,
   ) 
   { 
-    this.user = this.loggedUser.data;
+    this.user = this.authService.userLogged;
   }
 
 

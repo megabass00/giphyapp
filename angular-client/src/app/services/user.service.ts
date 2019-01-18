@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input, Output, EventEmitter } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { map, catchError, concat } from 'rxjs/operators';
-import { environment } from '../../environments/environment'
-import { User } from '../interfaces/user'
+import { environment } from '../../environments/environment';
+import { User } from '../interfaces/user';
  
 
 @Injectable({
@@ -11,19 +12,21 @@ import { User } from '../interfaces/user'
 })
 export class UserService {
 
-  public isLoggedIn: boolean = false;
+  @Output() getLoggedIn: EventEmitter<any> = new EventEmitter();
+  public _isLoggedIn: boolean = false;
   public userLogged: User = null;
 
   private apiUrl = environment.hostUrl;
 
-  constructor(private http: Http) { 
-    // if (this.getUser()) {
-    //   this.userLogged = this.getUser();
-    //   console.log('Recover loggued user', this.userLogged);
-    //   this.isLoggedIn = true;
-    // }else{
-    //   this.isLoggedIn = false;
-    // }
+  constructor(private http: Http, private router: Router) { 
+    if (localStorage.getItem('giphyUser')) {
+      this.userLogged = this.getUser();
+      this.isLoggedIn = true;
+      console.log('Recover loggued user', this.userLogged);
+    }else{
+      this.isLoggedIn = false;
+      this.router.navigate(['/login']);
+    }
   }
 
   // public methods
@@ -83,6 +86,15 @@ export class UserService {
 
 
   // custom setter/getter
+  @Input() set isLoggedIn(v: boolean) {
+    this._isLoggedIn = v;
+    this.getLoggedIn.emit(v);
+  }
+
+  get isLoggedIn(): boolean {
+    return this._isLoggedIn;
+  }
+
   setToken(token: string): void {
     if (token) {
       localStorage.setItem('giphyToken', token);
@@ -96,6 +108,7 @@ export class UserService {
   setUser(user: User): void {
     if (user) {
       this.userLogged = user;
+      this.isLoggedIn = true;
       localStorage.setItem('giphyUser', JSON.stringify(user));
     }
   }

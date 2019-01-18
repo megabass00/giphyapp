@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit {
     user.avatar = environment.hostUrl+ 'images/users/' + data.image;
     
     this.ws.setUser(user);
-    this.ws.isLoggedIn = true;
     this.router.navigate(['/']);
   }
 

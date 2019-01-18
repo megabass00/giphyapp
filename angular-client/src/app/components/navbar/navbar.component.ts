@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoggedUser } from '../../services/logged-user.service'
 import { UserService } from '../../services/user.service'
 import { Router } from '@angular/router'
 
@@ -12,8 +11,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private authService: UserService, 
-    private loggedUser: LoggedUser,
-    private router: Router) { 
+    private router: Router) {
+      this.authService.getLoggedIn.subscribe(isLogged => this.isLogged = isLogged);  
   }
 
   private isLogged: boolean;
@@ -29,7 +28,6 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('giphyUser');
     this.authService.userLogged = null;
     this.authService.isLoggedIn = false;
-    this.loggedUser = null;
     this.router.navigate(['/login']);
   }
 
