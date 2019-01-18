@@ -28,9 +28,9 @@ export class UserService {
 
   // public methods
   login(username: string, password: string) {
-    var token$ = this.getAccessToken(username, password);
-    var user$ = this.getUserData();
-    return concat(token$, user$);
+    console.log('Login in...');
+    return this.getAccessToken(username, password)
+              .concatMap(token => this.getUserData(token));
   }
 
 
@@ -40,7 +40,6 @@ export class UserService {
         "Content-Type": "application/json",
         "Accept": "application/json"
     });
-
     let postData = {
         grant_type: "password",
         client_id: 2, // id dentro de oauth_clients
@@ -49,64 +48,38 @@ export class UserService {
         password: password,
         scope: ""
     }
-
     return this.http.post(this.apiUrl+'oauth/token', JSON.stringify(postData), {
         headers: headers
       })
       .pipe(
-        map(function (res: Response) {
-          var tokenJson = res.json();
-          // console.log(tokenJson.access_token);
-          localStorage.setItem('giphyToken', tokenJson.access_token);
-          console.log('AuthToken was saved ok');
-          return tokenJson;
-        }),
-        catchError(function(error: any) {
-          var errorJson = error.json();
-          console.log(errorJson);
-          return Observable.throw(errorJson || 'Server error');
-        })
+        map((res: Response) => this.saveTokenInMemory(res)),
+        catchError((error: any) => Observable.throw(error || 'Server error'))
       );
   }
 
-
-  getUserData(): Observable<User> {
+  getUserData(accessToken: string): Observable<User> {
     // console.log('Getting user data with token: '+ accessToken);
     var headers = new Headers({
         "Accept": "application/json",
-        "Authorization": "Bearer " + this.getToken(),
+        "Authorization": "Bearer " + accessToken,
     });
-
     return this.http.get(this.apiUrl+'api/user', {
         headers: headers
       })
       .pipe(
         map((res: Response) => res.json()),
-        catchError((error: any) => Observable.throw(error.json().error || 'Server error'))
+        catchError((error: any) => Observable.throw(error || 'Server error'))
       );
   } 
 
 
   // helpers
-  // private saveUserData(data) {
-  //   console.log('Saving user data', data);
-  //   this.userLogged = new User();
-  //   this.userLogged.id = data.id;
-  //   this.userLogged.type = data.type;
-  //   this.userLogged.masterName = data.name;
-  //   this.userLogged.userName = data.last_name;
-  //   this.userLogged.email = data.email;
-  //   this.userLogged.avatar = environment.hostUrl+ 'images/users/' +data.image;
-
-  //   this.setUser(this.userLogged);
-  //   // this.router.navigate(['/']);
-  // }
-
-  // private manageError(error) {
-  //   // this.sendind = false;
-  //   // this.validationError = error;
-  //   console.log('Managing error: '+ error.message);
-  // }
+  saveTokenInMemory(res: Response) {
+    var tokenJson = res.json();
+    this.setToken(tokenJson.access_token);
+    console.log('AuthToken was saved ok');
+    return tokenJson.access_token;
+  }
 
 
   // custom setter/getter
@@ -122,7 +95,8 @@ export class UserService {
 
   setUser(user: User): void {
     if (user) {
-      localStorage.setItem('giphyUser', JSON.stringify(user))
+      this.userLogged = user;
+      localStorage.setItem('giphyUser', JSON.stringify(user));
     }
   }
 

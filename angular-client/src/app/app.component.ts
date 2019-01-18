@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from './services/user.service';
 import { LoggedUser } from './services/logged-user.service';
+import { Router } from '@angular/router';
 // import { from } from 'rxjs';
 
 @Component({
@@ -11,7 +12,7 @@ import { LoggedUser } from './services/logged-user.service';
 export class AppComponent {
   title = 'GiphyAPP - Angular Client';
 
-  constructor(private loggedUser:LoggedUser, private authService: UserService) {
+  constructor(private loggedUser:LoggedUser, private authService: UserService, private router: Router) {
     if (this.authService.getUser()) {
       this.loggedUser.data = this.authService.getUser();
       this.authService.userLogged = this.authService.getUser();
@@ -20,6 +21,7 @@ export class AppComponent {
     }else{
       this.loggedUser = null;
       this.authService.isLoggedIn = false;
+      this.router.navigate(['/login']);
     }
   }
 }

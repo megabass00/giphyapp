@@ -48,47 +48,32 @@ export class LoginComponent implements OnInit {
     }
     this._cookieService.put('remember', this.Formdata.rememberme);
 
-    // this.ws.login(username, password)
-    //   .subscribe(
-    //     data => this.saveUserData(data),
-    //     err => this.manageError(err)
-    //   );
-    this.ws.getAccessToken(username, password)
-      .subscribe(
-        data => this.getUserData(data),
-        err => this.manageError(err)
-    );
-  }
-
-
-  private getUserData(data) {
-    console.log(data);
-    this.ws.getUserData()
+    this.ws.login(username, password)
       .subscribe(
         data => this.saveUserData(data),
         err => this.manageError(err)
-    );
+      );
   }
 
   private saveUserData(data) {
     this.sendind = false;
     console.log('Saving user data', data);
-    this.loggedUser.data = new User();
-    this.loggedUser.data.id = data.id;
-    this.loggedUser.data.type = data.type;
-    this.loggedUser.data.masterName = data.name;
-    this.loggedUser.data.userName = data.last_name;
-    this.loggedUser.data.email = data.email;
-    this.loggedUser.data.avatar = environment.hostUrl+ 'images/users/' +data.image;
+    var user = new User();
+    user.id = data.id;
+    user.type = data.type;
+    user.masterName = data.name;
+    user.userName = data.last_name;
+    user.email = data.email;
+    user.avatar = environment.hostUrl+ 'images/users/' + data.image;
     
-    // localStorage.setItem('giphyUser', JSON.stringify(this.loggedUser.data));
-    this.ws.setUser(this.loggedUser.data);
+    this.ws.setUser(user);
+    this.ws.isLoggedIn = true;
     this.router.navigate(['/']);
   }
 
   private manageError(error) {
+    console.log('Managing error', error);
     this.sendind = false;
-    this.validationError = error;
-    console.log('Managing error: '+ error.message);
+    this.validationError = error.json().error;
   }
 }
