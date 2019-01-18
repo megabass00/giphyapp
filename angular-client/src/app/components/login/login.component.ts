@@ -48,6 +48,11 @@ export class LoginComponent implements OnInit {
     }
     this._cookieService.put('remember', this.Formdata.rememberme);
 
+    // this.ws.login(username, password)
+    //   .subscribe(
+    //     data => this.saveUserData(data),
+    //     err => this.manageError(err)
+    //   );
     this.ws.getAccessToken(username, password)
       .subscribe(
         data => this.getUserData(data),
@@ -58,7 +63,7 @@ export class LoginComponent implements OnInit {
 
   private getUserData(data) {
     console.log(data);
-    this.ws.getUserData(data.access_token)
+    this.ws.getUserData()
       .subscribe(
         data => this.saveUserData(data),
         err => this.manageError(err)
@@ -67,8 +72,7 @@ export class LoginComponent implements OnInit {
 
   private saveUserData(data) {
     this.sendind = false;
-    console.log('Saving user data:');
-    console.log(data);
+    console.log('Saving user data', data);
     this.loggedUser.data = new User();
     this.loggedUser.data.id = data.id;
     this.loggedUser.data.type = data.type;
@@ -77,7 +81,8 @@ export class LoginComponent implements OnInit {
     this.loggedUser.data.email = data.email;
     this.loggedUser.data.avatar = environment.hostUrl+ 'images/users/' +data.image;
     
-    localStorage.setItem('giphyUser', JSON.stringify(this.loggedUser.data));
+    // localStorage.setItem('giphyUser', JSON.stringify(this.loggedUser.data));
+    this.ws.setUser(this.loggedUser.data);
     this.router.navigate(['/']);
   }
 

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { LoggedUser } from './services/logged-user.service'
+import { UserService } from './services/user.service';
+import { LoggedUser } from './services/logged-user.service';
+// import { from } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +11,15 @@ import { LoggedUser } from './services/logged-user.service'
 export class AppComponent {
   title = 'GiphyAPP - Angular Client';
 
-  constructor(private loggedUser:LoggedUser) {
-    if (localStorage.getItem('giphyUser')) {
-      this.loggedUser.data = JSON.parse(localStorage.getItem('giphyUser'));
-      console.log('Recover loggued user:');
-      console.log(this.loggedUser.data);
+  constructor(private loggedUser:LoggedUser, private authService: UserService) {
+    if (this.authService.getUser()) {
+      this.loggedUser.data = this.authService.getUser();
+      this.authService.userLogged = this.authService.getUser();
+      console.log('Recover loggued user', this.authService.userLogged);
+      this.authService.isLoggedIn = true;
+    }else{
+      this.loggedUser = null;
+      this.authService.isLoggedIn = false;
     }
   }
 }

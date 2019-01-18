@@ -8,11 +8,12 @@
 
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
+      {{ isLogged }}
       <li class="nav-item">
         <a class="nav-link" routerLink="/">Home</a>
       </li>
       <ng-template
-        *ngIf="loggedUser.data; then menu; else login">
+        *ngIf="isLogged; then menu; else login">
       </ng-template>
       <ng-template #login>
         <li class="nav-item">
@@ -36,7 +37,7 @@
       </ng-template>
     </ul>
 
-    <div *ngIf="loggedUser.data" class="navbar-mastername float-right">
+    <div *ngIf="isLogged" class="navbar-mastername float-right">
       Welcome Master {{ loggedUser.data.masterName }}
       <img [src]="loggedUser.data.avatar">
     </div>
