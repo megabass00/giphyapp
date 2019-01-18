@@ -12,7 +12,7 @@
         <a class="nav-link" routerLink="/">Home</a>
       </li>
       <ng-template
-        *ngIf="loggedUser; then menu; else login">
+        *ngIf="loggedUser.data; then menu; else login">
       </ng-template>
       <ng-template #login>
         <li class="nav-item">
@@ -27,15 +27,16 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/giphies/list">List</a>
             <a class="dropdown-item" href="/giphies/add">Add Giphy</a>
-            <a class="dropdown-item" href="chat">Chat of Masters</a>
+            <a class="dropdown-item" href="/chat">Chat of Masters</a>
+            <a class="dropdown-item" href="/edit-profile">Edit Profile</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/logout">Logout</a>
+            <a class="dropdown-item" (click)="logout($event)">Logout</a>
           </div>
         </li>
       </ng-template>
     </ul>
 
-    <div *ngIf="loggedUser" class="navbar-mastername float-right">
+    <div *ngIf="loggedUser.data" class="navbar-mastername float-right">
       Welcome Master {{ loggedUser.data.masterName }}
       <img [src]="loggedUser.data.avatar">
     </div>
