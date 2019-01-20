@@ -1,0 +1,220 @@
+.chat-nabbar {
+    height: 50px;
+    background-image: url('/assets/images/chat-teamwork-navbar.jpg');
+}
+
+.chat-container {
+    background: white;
+    margin: 0;
+    padding: 0;
+}
+
+.chat {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 500px;
+    /* border: 1px solid black; */
+}
+
+/* GIPHY LIST */
+.giphy-list-container {
+    background: #2c2c34;
+    overflow-y: auto;
+}
+.giphy-list-body {
+    padding:  0.75rem 0 !important;
+    /* white-space: nowrap; */
+}
+
+.giphy-list-header{
+    border-radius: 15px 15px 0 0 !important;
+    border-bottom: 0 !important;
+}
+.search {
+    background: #36363e;
+    border-radius: 10px, 10px, 0, 0;
+    border: none;
+    font-size: .8em;
+}
+.search:focus{
+    box-shadow:none !important;
+    outline:0px !important;
+}
+.reset_search_btn {
+    background: #36363e;
+    border:0 !important;
+    color: white !important;
+    cursor: pointer;
+}
+.search_btn{
+    border-radius: 0 10px 10px 0 !important;
+    background: #36363e;
+    border:0 !important;
+    color: white !important;
+    /* cursor: pointer; */
+}
+
+.giphy_cont {
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+}
+.giphy_img {
+    border-radius: 7px;
+    border: 1px solid white;
+    width: 100%;
+}
+.giphy_info{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15px;
+    width: 70%;
+}
+.giphy_info div{
+    font-size: 10px;
+    color: white;
+}
+.giphy_info p{
+    font-size: 8px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0;
+}
+
+.giphy-list-footer {
+    display: inline;
+}
+.img_cont{
+    position: relative;
+    height: 30px;
+    width: 30px;
+}
+.img_cont_msg{
+    height: 40px;
+    width: 40px;
+}
+.user_img {
+    background: #660a00;
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+.user_info{
+    font-size: 9px;
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5px;
+}
+.online_icon{
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    background-color: #4cd137;
+    border-radius: 50%;
+    bottom: 0.2em;
+    right: 0.4em;
+}
+
+
+/* CHAT CONTENT */
+.chat-content-container {
+    background: white;
+}
+
+
+
+.content-footer {
+    border: 1px solid #e8e8e8;
+    border-radius: 7px;
+}
+
+.content-footer .input-group .form-control {
+    border: none;
+}
+.content-footer label {
+    margin: 0;
+}
+.content-footer span, .content-footer button {
+    height: 100%;
+    color: #7a808d;
+    background: none;
+    border: none;
+}
+.content-footer span {
+    background: #eee;
+}
+.attach_btn {
+    min-width: 40px;
+    justify-content: center;
+}
+.type_msg::placeholder {
+    color: #bfbfbf;
+}
+#send-message-face-icon {
+    color: #bbb;
+    background: none;
+    display: flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+}
+.send_btn {
+    color: #ddd !important;
+}
+
+
+/* CONTACTS */
+.contacts-list-container {
+    background: white;
+}
+
+.contacts-header {
+    background: white;
+    text-align: center;
+}
+.contacts-header .card-header-title {
+    color: #535353;
+    font-size: 15px;
+}
+.contacts-header .card-header-body {
+    margin-top: 10px;
+    color: #9f9f9f;
+    font-size: 10px;
+}
+.contacts-header .card-header-footer {
+    margin-top: 20px;
+    color: #9f9f9f;
+    font-size: 10px;
+}
+
+.contacts{
+    list-style: none;
+    padding: 0;
+}
+.contacts li{
+    width: 100% !important;
+    padding: 5px 10px;
+    margin-bottom: 15px !important;
+}
+.contacts li p {
+    margin-bottom: 0;
+}
+.contact_info {
+    color: black;
+    font-size: 11px;
+    margin-left: 5px;
+}
+.contacts_body {
+    background: white;
+}
+
+
+/* TEAMWORK */
+.teamwork-icons {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    height: 50px;
+    color: white;
+    font-size: 1.2em;
+    background: #2c2c34;
+}

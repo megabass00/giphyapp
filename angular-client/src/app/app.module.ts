@@ -19,9 +19,9 @@ import { ChatComponent } from './components/chat/chat.component';
 import { LoginComponent } from './components/login/login.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SimpleSpinnerComponent } from './components/simple-spinner/simple-spinner.component';
-import { LoggedUser } from './services/logged-user.service';
 
-import { SafeUrlPipe } from './pipes/safe-url.pipe'
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { ChatCamouflageComponent } from './components/chat-camouflage/chat-camouflage.component'
 
 @NgModule({
   declarations: [
@@ -33,10 +33,11 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe'
     FormComponent,
     ListComponent,
     ChatComponent,
+    ChatCamouflageComponent,
     LoginComponent,
     SpinnerComponent,
     SimpleSpinnerComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,6 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe'
   ],
   providers: [
     CookieService,
-    LoggedUser
   ],
   bootstrap: [
     AppComponent

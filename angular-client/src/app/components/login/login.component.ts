@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { CookieService } from 'angular2-cookie/core';
 import { UserService } from '../../services/user.service'
-import { LoggedUser } from '../../services/logged-user.service'
 import { User } from 'src/app/interfaces/user';
 import { environment } from '../../../environments/environment'
 
@@ -20,7 +19,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private ws: UserService, 
     private _cookieService:CookieService,
-    private loggedUser:LoggedUser,
     private router: Router
   ) {
     if(_cookieService.get('remember')) {

@@ -9,13 +9,15 @@ import { ListComponent } from './components/giphy/list/list.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChatComponent } from './components/chat/chat.component';
+import { ChatCamouflageComponent } from './components/chat-camouflage/chat-camouflage.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'giphies/add', component: FormComponent, canActivate: [AuthGuard]},
   {path: 'giphies/list', component: ListComponent, canActivate: [AuthGuard]},
-  {path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
+  // {path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
+  {path: 'chat', component: ChatCamouflageComponent, canActivate: [AuthGuard]},
   {path: '**', component: NotFoundComponent},
 ];
 

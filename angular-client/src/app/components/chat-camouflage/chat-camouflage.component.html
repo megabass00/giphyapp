@@ -1,0 +1,284 @@
+<div class="container-fluid chat-nabbar"></div>
+<div class="container-fluid chat-container h-100">
+  <div class="row justify-content-center h-100">
+    <!-- GIPHY LIST -->
+    <div class="col-md-3 col-xl-3 giphy-list-container chat">
+      <div class="d-flex justify-content-around align-items-center teamwork-icons">
+          <div><i class="fas fa-clock"></i></div>
+          <div><i class="fab fa-slack"></i></div>
+          <div><i class="fas fa-user"></i></div>
+      </div>
+      <div class="giphy-list-header">
+          <div class="input-group">
+            <input #searchGiphyInput (input)="searchGiphy($event)" type="text" placeholder="Search your giphy..." name="" class="form-control search">
+            <div class="input-group-prepend">
+              <span (click)="resetSearch()" class="input-group-text reset_search_btn">
+                <i class="fas fa-times"></i>
+              </span>
+              <span class="input-group-text search_btn">
+                <i class="fas fa-search"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="giphy-list-body">
+          <app-spinner *ngIf="! initializedGiphies" message="Loading giphies from server..."></app-spinner>
+          <!-- GIPHY LIST-->
+          <ul id="contacts" class="contacts">
+              <li *ngFor="let giphy of giphiesFiltered">
+                <div class="d-flex bd-highlight">
+                  <div (dblclick)="sendGiphy(giphy)" (mouseenster)="showGiphyPreview(giphy)" (mouseleave)="hideGiphyPreview(giphy)" class="giphy_cont">
+                    <div class="giphy_info">
+                      <div>{{ giphy.title }}</div>
+                      <p>{{ giphy.copies_number }} copies / <strong>{{ giphy.rating }}</strong> stars</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+          </ul>
+          <!-- end GIPHY LIST -->
+        </div>
+        <div class="giphy-list-footer">
+          <div class="user_info d-flex align-items-center">
+            <div class="img_cont">
+              <img [src]="user.avatar" class="rounded-circle user_img">
+              <span class="online_icon"></span>
+            </div>
+            <span>
+              <strong>Master {{ user.masterName }}</strong> 
+              {{ messages.length }} Messages
+            </span>
+          </div>
+        </div>
+    </div>
+    <!-- end GIPHY LIST -->
+    
+    <!-- CHAT CONTENT -->
+    <div class="col-md-6 col-xl-6 chat-content-container chat">
+      <!-- HEADER -->
+      <div class="card-header msg_head">
+          
+          <file-drop headertext="" customstyle="drop-file-zone"
+          (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+              <app-simple-spinner *ngIf="fileUploading"></app-simple-spinner>
+              <div class="drop-file-message">Drag and drop a image to send</div>
+          </file-drop>
+
+          <span (click)="menu()" id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+          <div class="action_menu" *ngIf="showActionMenu">
+            <ul>
+              <li>
+                <i class="fas fa-code"></i> Encript chatroom
+              </li>
+              <li>
+                <i class="fas fa-fighter-jet"></i> Camouflage mode
+              </li>
+              <li>
+                <i class="far fa-trash-alt"></i>
+                <a (click)="clearMessages()"> Clear messages</a>
+              </li>
+              <li style="color:red;">
+                <i class="fas fa-times"></i>
+                <a (click)="closeAllTabs()"> Close all tabs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- end HEADER -->
+        <!-- CONTENT -->
+        <div #contentScroll class="card-body msg_card_body">
+            <!-- CONTENT -->
+            <div *ngFor="let message of messages">
+              
+              <popover-content #filePreview 
+                placement="right"
+                [animation]="true" 
+                [closeOnMouseOutside]="true">
+                <div class="preview-popover-content">
+                  <img [src]="message.content" class="file-preview">
+                </div>
+              </popover-content>
+              
+              <popover-content #giphyPreview 
+                placement="right"
+                [animation]="true" 
+                [closeOnMouseOutside]="true">
+                <div class="preview-popover-content">
+                  <img [src]="message.content.url" class="file-preview">
+                </div>
+              </popover-content>
+
+              <!-- <popover-content #linkPreview 
+                placement="auto"
+                [animation]="true" 
+                [closeOnMouseOutside]="true">
+                <div class="preview-popover-content">
+                  <iframe [src]="message.content | safeUrl" class="iframe-preview" frameborder="0"></iframe>
+                </div>
+              </popover-content> -->
+
+              <div [ngSwitch]="message.type">
+                <!-- TYPE FILE -->
+                <div *ngSwitchCase="chatMessageType.FILE">
+                  <div class="justify-content-start message-row d-flex mb-4">
+                    <div class="content-file-container">
+                      <button [popover]="filePreview" [popoverOnHover]="true">
+                        <img [src]="message.content" class="content-file-container-img">
+                      </button>
+                      <span class="msg_fileinfo">
+                          <img src="{{ message.user.avatar }}" class="rounded-circle user_thumb_msg"> File from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- end FILE -->
+                <!-- TYPE TEXT -->
+                <div *ngSwitchCase="chatMessageType.TEXT">
+                  <div *ngIf="message.user.id===user.id; then send; else response"></div>
+                  <ng-template #send>
+                      <div class="justify-content-end message-row d-flex mb-4">
+                        <div class="msg_cotainer_send" [innerHTML]="message.content"></div>
+                        <div class="img_cont_msg">
+                          <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+                        </div>
+                      </div>
+                  </ng-template>
+                  <ng-template #response>
+                      <div class="justify-content-start message-row d-flex mb-4">
+                          <div class="img_cont_msg">
+                              <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+                          </div>
+                          <div class="msg_cotainer">
+                            <div class="msg_content" [innerHTML]="message.content"></div>
+                            <span class="msg_time">
+                              <!-- date:'medium' -->
+                              {{ message.date | date:'medium' }}
+                            </span>
+                          </div>
+                          <button class="reply-btn" (click)="replyMessage(message)">
+                              <i class="fa fa-reply"></i>
+                          </button>
+                      </div>
+                  </ng-template>
+                </div>
+                <!-- end TEXT -->
+                <!-- GIPHY -->
+                <div *ngSwitchCase="chatMessageType.GIPHY">
+                  <div class="justify-content-start message-row d-flex mb-4">
+                    <div class="content-file-container">
+                      <button [popover]="giphyPreview" [popoverOnHover]="true">
+                        <img [src]="message.content.url" class="content-file-container-img">
+                      </button>
+                      <span class="msg_fileinfo">
+                        <img src="{{ message.user.avatar }}" class="rounded-circle user_thumb_msg"> Giphy from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- end GIPHY -->
+                <!-- LINK -->
+                <div *ngSwitchCase="chatMessageType.LINK">
+                    <div class="justify-content-start message-row d-flex mb-4">
+                      <div *ngIf="isImageLink(message.content); else linkContent">
+                          <div class="content-file-container">
+                            <button [popover]="filePreview" [popoverOnHover]="true">
+                              <img [src]="message.content" class="content-file-container-img">
+                            </button>
+                            <span class="msg_fileinfo">
+                                <img src="{{ message.user.avatar }}" class="rounded-circle user_thumb_msg"> Image Link from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
+                            </span>
+                          </div>
+                      </div>
+                      <ng-template #linkContent>
+                        <div class="img_cont_msg">
+                            <img src="{{ message.user.avatar }}" class="rounded-circle user_img_msg">
+                        </div>
+                        <div class="link_cotainer">
+                          <!-- <span [popover]="linkPreview" [popoverOnHover]="true"> -->
+                            <a [href]="message.content" class="link-message" target="_blank">
+                                {{ message.content }}
+                            </a>
+                          <!-- </span> -->
+                          <span class="msg_fileinfo">
+                              Link from <strong>{{ message.user.masterName }}</strong> at {{ message.date | date:'medium' }}
+                          </span>
+                        </div>
+                      </ng-template>
+                    </div>
+                </div>
+                <!-- end LINK -->
+              </div>
+            </div>
+            <!-- end CONTENT -->
+        </div>
+        <!-- end CONTENT -->
+        <app-simple-spinner *ngIf="receivingFile"></app-simple-spinner>
+        <!-- INPUT MSG -->
+        <div class="content-footer">
+          <div class="input-group">
+            <div class="input-group-append">
+              <label>
+                <input type="file" (change)="sendInputFile($event)" accept="images/*" hidden>
+                <span class="input-group-text attach_btn">
+                  <i class="fas fa-paperclip"></i>
+                </span>
+              </label>
+            </div>
+            <textarea #sendMessageInput [(ngModel)]="newMsg" [innerHTML]="newMsg" (keydown)="typeMessage($event)" class="form-control type_msg" placeholder="Message goes here"></textarea>
+            <div class="input-group-append">
+              <span id="send-message-face-icon">
+                <i class="fas fa-grin"></i>
+              </span>
+              <button (click)="sendMessage()" class="input-group-text send_btn">
+                <i class="fas fa-location-arrow"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="input-group users-typing">
+            <div *ngIf="usersTyping.length">
+              {{ userTypingString }}
+            </div>
+          </div>
+        </div>
+        <!-- end INPUT MSG -->
+    </div>
+    <!-- end CHAT CONTENT -->
+
+    <!-- CONTACTS LIST -->
+    <div class="col-md-3 col-xl-3 contacts-list-container chat">
+      <div class="card-header contacts-header">
+        <div class="card-header-title">
+          deleted_1544595452374_Soporte
+          <br>proyectos
+        </div>
+        <div class="card-header-body">
+          Proyecto global de soporte para los diferentes proyectos que disponen de contrato
+        </div>
+        <div class="card-header-footer d-flex align-items-center">
+          <i class="fas fa-user-friends"></i>
+          {{ usersConnected.lenght }} people are in this channel
+        </div>
+      </div>
+      <div class="contacts_body">
+        <!-- CONTACTS -->
+        <ul id="contacts" class="contacts">
+            <li *ngFor="let user of usersConnected">
+              <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                  <img [src]="user.avatar" class="rounded-circle user_img">
+                  <span class="online_icon"></span>
+                </div>
+                <div class="contact_info">
+                  <span>{{ user.masterName }}</span> ({{ user.type }})
+                </div>
+              </div>
+            </li>
+        </ul>
+        <!-- end CONTACTS -->
+      </div>
+      <div class="card-footer"></div>
+    </div>
+    <!-- end CONTACTS LIST -->
+  </div>
+</div>
