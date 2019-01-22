@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
-import { Router } from '@angular/router';
+// import { UserService } from './services/user.service';
+// import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,8 @@ export class AppComponent {
   title = 'GiphyAPP - Angular Client';
 
   constructor(
-    private authService: UserService, 
-    private router: Router) {
+    // private authService: UserService, 
+    // private router: Router
+  ) {
   }
 }
