@@ -25,7 +25,7 @@
                 <tr>
                     <td>{{ $giphy->id }}</td>
                     <td>
-                        <img src="{{ $giphy->url }}" alt="{{ $giphy->title }}" width="auto" height="50px">
+                        <img src="{{ $giphy->url_local_file }}" alt="{{ $giphy->title }}" width="auto" height="50px">
                     </td>
                     <td>{{ $giphy->rating }}</td>
                     <td>{{ $giphy->title }}</td>

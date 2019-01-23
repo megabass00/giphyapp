@@ -21,8 +21,10 @@ class CreateGiphiesTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('url');
+            $table->string('local_file')->default('default.gif');
             $table->integer('rating');
             $table->integer('copies_number');
+            $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

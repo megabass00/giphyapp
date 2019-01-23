@@ -53,6 +53,8 @@ class GiphiesController extends Controller
         $giphy->url = $request->url;
         $giphy->rating = 0.0;
         $giphy->copies_number = 0;
+        $localName = $giphy->downloadGiphy();
+        $giphy->local_file = $localName;
         $giphy->save();
 
         $giphy->tags()->sync($request->tags);
@@ -110,6 +112,8 @@ class GiphiesController extends Controller
         $giphy->title = $request->title;
         $giphy->description = $request->description;
         $giphy->url = $request->url;
+        $localName = $giphy->downloadGiphy();
+        $giphy->local_file = $localName;
         $giphy->save();
         
         $giphy->tags()->sync($request->tags);
@@ -127,6 +131,10 @@ class GiphiesController extends Controller
     public function destroy($id)
     {
         $giphy = Giphy::find($id);
+        if ($giphy->local_file !== 'default.gif') {
+            $pathToSave = 'images/giphies/';
+            unlink($pathToSave.$giphy->local_file);
+        }
         $giphy->delete();
         Flash::warning($giphy->title.' has been deleted from database');
         return redirect('admin/giphies');

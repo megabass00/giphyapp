@@ -30,6 +30,8 @@ class ApiGiphyController extends Controller
         $giphy->url = $request->input('url');
         $giphy->rating = $request->input('rating');
         $giphy->copies_number = $request->input('copies_number');
+        $localName = $giphy->downloadGiphy();
+        $giphy->local_file = $localName;
         $ok = $giphy->save();
 
         if ($ok) {
@@ -53,6 +55,8 @@ class ApiGiphyController extends Controller
         $giphy->url = $request->input('url');
         $giphy->rating = $request->input('rating');
         $giphy->copies_number = $request->input('copies_number');
+        $localName = $giphy->downloadGiphy();
+        $giphy->local_file = $localName;
         $ok = $giphy->save();
 
         if ($ok) {
@@ -69,6 +73,11 @@ class ApiGiphyController extends Controller
         if (empty($giphy)) {
             echo 'No se ha encontrado el objeto';
             return;
+        }
+
+        if ($giphy->local_file !== 'default.gif') {
+            $pathToSave = 'images/giphies/';
+            unlink($pathToSave.$giphy->local_file);
         }
 
         $ok = $giphy->delete();
