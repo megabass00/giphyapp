@@ -83,7 +83,13 @@ export default {
             source: '/ajax/giphies/autocomplete',
             minLenght: 3,
             select: function(event, ui) {
-                $('#q').val(ui.item.value);
+                // $('#q').val(ui.item.value);
+                var textArea = document.createElement("textarea");
+                textArea.value = ui.item.url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
             },
             search: this.search,
             response: this.response

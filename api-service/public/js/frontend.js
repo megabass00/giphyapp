@@ -2456,7 +2456,13 @@ __webpack_require__.r(__webpack_exports__);
       source: '/ajax/giphies/autocomplete',
       minLenght: 3,
       select: function select(event, ui) {
-        $('#q').val(ui.item.value);
+        // $('#q').val(ui.item.value);
+        var textArea = document.createElement("textarea");
+        textArea.value = ui.item.url;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
       },
       search: this.search,
       response: this.response
