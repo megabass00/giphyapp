@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','usertype:admin']], f
 
     // ajax //
     Route::post('ajax/giphies/addTag', 'GiphiesController@addTag');
+    Route::post('ajax/giphies/active', 'GiphiesController@active');
 });
 
 // ajax //

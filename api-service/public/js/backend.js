@@ -1754,6 +1754,133 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/controls/switch-ajax.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/controls/switch-ajax.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'switch-ajax',
+  props: ['giphy'],
+  data: function data() {
+    return {
+      identifier: 'sw-' + this.giphy.id,
+      switch: null,
+      sending: false
+    };
+  },
+  mounted: function mounted() {
+    var Switchery = __webpack_require__(/*! switchery */ "./node_modules/switchery/switchery.js");
+
+    var options = {
+      color: '#51ce00',
+      secondaryColor: '#fff',
+      jackColor: '#888',
+      jackSecondaryColor: null,
+      className: 'switchery',
+      disabled: false,
+      disabledOpacity: 0.5,
+      speed: '0.3s',
+      size: 'small'
+    };
+    var elem = document.getElementById(this.identifier);
+    this.switch = new Switchery(elem, options);
+    $(this.switch).change(function (e) {
+      console.log('DOMADORRRRR');
+    }); // var changeCheckbox = document.querySelector('.js-check-change');
+    // $(elem).click(function() {
+    //     // console.log(changeCheckbox.checked);
+    //     console.log('*****');
+    // });
+    // elem.onchange = function() {
+    //     console.log('*****');
+    // };
+    // $('#'+ this.identifier).trigger('click');
+    // $('#'+ this.identifier).click(function(e) 
+    // {
+    //     // var success = function(data) {
+    //     //     $('#'+ this.identifier).removeAttr('data-calling');
+    //     // };
+    //     // var error = function(errorString) {
+    //     //     $('#'+ this.identifier).trigger('click');
+    //     // };
+    //     console.log('******* aosjdaskj');
+    //     // this.changeValue();
+    //     // if (!$(this).attr('data-calling')) {
+    //     //     $(this).attr('data-calling', true);
+    //     //     var id = $(this).attr('id').replace('<?= $prefix ?>', '');
+    //     //     switchRequest(id, '<?= $modelName ?>', '<?= $property ?>', '<?= $reloadPage ?>', success, error);
+    //     // }else{
+    //     //     $(this).removeAttr('data-calling');
+    //     // }
+    // });
+  },
+  methods: {
+    changeValue: function changeValue() {
+      $.ajax({
+        url: '/ajax/giphies/rating',
+        method: 'POST',
+        data: {
+          id: this.giphy.id,
+          active: !this.giphy.active
+        },
+        success: function success(data) {
+          if (data.success) {
+            this.giphy = data.giphy;
+            console.log(this.giphy);
+          }
+        },
+        fail: function fail() {
+          console.log('ERROR');
+          $('#' + this.identifier).trigger('click');
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/bootstrap-star-rating/js/star-rating.min.js":
 /*!******************************************************************!*\
   !*** ./node_modules/bootstrap-star-rating/js/star-rating.min.js ***!
@@ -6715,6 +6842,44 @@ module.exports = closest;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/switchery/switchery.css":
+/*!******************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/postcss-loader/src??ref--7-2!./node_modules/switchery/switchery.css ***!
+  \******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/*\n *\n * Main stylesheet for Switchery.\n * http://abpetkov.github.io/switchery/\n *\n */\n\n.switchery {\n  background-color: #fff;\n  border: 1px solid #dfdfdf;\n  border-radius: 20px;\n  cursor: pointer;\n  display: inline-block;\n  height: 30px;\n  position: relative;\n  vertical-align: middle;\n  width: 50px;\n}\n\n.switchery > small {\n  background: #fff;\n  border-radius: 100%;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n  height: 30px;\n  position: absolute;\n  top: 0;\n  width: 30px;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/controls/switch-ajax.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/controls/switch-ajax.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.switchery {\n    background-color: #fff;\n    border: 1px solid #dfdfdf;\n    border-radius: 20px;\n    cursor: pointer;\n    display: inline-block;\n    height: 30px;\n    position: relative;\n    vertical-align: middle;\n    width: 50px;\n}\n.switchery > small {\n    background: #fff;\n    border-radius: 100%;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);\n    height: 30px;\n    position: absolute;\n    top: 0;\n    width: 30px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/simple-spinner.vue?vue&type=style&index=0&lang=css&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/simple-spinner.vue?vue&type=style&index=0&lang=css& ***!
@@ -6728,6 +6893,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\n.simple-spinner-container {\n  text-align: center;\n  width: 100%;\n}\n.simple-spinner {\n  display: inline-block;\n  width: 15px;\n  height: 15px;\n  border: 2px solid rgba(255,255,255,.3);\n  border-radius: 50%;\n  border-top-color: #fff;\n  animation: spin 1s ease-in-out infinite;\n  -webkit-animation: spin 1s ease-in-out infinite;\n}\n@keyframes spin {\nto { -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes spin {\nto { -webkit-transform: rotate(360deg);\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/spinner.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/spinner.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.spinner-container {\n    width: 100%;\n    text-align: center;\n}\n.ldBar {\n    position: relative;\n}\n.ldBar.label-center > .ldBar-label {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    -webkit-transform: translate(-50%, -50%);\n    transform: translate(-50%, -50%);\n    text-shadow: 0 0 3px #fff\n}\n.ldBar-label:after {\n    content: \"%\";\n    display: inline\n}\n.ldBar.no-percent .ldBar-label:after {\n    content: \"\"\n}\n", ""]);
 
 // exports
 
@@ -43377,6 +43561,36 @@ S2.define('jquery.select2',[
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/controls/switch-ajax.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/controls/switch-ajax.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./switch-ajax.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/controls/switch-ajax.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/simple-spinner.vue?vue&type=style&index=0&lang=css&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/simple-spinner.vue?vue&type=style&index=0&lang=css& ***!
@@ -43386,6 +43600,36 @@ S2.define('jquery.select2',[
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./simple-spinner.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/simple-spinner.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/spinner.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/spinner.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./spinner.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/spinner.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -43916,6 +44160,306 @@ module.exports = function (css) {
 
 /***/ }),
 
+/***/ "./node_modules/switchery/switchery.css":
+/*!**********************************************!*\
+  !*** ./node_modules/switchery/switchery.css ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../css-loader??ref--7-1!../postcss-loader/src??ref--7-2!./switchery.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/switchery/switchery.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/switchery/switchery.js":
+/*!*********************************************!*\
+  !*** ./node_modules/switchery/switchery.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {
+/**
+ * Switchery 0.1.1
+ * http://abpetkov.github.io/switchery/
+ *
+ * Authored by Alexander Petkov
+ * https://github.com/abpetkov
+ *
+ * Copyright 2013, Alexander Petkov
+ * License: The MIT License (MIT)
+ * http://opensource.org/licenses/MIT
+ *
+ */
+
+/**
+ * Expose `Switchery`.
+ */
+
+module.exports = Switchery;
+
+/**
+ * Set Switchery default values.
+ *
+ * @api public
+ */
+
+var defaults = {
+    color    : '#64bd63'
+  , className: 'switchery'
+  , disabled : false
+  , speed    : '0.1s'
+};
+
+if (process.browser != null) {
+  __webpack_require__(/*! ./switchery.css */ "./node_modules/switchery/switchery.css");
+}
+
+/**
+ * Create Switchery object.
+ *
+ * @param {Object} element
+ * @param {Object} options
+ * @api public
+ */
+
+function Switchery(element, options) {
+  if (!(this instanceof Switchery)) return new Switchery(options);
+
+  this.element = element;
+  this.options = options || {};
+
+  for (var i in defaults) {
+    if (!(i in this.options)) {
+      this.options[i] = defaults[i];
+    }
+  }
+
+  if (this.element.type == 'checkbox') this.init();
+}
+
+/**
+ * Hide the target element.
+ *
+ * @api private
+ */
+
+Switchery.prototype.hide = function() {
+  this.element.style.display = 'none';
+};
+
+/**
+ * Show custom switch after the target element.
+ *
+ * @api private
+ */
+
+Switchery.prototype.show = function() {
+  var switcher = this.create();
+  this.element.parentNode.appendChild(switcher);
+};
+
+/**
+ * Create custom switch.
+ *
+ * @returns {Object} this.switcher
+ * @api private
+ */
+
+Switchery.prototype.create = function() {
+  this.switcher = document.createElement('span');
+  this.jack = document.createElement('small');
+  this.switcher.appendChild(this.jack);
+  this.switcher.className = this.options.className;
+
+  return this.switcher;
+};
+
+/**
+ * See if input is checked.
+ *
+ * @returns {Boolean}
+ * @api private
+ */
+
+Switchery.prototype.isChecked = function() {
+  return this.element.checked;
+};
+
+/**
+ * See if switcher should be disabled.
+ *
+ * @returns {Boolean}
+ * @api private
+ */
+
+Switchery.prototype.isDisabled = function() {
+  return this.options.disabled || this.element.disabled;
+};
+
+/**
+ * Set switch jack proper position.
+ *
+ * @param {Boolean} clicked - we need this in order to uncheck the input when the switch is clicked
+ * @api private
+ */
+
+Switchery.prototype.setPosition = function (clicked) {
+  var checked = this.isChecked()
+    , switcher = this.switcher
+    , jack = this.jack;
+
+  if (clicked && checked) checked = false;
+  else if (clicked && !checked) checked = true;
+
+  if (checked === true) {
+    this.element.checked = true;
+
+    if (window.getComputedStyle) jack.style.left = parseInt(window.getComputedStyle(switcher).width) - jack.offsetWidth + 'px';
+    else jack.style.left = parseInt(switcher.currentStyle['width']) - jack.offsetWidth + 'px';
+
+    if (this.options.color) this.colorize();
+  } else {
+    jack.style.left = '0';
+    this.element.checked = false;
+    this.switcher.style.backgroundColor = '';
+    this.switcher.style.borderColor =  '';
+  }
+};
+
+/**
+ * Set speed.
+ *
+ * @api private
+ */
+
+Switchery.prototype.setSpeed = function() {
+  this.switcher.style.transitionDuration = this.options.speed;
+  this.jack.style.transitionDuration = this.options.speed;
+};
+
+/**
+ * Copy the input name and id attributes.
+ *
+ * @api private
+ */
+
+Switchery.prototype.setAttributes = function() {
+  var id = this.element.getAttribute('id')
+    , name = this.element.getAttribute('name');
+
+  if (id) this.switcher.setAttribute('id', id);
+  if (name) this.switcher.setAttribute('name', name);
+};
+
+/**
+ * Set switch color.
+ *
+ * @api private
+ */
+
+Switchery.prototype.colorize = function() {
+  this.switcher.style.backgroundColor = this.options.color;
+  this.switcher.style.borderColor = this.options.color;
+};
+
+/**
+ * Handle the switch click event.
+ *
+ * @api private
+ */
+
+Switchery.prototype.handleClick = function() {
+  var $this = this
+    , switcher = this.switcher;
+
+  if (this.isDisabled() === false) {
+    if (switcher.addEventListener) {
+      switcher.addEventListener('click', function() {
+        $this.setPosition(true);
+      });
+    } else {
+      switcher.attachEvent('onclick', function() {
+        $this.setPosition(true);
+      });
+    }
+  } else {
+    this.element.disabled = true;
+  }
+};
+
+/**
+ * Initialize Switchery.
+ *
+ * @api private
+ */
+
+Switchery.prototype.init = function() {
+  this.hide();
+  this.show();
+  this.setSpeed();
+  this.setPosition();
+  this.setAttributes();
+  this.handleClick();
+};
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/controls/switch-ajax.vue?vue&type=template&id=ff1527ea&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/controls/switch-ajax.vue?vue&type=template&id=ff1527ea& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    [
+      _c("input", {
+        staticClass: "js-switch",
+        attrs: { id: _vm.identifier, type: "checkbox", checked: "" }
+      }),
+      _vm._v(" "),
+      _vm.sending ? _c("simple-spinner") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/simple-spinner.vue?vue&type=template&id=ecfabd2e&":
 /*!*************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/simple-spinner.vue?vue&type=template&id=ecfabd2e& ***!
@@ -43940,6 +44484,42 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "simple-spinner-container" }, [
       _c("div", { staticClass: "simple-spinner" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/spinner.vue?vue&type=template&id=3e780284&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/widgets/spinner.vue?vue&type=template&id=3e780284& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "spinner-container" }, [
+      _c("div", {
+        staticClass: "static-loader",
+        attrs: { id: "ajax-loader-'+ uniqueId +'" }
+      })
     ])
   }
 ]
@@ -55236,6 +55816,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
+Vue.component('switch-ajax', __webpack_require__(/*! ./components/controls/switch-ajax.vue */ "./resources/js/components/controls/switch-ajax.vue").default);
+Vue.component('spinner', __webpack_require__(/*! ./components/widgets/spinner.vue */ "./resources/js/components/widgets/spinner.vue").default);
 Vue.component('simple-spinner', __webpack_require__(/*! ./components/widgets/simple-spinner.vue */ "./resources/js/components/widgets/simple-spinner.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -55372,6 +55954,93 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./resources/js/components/controls/switch-ajax.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/controls/switch-ajax.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _switch_ajax_vue_vue_type_template_id_ff1527ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./switch-ajax.vue?vue&type=template&id=ff1527ea& */ "./resources/js/components/controls/switch-ajax.vue?vue&type=template&id=ff1527ea&");
+/* harmony import */ var _switch_ajax_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./switch-ajax.vue?vue&type=script&lang=js& */ "./resources/js/components/controls/switch-ajax.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _switch_ajax_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./switch-ajax.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/controls/switch-ajax.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _switch_ajax_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _switch_ajax_vue_vue_type_template_id_ff1527ea___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _switch_ajax_vue_vue_type_template_id_ff1527ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/controls/switch-ajax.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/controls/switch-ajax.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/controls/switch-ajax.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./switch-ajax.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/controls/switch-ajax.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/controls/switch-ajax.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/controls/switch-ajax.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./switch-ajax.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/controls/switch-ajax.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/controls/switch-ajax.vue?vue&type=template&id=ff1527ea&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/controls/switch-ajax.vue?vue&type=template&id=ff1527ea& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_template_id_ff1527ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./switch-ajax.vue?vue&type=template&id=ff1527ea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/controls/switch-ajax.vue?vue&type=template&id=ff1527ea&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_template_id_ff1527ea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_switch_ajax_vue_vue_type_template_id_ff1527ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/widgets/simple-spinner.vue":
 /*!************************************************************!*\
   !*** ./resources/js/components/widgets/simple-spinner.vue ***!
@@ -55438,6 +56107,77 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_spinner_vue_vue_type_template_id_ecfabd2e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_simple_spinner_vue_vue_type_template_id_ecfabd2e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/widgets/spinner.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/widgets/spinner.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _spinner_vue_vue_type_template_id_3e780284___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./spinner.vue?vue&type=template&id=3e780284& */ "./resources/js/components/widgets/spinner.vue?vue&type=template&id=3e780284&");
+/* harmony import */ var _spinner_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./spinner.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/widgets/spinner.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  script,
+  _spinner_vue_vue_type_template_id_3e780284___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _spinner_vue_vue_type_template_id_3e780284___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/widgets/spinner.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/widgets/spinner.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/widgets/spinner.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_spinner_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./spinner.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/spinner.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_spinner_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_spinner_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_spinner_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_spinner_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_spinner_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/widgets/spinner.vue?vue&type=template&id=3e780284&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/widgets/spinner.vue?vue&type=template&id=3e780284& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_spinner_vue_vue_type_template_id_3e780284___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./spinner.vue?vue&type=template&id=3e780284& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/widgets/spinner.vue?vue&type=template&id=3e780284&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_spinner_vue_vue_type_template_id_3e780284___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_spinner_vue_vue_type_template_id_3e780284___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

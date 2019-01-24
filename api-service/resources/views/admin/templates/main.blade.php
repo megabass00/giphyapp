@@ -31,7 +31,6 @@
     @include('front.templates.footer')
 
     <script src="{{ asset('js/backend.js') }}"></script>
-
     @yield('js')
 </body>
 </html>

@@ -180,4 +180,16 @@ class GiphiesController extends Controller
             'giphy' => $giphy
         ]);
     }
+
+    public function active(Request $request)
+    {
+        $giphy = Giphy::find($request->id);
+        $giphy->active = $request->active;
+        $giphy->save();
+
+        return response()->json([
+            'success' => true,
+            'giphy' => $giphy
+        ]);
+    }
 }

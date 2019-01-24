@@ -20,6 +20,8 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
+Vue.component('switch-ajax', require('./components/controls/switch-ajax.vue').default);
+Vue.component('spinner', require('./components/widgets/spinner.vue').default);
 Vue.component('simple-spinner', require('./components/widgets/simple-spinner.vue').default);
 
 /**

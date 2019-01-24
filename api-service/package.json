@@ -35,6 +35,7 @@
         "packery": "^2.1.2",
         "popper": "^1.0.1",
         "select2": "^4.0.6-rc.1",
+        "switchery": "0.0.2",
         "vue-slick": "^1.1.15"
     }
 }

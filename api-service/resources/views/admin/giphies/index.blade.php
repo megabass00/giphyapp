@@ -8,7 +8,7 @@
         <i class="fas fa-plus"></i>
         Create Giphy
     </a>
-    <table class="table table-striped">
+    <table class="table table-striped table-responsive">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -16,7 +16,7 @@
                 <th scope="col">Rating</th>
                 <th scope="col">Title</th>
                 <th scope="col">Copies Number</th>
-                <th scope="col">Description</th>
+                <th scope="col">Active</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -31,11 +31,7 @@
                     <td>{{ $giphy->title }}</td>
                     <td>{{ $giphy->copies_number }}</td>
                     <td>
-                        @if (strlen($giphy->description) > 20)
-                            {{ substr($giphy->description, 0, 20) }}...
-                        @else
-                            {{ $giphy->description }}
-                        @endif
+                        <switch-ajax :giphy="{{$giphy}}"></switch-ajax>
                     </td>
 
                     <td>
