@@ -2431,6 +2431,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2448,6 +2449,28 @@ __webpack_require__.r(__webpack_exports__);
       var $button = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#search-button');
       this.searching = false;
       $button.prop("disabled", false);
+    },
+    select: function select(event, ui) {
+      var _this = this;
+
+      // $('#q').val(ui.item.value);
+      var textArea = document.createElement("textarea");
+      textArea.value = ui.item.url;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      axios.post('/ajax/giphies/sum', {
+        id: ui.item.id
+      }).then(function (response) {
+        _this.loading = false;
+
+        if (response.data.success) {
+          _this.tags = response.data.tags;
+        } else {
+          console.log('Error loading best tags');
+        }
+      });
     }
   },
   mounted: function mounted() {
@@ -2455,15 +2478,7 @@ __webpack_require__.r(__webpack_exports__);
     $('#q').autocomplete({
       source: '/ajax/giphies/autocomplete',
       minLenght: 3,
-      select: function select(event, ui) {
-        // $('#q').val(ui.item.value);
-        var textArea = document.createElement("textarea");
-        textArea.value = ui.item.url;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-      },
+      select: this.select,
       search: this.search,
       response: this.response
     });
@@ -7535,7 +7550,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.searcher {\n    margin: 2vw 0;\n}\n.search-wrapper {\n    text-align: center;\n    width: 100%;\n}\n#q {\n    border: 1px solid transparent;\n    width: 70%;\n    height: 9vh;\n    min-height: 30px;\n    font-size: 5vh;\n    text-indent: 1vw;\n    border-radius: 5px;\n}\n.btn-search {\n    background-color: #51ce00;\n    border-color: #51ce00;\n    height: 100%;\n    max-height: 9vh;\n}\n.btn-search:hover {\n    color: #51ce00;\n    background-color: #fff;\n    border-color: #fff;\n}\n.autocomplete-item {\n    margin-left: 10px; \n    margin-bottom: 5px;\n    /* height: 50px; */\n    font-family: Righteous;\n}\n.autocomplete-image {\n    /* min-height: 50px; */\n    width: 8%;\n}\n", ""]);
+exports.push([module.i, "\n.searcher {\n    margin: 2vw 0;\n}\n.search-wrapper {\n    text-align: center;\n    width: 100%;\n}\n#q {\n    border: 1px solid transparent;\n    width: 70%;\n    height: 9vh;\n    min-height: 60px;\n    font-size: 5vh;\n    text-indent: 1vw;\n    border-radius: 5px;\n}\n.btn-search {\n    background-color: #51ce00;\n    border-color: #51ce00;\n    height: 100%;\n    max-height: 9vh;\n    min-height: 60px;\n}\n.btn-search:hover {\n    color: #51ce00;\n    background-color: #fff;\n    border-color: #fff;\n}\n.autocomplete-item {\n    margin-left: 10px; \n    margin-bottom: 5px;\n    /* height: 50px; */\n    font-family: Righteous;\n}\n.autocomplete-image {\n    /* min-height: 50px; */\n    width: 8%;\n}\n", ""]);
 
 // exports
 
