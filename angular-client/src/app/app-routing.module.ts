@@ -16,8 +16,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'giphies/add', component: FormComponent, canActivate: [AuthGuard]},
   {path: 'giphies/list', component: ListComponent, canActivate: [AuthGuard]},
-  // {path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
-  {path: 'chat', component: ChatCamouflageComponent, canActivate: [AuthGuard]},
+  {path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
+  {path: 'chat-camouflage', component: ChatCamouflageComponent, canActivate: [AuthGuard]},
   {path: '**', component: NotFoundComponent},
 ];
 
