@@ -88,4 +88,18 @@ class ApiGiphyController extends Controller
             $this->showGenericError();
         }
     }
+
+
+    public function search($term) {
+        $results = Giphy::where('title', 'LIKE', '%'.$term.'%')
+                            ->with(['tags' => function($q) {
+                                $q->select('name');
+                            }])
+                            ->get();
+        return response()->json([
+            'success' => true,
+            'term' => $term,
+            'results' => $results
+        ], 200);
+    }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, throttleTime } from 'rxjs/operators';
 import { Http, Headers, Response } from '@angular/http'
 import { environment } from '../../environments/environment'
 
@@ -20,6 +20,9 @@ export class GiphiesService {
   }
 
 
+  /*
+  * API
+  */
   public getGiphies() {
     return this.http.get(environment.hostUrl+'api/giphies', {
       headers: this.getHeaders()
@@ -30,6 +33,21 @@ export class GiphiesService {
     );
   }
 
+  public searchGiphies(term: string) {
+    return this.http.get(environment.hostUrl+'api/giphies/search/'+term, {
+      headers: this.getHeaders()
+    })
+    .pipe(
+      throttleTime(2000),
+      map(res => res.json()),
+      catchError((err: any) => Observable.throw(err.json().error || 'Server error'))
+    );
+  }
+
+
+  /*
+  * Helpers
+  */
   private getHeaders() {
     return new Headers({
       "Accept": "application/json",
