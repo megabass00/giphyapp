@@ -2,17 +2,19 @@
     <h1>Welcome to giphy world!!!</h1>
 
     <div class="row">
-        <div class="col-9 column searcher">
+        <div class="col-sm-12 col-md-9 column searcher">
             <h3>Searcher</h3>
-            <small>{{ results.length }} results</small>
-            <app-simple-spinner *ngIf="searching" class="float-left">Searching...</app-simple-spinner>
+            <p class="pb-1">
+                <small class="float-left">{{ results.length }} results</small>
+                <app-simple-spinner *ngIf="searching" class="float-left ml-2">Searching...</app-simple-spinner>
+            </p>
             <input #searchTextField type="text" (keyup)="searchTextChanged($event)" placeholder="You can write your search term here...">
     
             <div class="results-container">
               <div *ngIf="results.length > 0">
                 <!-- card -->
                 <div class="row">
-                  <div *ngFor="let giphy of results" class="col-2">
+                  <div *ngFor="let giphy of results" class="col-lg-3 col-md-4 col-sm-6">
                       <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                           <div class="mainflip">
                               <div class="frontside">
@@ -20,6 +22,11 @@
                                       <div class="card-body text-center">
                                           <p><img class="img-fluid" :src="{{ giphy.url }}" alt="card image"></p>
                                           <h4 class="card-title">{{ giphy.title }}</h4>
+                                          <p *ngIf="giphy.tags" class="d-flex justify-content-center">
+                                            <span *ngFor="let tag of giphy.tags" class="tag">
+                                                #{{ tag.name }}
+                                            </span>
+                                          </p>
                                           <p>{{ giphy.rating }} stars</p>
                                           <p>{{ giphy.copies_number }} times copied</p>
                                       </div>
@@ -29,6 +36,9 @@
                                   <div class="card">
                                       <div class="card-body text-center mt-4">
                                           <p class="card-text">{{ giphy.description }}</p>
+                                          <p>
+                                            <rating [value]="giphy.rating" [disabled]="false"></rating>
+                                          </p>
                                           <ul class="list-inline">
                                               <li class="list-inline-item">
                                                   <a class="social-icon text-xs-center" href="#">
@@ -56,7 +66,7 @@
         </div>
         
 
-        <div class="col-3 column tag-list">
+        <div class="col-sm-12 col-md-3 column tag-list">
           <h3>Tag List</h3>
           <small>
             You can select one or more tags to show results for your selection

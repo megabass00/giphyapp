@@ -9,7 +9,7 @@ class ApiTagsController extends Controller
 {
     public function index()
     {
-        $tags = Tag::orderBy('name','ASC')->get();
+        $tags = Tag::orderBy('name','ASC')->select('id','name')->get();
         echo json_encode($tags);
     }
 }

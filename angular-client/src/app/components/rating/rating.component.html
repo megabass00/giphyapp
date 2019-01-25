@@ -1,0 +1,14 @@
+<div class="rating-wrapper">
+    <star-rating [starType]="'svg'" 
+        [rating]="value"
+        [disabled]="disabled"
+        (starClickChange)="onClick($event)"
+        (ratingChange)="onRatingChange($event)"
+        (hoverRatingChange)="onHoverRatingChange($event)"
+        [size]="'medium'"
+        [hoverEnabled]="true"
+        [labelText]="'Rating now !!!'"
+        [labelPosition]="'top'"
+        [staticColor]="'ok'">                             
+    </star-rating>
+</div>

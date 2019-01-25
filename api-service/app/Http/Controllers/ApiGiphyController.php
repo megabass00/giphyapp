@@ -91,11 +91,19 @@ class ApiGiphyController extends Controller
 
 
     public function search($term) {
-        $results = Giphy::where('title', 'LIKE', '%'.$term.'%')
-                            ->with(['tags' => function($q) {
-                                $q->select('name');
-                            }])
-                            ->get();
+        $results = Giphy::with('Tags')
+                        // ->where('title', 'LIKE', '%'.$term.'%')
+                        ->whereHas('Tags', function($q) use ($term) {
+                            $q->where('name', 'LIKE', '%'.$term.'%');
+                        })
+                        ->get();
+
+        // $results = Giphy::where('title', 'LIKE', '%'.$term.'%')
+        //                     ->with(['tags' => function($q) {
+        //                         $q->select('name');
+        //                     }])
+        //                     ->get();
+
         return response()->json([
             'success' => true,
             'term' => $term,

@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  hostUrl: 'http://192.168.14.111:8081/', // ofi
-  // hostUrl: 'http://192.168.1.192:8081/', // casa
-  clientSecret: '9PtG21rgiVFmYt8Dn8jjHqmZfdHmOs6rW8DizR5X', // ofi
+  // hostUrl: 'http://192.168.14.111:8081/', // ofi
+  hostUrl: 'http://192.168.1.192:8081/', // casa
+  // clientSecret: '9PtG21rgiVFmYt8Dn8jjHqmZfdHmOs6rW8DizR5X', // ofi
+  clientSecret: 'Byi4WOpLyLTsjUnDqlwRSt435Oyc0Xglf3i0DXRU', // casa
   chatServerURL: location.protocol+'//'+location.hostname+':'+3000 //'http://localhost:3000'
 };
 

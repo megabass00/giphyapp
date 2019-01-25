@@ -34,6 +34,7 @@ export class GiphiesService {
   }
 
   public searchGiphies(term: string) {
+    if (!term || term.length < 3) return;
     return this.http.get(environment.hostUrl+'api/giphies/search/'+term, {
       headers: this.getHeaders()
     })

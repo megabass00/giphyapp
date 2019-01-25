@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { PopoverModule } from 'ngx-popover'
 import { FileDropModule } from 'ngx-file-drop';
+import { StarRatingModule } from 'angular-star-rating';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +22,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SimpleSpinnerComponent } from './components/simple-spinner/simple-spinner.component';
 
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
-import { ChatCamouflageComponent } from './components/chat-camouflage/chat-camouflage.component'
+import { ChatCamouflageComponent } from './components/chat-camouflage/chat-camouflage.component';
+import { RatingComponent } from './components/rating/rating.component'
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ChatCamouflageComponent } from './components/chat-camouflage/chat-camou
     SpinnerComponent,
     SimpleSpinnerComponent,
     SafeUrlPipe,
+    RatingComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { ChatCamouflageComponent } from './components/chat-camouflage/chat-camou
     HttpModule,
     HttpClientModule,
     PopoverModule,
-    FileDropModule
+    FileDropModule,
+    StarRatingModule.forRoot()
   ],
   providers: [
     CookieService,

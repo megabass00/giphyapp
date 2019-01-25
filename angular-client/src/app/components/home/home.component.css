@@ -1,6 +1,6 @@
 
 #home-content {
-    background: #888;
+    background: #bbb;
     padding: 20px 20px;
 }
 .column {
@@ -48,6 +48,16 @@
 
 
 /* result giphy card */
+.tag {
+    color: #888;
+    font-style: italic;
+    font-size: .7em;
+    padding: 0 3px;
+}
+
+.card-title {
+    margin-bottom: 3px;
+}
 .btn-primary:hover,
 .btn-primary:focus {
     background-color: #51ce00;
