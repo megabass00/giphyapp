@@ -1,4 +1,8 @@
 <div class="copy-wrapper" [ngSwitch]="buttonType">
+  <span *ngIf="copied">
+    <i class="fas fa-thumbs-up"></i>
+  </span>
+
   <button (click)="copyMessage()" class="btn btn-primary btn-block" *ngSwitchCase="'button'">
     <i class="fas fa-clipboard"></i>
     {{ text }}

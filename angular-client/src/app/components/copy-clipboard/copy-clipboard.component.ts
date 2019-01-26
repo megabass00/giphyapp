@@ -9,6 +9,8 @@ export class CopyClipboardComponent implements OnInit {
   @Input() buttonType: string; // link or button
   @Input() target: string;
   @Input() text: string;
+  
+  copied: boolean = false;
 
   constructor() { }
 
@@ -20,17 +22,17 @@ export class CopyClipboardComponent implements OnInit {
 
   copyMessage() {
     let selBox = document.createElement('textarea');
-    // selBox.style.position = 'fixed';
-    // selBox.style.left = '0';
-    // selBox.style.top = '0';
     selBox.style.opacity = '0';
     selBox.value = this.target;
     document.body.appendChild(selBox);
-    // selBox.focus();
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
     console.log(this.target + ' copied to clipboard');
-    
+    this.copied = true;
+    var timer = setInterval(() => {
+      this.copied = false;
+      clearInterval(timer);
+    }, 2000);
   }
 }
