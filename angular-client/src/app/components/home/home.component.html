@@ -10,21 +10,23 @@
                 </small>
                 <app-simple-spinner *ngIf="searching" class="float-left ml-2">Searching...</app-simple-spinner>
             </p>
-            <input #searchTextField type="text" (keyup)="searchTextChanged($event)" placeholder="You can write your search term here...">
+            <input #searchTextField type="text" (keyup)="searchTextChanged($event)" placeholder="You can write your search term and press enter...">
     
             <div class="results-container">
             <app-spinner *ngIf="searching"></app-spinner>
             <div *ngIf="results.length > 0">
                 <!-- card -->
                 <div class="row">
-                <div *ngFor="let giphy of results" class="col-lg-3 col-md-4 col-sm-6">
+                <div *ngFor="let giphy of results" @fadeIn class="col-lg-3 col-md-4 col-sm-6">
                     <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                         <div class="mainflip">
                             <div class="frontside">
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <p><img class="img-fluid" :src="{{ giphy.url }}" alt="card image"></p>
-                                        <h4 class="card-title">{{ giphy.title }}</h4>
+                                        <h5 class="card-title">
+                                            {{ giphy.title }}
+                                        </h5>
                                         <p *ngIf="giphy.tags" class="d-flex justify-content-center">
                                             <span *ngFor="let tag of giphy.tags" class="tag">
                                                 #{{ tag.name }}
@@ -37,7 +39,7 @@
                             <div class="backside">
                                 <div class="card">
                                     <div class="card-body text-center mt-4">
-                                        <p class="card-text">{{ giphy.description }}</p>
+                                        <p class="card-text">{{ giphy.description | short }}</p>
                                         <p>
                                             <rating [id]="giphy.id" [value]="giphy.rating" [disabled]="false"></rating>
                                         </p>
@@ -73,9 +75,10 @@
         <div *ngIf="tags.length > 0">
             <ul>
             <li *ngFor="let tag of tags" class="tag-container">
-                <label>
-                <input type="checkbox" (change)="tagChanged($event, tag)" :id="tag.id" value="first_checkbox"> {{ tag.name }}
-                </label>
+                <app-checkbox (change)="tagChanged($event, tag)" [text]="tag.name" [checked]="false"></app-checkbox>
+                <!-- <label>
+                    <input type="checkbox" (change)="tagChanged($event, tag)" :id="tag.id" value="first_checkbox"> {{ tag.name }}
+                </label> -->
             </li>
             </ul>
         </div>

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -24,7 +25,9 @@ import { SimpleSpinnerComponent } from './components/simple-spinner/simple-spinn
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ChatCamouflageComponent } from './components/chat-camouflage/chat-camouflage.component';
 import { RatingComponent } from './components/rating/rating.component';
-import { CopyClipboardComponent } from './components/copy-clipboard/copy-clipboard.component'
+import { CopyClipboardComponent } from './components/copy-clipboard/copy-clipboard.component';
+import { ShortPipe } from './pipes/short.pipe';
+import { AppCheckboxComponent } from './components/app-checkbox/app-checkbox.component'
 
 @NgModule({
   declarations: [
@@ -43,9 +46,12 @@ import { CopyClipboardComponent } from './components/copy-clipboard/copy-clipboa
     SafeUrlPipe,
     RatingComponent,
     CopyClipboardComponent,
+    ShortPipe,
+    AppCheckboxComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     HttpModule,

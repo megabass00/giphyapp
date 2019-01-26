@@ -1,10 +1,10 @@
 
 #home-content {
-    background: #bbb;
+    background: #ddd;
     padding: 20px 20px;
 }
-.column {
-    background: #bbb;
+.column h3 {
+    color: #51ce00;
 }
 
 /* searcher */
@@ -28,6 +28,7 @@
     overflow-y: scroll;
     height: calc(100vh - 300px);
     padding: 0;
+    margin-top: 10px;
 }
 .tag-container {
     list-style: none;
@@ -88,6 +89,10 @@ section .section-title {
 #team .card {
     border: none;
     background: #ffffff;
+}
+
+.card-text {
+    width: 100%;
 }
 
 .image-flip:hover .backside,

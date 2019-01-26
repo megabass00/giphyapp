@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~css-star-rating/css/star-rating.css';
 
+@import url('https://fonts.googleapis.com/css?family=Ubuntu|Righteous'); /*Orbitron*/
+
+
+body, html {
+    font-family: 'Ubuntu', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Righteous', sans-serif;
+}
+
 
 /* remove outline on focus */
 a:focus,
