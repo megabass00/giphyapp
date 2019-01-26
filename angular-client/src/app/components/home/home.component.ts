@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
     this.searching = true;
     this.searchTextField.nativeElement.disabled = true;
     this.giphiesService.searchGiphies(event.target.value)
+      .throttleTime(2000)
       .subscribe(data => {
         this.searching = false;
         this.results = data.results;

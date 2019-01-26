@@ -39,7 +39,20 @@ export class GiphiesService {
       headers: this.getHeaders()
     })
     .pipe(
-      throttleTime(2000),
+      map(res => res.json()),
+      catchError((err: any) => Observable.throw(err.json().error || 'Server error'))
+    );
+  }
+
+  public sendRating(id: number, rating: number) {
+    var data = {
+      id: id,
+      rating: rating
+    }
+    return this.http.post(environment.hostUrl+'api/giphies/rating', data, {
+      headers: this.getHeaders()
+    })
+    .pipe(
       map(res => res.json()),
       catchError((err: any) => Observable.throw(err.json().error || 'Server error'))
     );

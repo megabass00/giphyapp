@@ -1,4 +1,10 @@
 <div class="rating-wrapper">
+    <p *ngIf="sending">
+        Sending...
+    </p>
+    <small *ngIf="ratingSended">
+        Your rating was sended succesfully. Thanks!
+    </small>
     <star-rating [starType]="'svg'" 
         [rating]="value"
         [disabled]="disabled"

@@ -5,12 +5,15 @@
         <div class="col-sm-12 col-md-9 column searcher">
             <h3>Searcher</h3>
             <p class="pb-1">
-                <small class="float-left">{{ results.length }} results</small>
+                <small class="float-left" [ngStyle]="{'color':results.length > 0 ? 'green' : 'red' }">
+                    {{ results.length }} results
+                </small>
                 <app-simple-spinner *ngIf="searching" class="float-left ml-2">Searching...</app-simple-spinner>
             </p>
             <input #searchTextField type="text" (keyup)="searchTextChanged($event)" placeholder="You can write your search term here...">
     
             <div class="results-container">
+              <app-spinner *ngIf="searching"></app-spinner>
               <div *ngIf="results.length > 0">
                 <!-- card -->
                 <div class="row">
@@ -27,7 +30,6 @@
                                                 #{{ tag.name }}
                                             </span>
                                           </p>
-                                          <p>{{ giphy.rating }} stars</p>
                                           <p>{{ giphy.copies_number }} times copied</p>
                                       </div>
                                   </div>
@@ -37,19 +39,13 @@
                                       <div class="card-body text-center mt-4">
                                           <p class="card-text">{{ giphy.description }}</p>
                                           <p>
-                                            <rating [value]="giphy.rating" [disabled]="false"></rating>
+                                            <rating [id]="giphy.id" [value]="giphy.rating" [disabled]="false"></rating>
                                           </p>
                                           <ul class="list-inline">
                                               <li class="list-inline-item">
                                                   <a class="social-icon text-xs-center" href="#">
                                                       <i class="fas fa-clipboard"></i>
                                                       Copy to clipboard
-                                                  </a>
-                                              </li>
-                                              <li class="list-inline-item">
-                                                  <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                      <i class="fas fa-star"></i>
-                                                      Rating now
                                                   </a>
                                               </li>
                                           </ul>
