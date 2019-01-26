@@ -2,6 +2,18 @@
 @import '~css-star-rating/css/star-rating.css';
 
 
+/* remove outline on focus */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+div:focus,
+span:focus {
+  outline: none !important;
+}
+
+
 /* gif container */
 .gif-container {
     border-radius: 10px;

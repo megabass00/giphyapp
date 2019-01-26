@@ -1,0 +1,15 @@
+<div class="copy-wrapper" [ngSwitch]="buttonType">
+  <button (click)="copyMessage()" class="btn btn-primary btn-block" *ngSwitchCase="'button'">
+    <i class="fas fa-clipboard"></i>
+    {{ text }}
+  </button>
+
+  <a (click)="copyMessage()" href="#" *ngSwitchCase="'link'">
+    <i class="fas fa-clipboard"></i>
+    {{ text }}
+  </a>
+
+  <div *ngSwitchDefault style="color:red; font-size:9px;">
+    {{ buttonType }} Type not supported
+  </div>
+</div>

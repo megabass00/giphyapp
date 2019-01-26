@@ -13,71 +13,72 @@
             <input #searchTextField type="text" (keyup)="searchTextChanged($event)" placeholder="You can write your search term here...">
     
             <div class="results-container">
-              <app-spinner *ngIf="searching"></app-spinner>
-              <div *ngIf="results.length > 0">
+            <app-spinner *ngIf="searching"></app-spinner>
+            <div *ngIf="results.length > 0">
                 <!-- card -->
                 <div class="row">
-                  <div *ngFor="let giphy of results" class="col-lg-3 col-md-4 col-sm-6">
-                      <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                          <div class="mainflip">
-                              <div class="frontside">
-                                  <div class="card">
-                                      <div class="card-body text-center">
-                                          <p><img class="img-fluid" :src="{{ giphy.url }}" alt="card image"></p>
-                                          <h4 class="card-title">{{ giphy.title }}</h4>
-                                          <p *ngIf="giphy.tags" class="d-flex justify-content-center">
+                <div *ngFor="let giphy of results" class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class="img-fluid" :src="{{ giphy.url }}" alt="card image"></p>
+                                        <h4 class="card-title">{{ giphy.title }}</h4>
+                                        <p *ngIf="giphy.tags" class="d-flex justify-content-center">
                                             <span *ngFor="let tag of giphy.tags" class="tag">
                                                 #{{ tag.name }}
                                             </span>
-                                          </p>
-                                          <p>{{ giphy.copies_number }} times copied</p>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="backside">
-                                  <div class="card">
-                                      <div class="card-body text-center mt-4">
-                                          <p class="card-text">{{ giphy.description }}</p>
-                                          <p>
+                                        </p>
+                                        <p>{{ giphy.copies_number }} times copied</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">{{ giphy.description }}</p>
+                                        <p>
                                             <rating [id]="giphy.id" [value]="giphy.rating" [disabled]="false"></rating>
-                                          </p>
-                                          <ul class="list-inline">
-                                              <li class="list-inline-item">
-                                                  <a class="social-icon text-xs-center" href="#">
-                                                      <i class="fas fa-clipboard"></i>
-                                                      Copy to clipboard
-                                                  </a>
-                                              </li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                                        </p>
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <copy-clipboard 
+                                                    [buttonType]="'link'"
+                                                    [target]="giphy.url"
+                                                    [text]="'Copy to clipboard'">
+                                                </copy-clipboard>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
                 <!-- end card -->
-              </div>
+            </div>
             </div>
         </div>
         
 
         <div class="col-sm-12 col-md-3 column tag-list">
-          <h3>Tag List</h3>
-          <small>
+        <h3>Tag List</h3>
+        <small>
             You can select one or more tags to show results for your selection
-          </small>
-          
-          <app-spinner *ngIf="tagsLoading"></app-spinner>
-          <div *ngIf="tags.length > 0">
+        </small>
+        
+        <app-spinner *ngIf="tagsLoading"></app-spinner>
+        <div *ngIf="tags.length > 0">
             <ul>
-              <li *ngFor="let tag of tags" class="tag-container">
+            <li *ngFor="let tag of tags" class="tag-container">
                 <label>
-                  <input type="checkbox" (change)="tagChanged($event, tag)" :id="tag.id" value="first_checkbox"> {{ tag.name }}
+                <input type="checkbox" (change)="tagChanged($event, tag)" :id="tag.id" value="first_checkbox"> {{ tag.name }}
                 </label>
-              </li>
+            </li>
             </ul>
-          </div>
+        </div>
         </div>
     </div>
 </div>

@@ -23,7 +23,8 @@ import { SimpleSpinnerComponent } from './components/simple-spinner/simple-spinn
 
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ChatCamouflageComponent } from './components/chat-camouflage/chat-camouflage.component';
-import { RatingComponent } from './components/rating/rating.component'
+import { RatingComponent } from './components/rating/rating.component';
+import { CopyClipboardComponent } from './components/copy-clipboard/copy-clipboard.component'
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { RatingComponent } from './components/rating/rating.component'
     SimpleSpinnerComponent,
     SafeUrlPipe,
     RatingComponent,
+    CopyClipboardComponent,
   ],
   imports: [
     BrowserModule,

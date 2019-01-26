@@ -1,0 +1,24 @@
+.copy-wrapper {
+    margin: 3px;
+    width: 100%;
+}
+.copy-wrapper a {
+    font-size: 11px;
+    color: #51ce00;
+}
+.copy-wrapper i {
+    margin-right: 3px;
+}
+.copy-wrapper button {
+    font-size: 11px;
+    border: 1px solid #51ce00;
+    color: white;
+    background: #51ce00;
+    -webkit-transition: background 0.3s color 0.3s border 0.3s;
+            transition: background 0.3s color 0.3s border 0.3s;
+}
+.copy-wrapper button:hover {
+    color: #51ce00;
+    background: #fff;
+    border: 1px solid #ccc;
+}
