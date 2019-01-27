@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::resource('giphies', 'ApiGiphyController');//->middleware('auth:api');
 Route::get('giphies/search/{term}', 'ApiGiphyController@search');
+Route::post('giphies/rating', 'ApiGiphyController@rating');
+
 Route::resource('tags', 'ApiTagsController');//->middleware('auth:api');
 
 Route::group(['prefix' => 'auth'], function () 

@@ -110,4 +110,26 @@ class ApiGiphyController extends Controller
             'results' => $results
         ], 200);
     }
+
+
+    public function rating(Request $request) {
+        // return response()->json([
+        //     'rating' => $request->rating,
+        //     'id' => $request->id
+        // ]);
+        if (empty($request->id) || empty($request->rating)) {
+            return response()->json([
+                'error' => 'No identifier or rating founded'
+            ], 401);
+        }
+
+        $giphy = Giphy::find($request->id);
+        $giphy->rating = $request->rating;
+        $giphy->save();
+
+        return response()->json([
+            'success' => true,
+            'giphy' => $giphy
+        ]);
+    }
 }
